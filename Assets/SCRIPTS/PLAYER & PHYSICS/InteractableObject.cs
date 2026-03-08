@@ -11,8 +11,15 @@ public class InteractableObject : MonoBehaviour
     private bool hasInteracted = false;
     private bool isPlayerInRange = false;
 
+    [Header("Lock Settings")]
+    [SerializeField] private bool isLocked = false;
+    [SerializeField] private NarrationData lockedNarrationData;
+    [Tooltip("All assigned objects must be active in the hierarchy to unlock this interaction.")]
+    [SerializeField] private GameObject[] requiredKeyObjects;
+
     [Header("Triggers")]
     [SerializeField] private bool isMinigameTrigger = false;
+    [SerializeField] private bool isSingleMinigame = false;
     [SerializeField] private GameObject minigameObject;
     [Space]
     [SerializeField] private bool isNarrativeTrigger = false;
@@ -43,14 +50,50 @@ public class InteractableObject : MonoBehaviour
         }
     }
 
+    // Check if all required key objects are currently active in the scene
+    private bool CheckUnlockCondition()
+    {
+        if (requiredKeyObjects == null || requiredKeyObjects.Length == 0) return false;
+
+        foreach (GameObject keyObj in requiredKeyObjects)
+        {
+            if (keyObj == null || !keyObj.activeInHierarchy)
+            {
+                return false; 
+            }
+        }
+        return true; 
+    }
+
     private IEnumerator InteractionSequence()
     {
         GameManager.Instance.SetGameState(GameManager.GameState.Cutscene);
 
-        // Eksekusi Minigame
+        // Lock validation process
+        if (isLocked)
+        {
+            if (CheckUnlockCondition())
+            {
+                isLocked = false; 
+            }
+            else
+            {
+                if (lockedNarrationData != null)
+                {
+                    NarrationManager.Instance.PlayNarration(lockedNarrationData);
+                }
+                else
+                {
+                    GameManager.Instance.SetGameState(GameManager.GameState.Play);
+                }
+                
+                yield break; // Stop further interactions
+            }
+        }
+
+        // Execute Minigame
         if (isMinigameTrigger && minigameObject != null)
         {
-            // PENCARIAN DIUBAH MENJADI BASEMINIGAME
             BaseMinigame minigameScript = minigameObject.GetComponent<BaseMinigame>();
             
             if (minigameScript != null)
@@ -66,18 +109,19 @@ public class InteractableObject : MonoBehaviour
             yield break; 
         }
 
-        // Eksekusi Narasi
+        // Execute Narration
         if (isNarrativeTrigger && narrationData != null)
         {
             NarrationManager.Instance.PlayNarration(narrationData);
         }
 
-        yield return new WaitForSeconds(0.1f);
-
         if (isSingleUse && !isMinigameTrigger)
         {
             if (!isNarrativeTrigger) GameManager.Instance.SetGameState(GameManager.GameState.Play);
-            Destroy(gameObject);
+            
+            // PERUBAHAN: Mengganti Destroy dengan SetActive(false)
+            gameObject.SetActive(false);
+            
             yield break;
         }
 
@@ -87,7 +131,6 @@ public class InteractableObject : MonoBehaviour
         }
     }
 
-    // Fungsi ini akan dipanggil oleh RotationMinigame saat puzzle selesai
     public void CompleteMinigame()
     {
         foreach (GameObject obj in objectsToEnable) if (obj != null) obj.SetActive(true);
@@ -95,8 +138,11 @@ public class InteractableObject : MonoBehaviour
 
         GameManager.Instance.SetGameState(GameManager.GameState.Play);
         
-        // Hapus objek interaksi agar tidak bisa diakses lagi setelah selesai
-        Destroy(gameObject);
+        if (isSingleMinigame)
+        {
+            // PERUBAHAN: Mengganti Destroy dengan SetActive(false)
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

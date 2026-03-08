@@ -14,38 +14,48 @@ public abstract class BaseMinigame : MonoBehaviour
 
     [Header("Base Narration Settings")]
     [SerializeField] protected NarrationData introNarration;
+    [SerializeField] protected bool singleNarration = false;
     [SerializeField] protected NarrationData outroNarration;
-    [SerializeField] private Button closeButton;
+    [SerializeField] protected Button closeButton;
 
     protected InteractableObject linkedInteractable;
     protected bool isSolved = false;
     protected bool canPlayPuzzle = false;
+    protected bool isPlayingNarration = false;
     private bool isTransitioning = false;
+    private int narrationValue = 0;
 
     protected virtual void Awake()
     {
+        if (!singleNarration)
+        {
+            narrationValue = 1;  
+        }
+        else 
+        {
+            narrationValue = 0;  
+        }
 
         rectTransform = GetComponent<RectTransform>();
-        // Posisi tengah layar (visible)
         visiblePosition = Vector2.zero; 
-        // Posisi bawah layar (hidden) - Sesuaikan dengan tinggi layar
         hiddenPosition = new Vector2(0, -Screen.height * 1.5f); 
         
-        if (closeButton != null) 
+        if (closeButton != null)
+        {
             closeButton.onClick.AddListener(CloseMinigame);
+        }
     }
 
     public virtual void SetupMinigame(InteractableObject source)
     {
-        // Pastikan rectTransform diisi jika belum (antisipasi Awake belum jalan)
         if (rectTransform == null) 
             rectTransform = GetComponent<RectTransform>();
 
         linkedInteractable = source;
         isSolved = false;
         canPlayPuzzle = false;
+        isPlayingNarration = false; 
         
-        // Sekarang aman untuk mengatur posisi
         visiblePosition = Vector2.zero;
         hiddenPosition = new Vector2(0, -Screen.height * 1.5f);
         rectTransform.anchoredPosition = hiddenPosition;
@@ -73,7 +83,6 @@ public abstract class BaseMinigame : MonoBehaviour
         rectTransform.anchoredPosition = visiblePosition;
         isTransitioning = false;
 
-        // Jalankan narasi setelah animasi masuk selesai
         if (introNarration != null)
         {
             StartCoroutine(PlayIntroSequence());
@@ -86,8 +95,10 @@ public abstract class BaseMinigame : MonoBehaviour
 
     public virtual void CloseMinigame()
     {
-        if (isSolved || isTransitioning) return;
-        StartCoroutine(TransitionOut(false));
+        if (isTransitioning || isPlayingNarration) return;
+        if (!isSolved && !canPlayPuzzle) return;
+
+        StartCoroutine(TransitionOut(isSolved));
     }
 
     protected virtual void WinMinigame()
@@ -101,7 +112,7 @@ public abstract class BaseMinigame : MonoBehaviour
         }
         else
         {
-            StartCoroutine(TransitionOut(true));
+            if (closeButton != null) closeButton.interactable = true;
         }
     }
 
@@ -133,32 +144,61 @@ public abstract class BaseMinigame : MonoBehaviour
         }
     }
 
-    // Pindahkan logika narasi akhir untuk memanggil TransitionOut
     private IEnumerator PlayOutroSequence()
     {
-        yield return new WaitForSeconds(0.5f);
+        isPlayingNarration = true;
+        if (closeButton != null) closeButton.interactable = false;
+
+        // Jeda 0.5s di sini mungkin diperlukan agar visual transisi menang terlihat 
+        // sebelum tertutup panel narasi. Jika tidak butuh, bisa dihapus.
+        yield return new WaitForSeconds(0.5f); 
+        
         NarrationManager.Instance.PlayNarration(outroNarration);
+        
         yield return new WaitUntil(() => GameManager.Instance.currentState == GameManager.GameState.Play);
         
-        StartCoroutine(TransitionOut(true));
+        GameManager.Instance.SetGameState(GameManager.GameState.Cutscene);
+        
+        isPlayingNarration = false;
+        if (closeButton != null) closeButton.interactable = true;
     }
 
     private IEnumerator PlayIntroSequence()
     {
-        canPlayPuzzle = false; // Kunci mekanisme puzzle
-        yield return new WaitForSeconds(0.2f); // Jeda singkat agar UI stabil
+        canPlayPuzzle = false; 
+        isPlayingNarration = true;
+        
+        if (closeButton != null) closeButton.interactable = false;
 
-        NarrationManager.Instance.PlayNarration(introNarration);
+        bool shouldPlayNarration = false;
 
-        // Tunggu sampai narasi selesai (GameState kembali ke Play oleh NarrationManager)
-        // Kita pantau GameState untuk mengetahui kapan narasi ditutup
-        yield return new WaitUntil(() => GameManager.Instance.currentState == GameManager.GameState.Play);
+        if (narrationValue == 0)
+        {
+            shouldPlayNarration = true;
+            if (singleNarration)
+            {
+                narrationValue += 2;    
+            }
+        }
+        else if (narrationValue == 1) 
+        {
+            shouldPlayNarration = true;
+        }
 
-        // Setelah narasi selesai, kembalikan ke Cutscene karena kita masih di dalam Minigame
+        if (shouldPlayNarration)
+        {
+            NarrationManager.Instance.PlayNarration(introNarration);
+            yield return new WaitForSeconds(2f);
+        }
+
+        // Langsung kembalikan state tanpa jeda tambahan
         GameManager.Instance.SetGameState(GameManager.GameState.Cutscene);
-        canPlayPuzzle = true; // Buka kunci mekanisme puzzle
+        
+        canPlayPuzzle = true; 
+        isPlayingNarration = false;
+        
+        if (closeButton != null) closeButton.interactable = true;
     }
-
 
     private void FinalizeMinigame()
     {
