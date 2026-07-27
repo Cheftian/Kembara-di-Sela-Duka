@@ -1,0 +1,897 @@
+fileFormatVersion: 2
+guid: 42e0cfd9fd96a0340a892f7056da7af9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -54934232557878714
+    second: Day_Tileset2_0
+  - first:
+      213: 5765713379193488696
+    second: Day_Tileset2_1
+  - first:
+      213: -5562318223865815914
+    second: Day_Tileset2_2
+  - first:
+      213: 7872207093206304663
+    second: Day_Tileset2_3
+  - first:
+      213: 1917020745451278729
+    second: Day_Tileset2_4
+  - first:
+      213: -2956503248187286037
+    second: Day_Tileset2_5
+  - first:
+      213: 7681503847444092548
+    second: Day_Tileset2_6
+  - first:
+      213: 2774329461910196845
+    second: Day_Tileset2_7
+  - first:
+      213: 7079792060331964114
+    second: Day_Tileset2_8
+  - first:
+      213: -7950653880444755936
+    second: Day_Tileset2_9
+  - first:
+      213: -209234457368942119
+    second: Day_Tileset2_10
+  - first:
+      213: 8913485968967001682
+    second: Day_Tileset2_11
+  - first:
+      213: 8695963826377958037
+    second: Day_Tileset2_12
+  - first:
+      213: -5493506765465462014
+    second: Day_Tileset2_13
+  - first:
+      213: 5310315452539134859
+    second: Day_Tileset2_14
+  - first:
+      213: 3894235055826341804
+    second: Day_Tileset2_15
+  - first:
+      213: -4001708561852061571
+    second: Day_Tileset2_16
+  - first:
+      213: -2175905822067294812
+    second: Day_Tileset2_17
+  - first:
+      213: 4679169318330584989
+    second: Day_Tileset2_18
+  - first:
+      213: -1907600863201841569
+    second: Day_Tileset2_19
+  - first:
+      213: 3359181694574534886
+    second: Day_Tileset2_20
+  - first:
+      213: -2775695808742072419
+    second: Day_Tileset2_21
+  - first:
+      213: 6485474934742359089
+    second: Day_Tileset2_22
+  - first:
+      213: 1399201910797668316
+    second: Day_Tileset2_23
+  - first:
+      213: -2983487693322872940
+    second: Day_Tileset2_24
+  - first:
+      213: 7021966609728831861
+    second: Day_Tileset2_25
+  - first:
+      213: -5607530648802917464
+    second: Day_Tileset2_26
+  - first:
+      213: 8995115094049417409
+    second: Day_Tileset2_27
+  - first:
+      213: 8318415548419087407
+    second: Day_Tileset2_28
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Day_Tileset2_0
+      rect:
+        serializedVersion: 2
+        x: 1351
+        y: 1573
+        width: 193
+        height: 382
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64201664b95dc3ff0800000000000000
+      internalID: -54934232557878714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_1
+      rect:
+        serializedVersion: 2
+        x: 1752
+        y: 1729
+        width: 305
+        height: 259
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8358b8335cde30050800000000000000
+      internalID: 5765713379193488696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_2
+      rect:
+        serializedVersion: 2
+        x: 2275
+        y: 1627
+        width: 287
+        height: 342
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69cdbcabb0daec2b0800000000000000
+      internalID: -5562318223865815914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_3
+      rect:
+        serializedVersion: 2
+        x: 1659
+        y: 1419
+        width: 399
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7974fdc74a2bf3d60800000000000000
+      internalID: 7872207093206304663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_4
+      rect:
+        serializedVersion: 2
+        x: 2123
+        y: 1621
+        width: 99
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9819daf0630aa9a10800000000000000
+      internalID: 1917020745451278729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_5
+      rect:
+        serializedVersion: 2
+        x: 2123
+        y: 1530
+        width: 67
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bed1282c5f368f6d0800000000000000
+      internalID: -2956503248187286037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_6
+      rect:
+        serializedVersion: 2
+        x: 2517
+        y: 1383
+        width: 88
+        height: 183
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48693b70d0f2a9a60800000000000000
+      internalID: 7681503847444092548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_7
+      rect:
+        serializedVersion: 2
+        x: 1194
+        y: 1128
+        width: 112
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d62de0352f5608620800000000000000
+      internalID: 2774329461910196845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_8
+      rect:
+        serializedVersion: 2
+        x: 1344
+        y: 1138
+        width: 206
+        height: 340
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d6b7b75e59704260800000000000000
+      internalID: 7079792060331964114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_9
+      rect:
+        serializedVersion: 2
+        x: 2156
+        y: 1471
+        width: 35
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 020620c8b6a99a190800000000000000
+      internalID: -7950653880444755936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_10
+      rect:
+        serializedVersion: 2
+        x: 2339
+        y: 1402
+        width: 49
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d9a0cd9e56a81df0800000000000000
+      internalID: -209234457368942119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_11
+      rect:
+        serializedVersion: 2
+        x: 2421
+        y: 1398
+        width: 59
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 256e4ba534013bb70800000000000000
+      internalID: 8913485968967001682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_12
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 845
+        width: 50
+        height: 337
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 592a7e2e6054ea870800000000000000
+      internalID: 8695963826377958037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_13
+      rect:
+        serializedVersion: 2
+        x: 1042
+        y: 834
+        width: 66
+        height: 497
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20bd931e3b423c3b0800000000000000
+      internalID: -5493506765465462014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_14
+      rect:
+        serializedVersion: 2
+        x: 1619
+        y: 1139
+        width: 474
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b83ecd1d4c702b940800000000000000
+      internalID: 5310315452539134859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_15
+      rect:
+        serializedVersion: 2
+        x: 2152
+        y: 1127
+        width: 464
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: caf0766962a1b0630800000000000000
+      internalID: 3894235055826341804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_16
+      rect:
+        serializedVersion: 2
+        x: 1303
+        y: 787
+        width: 53
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d782b24d3431778c0800000000000000
+      internalID: -4001708561852061571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_17
+      rect:
+        serializedVersion: 2
+        x: 1409
+        y: 782
+        width: 30
+        height: 273
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ad79faee21adc1e0800000000000000
+      internalID: -2175905822067294812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_18
+      rect:
+        serializedVersion: 2
+        x: 1475
+        y: 768
+        width: 174
+        height: 293
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9f400724bfbfe040800000000000000
+      internalID: 4679169318330584989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_19
+      rect:
+        serializedVersion: 2
+        x: 1677
+        y: 762
+        width: 124
+        height: 305
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5e20af2f17d685e0800000000000000
+      internalID: -1907600863201841569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_20
+      rect:
+        serializedVersion: 2
+        x: 1873
+        y: 758
+        width: 63
+        height: 251
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e02c1914f53e9e20800000000000000
+      internalID: 3359181694574534886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_21
+      rect:
+        serializedVersion: 2
+        x: 1999
+        y: 769
+        width: 57
+        height: 215
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9f53634e5fba79d0800000000000000
+      internalID: -2775695808742072419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_22
+      rect:
+        serializedVersion: 2
+        x: 2122
+        y: 781
+        width: 61
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13c94057719010a50800000000000000
+      internalID: 6485474934742359089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_23
+      rect:
+        serializedVersion: 2
+        x: 2234
+        y: 785
+        width: 71
+        height: 183
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdf842e79b6fa6310800000000000000
+      internalID: 1399201910797668316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_24
+      rect:
+        serializedVersion: 2
+        x: 2352
+        y: 966
+        width: 136
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4979db700c58896d0800000000000000
+      internalID: -2983487693322872940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_25
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 803
+        width: 44
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5718a857d69037160800000000000000
+      internalID: 7021966609728831861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_26
+      rect:
+        serializedVersion: 2
+        x: 2355
+        y: 793
+        width: 129
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a38cfab59c0e22b0800000000000000
+      internalID: -5607530648802917464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_27
+      rect:
+        serializedVersion: 2
+        x: 2527
+        y: 794
+        width: 209
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c8e196158115dc70800000000000000
+      internalID: 8995115094049417409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day_Tileset2_28
+      rect:
+        serializedVersion: 2
+        x: 1459
+        y: 283
+        width: 847
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2c1b915ed2f07370800000000000000
+      internalID: 8318415548419087407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Day_Tileset2_0: -54934232557878714
+      Day_Tileset2_1: 5765713379193488696
+      Day_Tileset2_10: -209234457368942119
+      Day_Tileset2_11: 8913485968967001682
+      Day_Tileset2_12: 8695963826377958037
+      Day_Tileset2_13: -5493506765465462014
+      Day_Tileset2_14: 5310315452539134859
+      Day_Tileset2_15: 3894235055826341804
+      Day_Tileset2_16: -4001708561852061571
+      Day_Tileset2_17: -2175905822067294812
+      Day_Tileset2_18: 4679169318330584989
+      Day_Tileset2_19: -1907600863201841569
+      Day_Tileset2_2: -5562318223865815914
+      Day_Tileset2_20: 3359181694574534886
+      Day_Tileset2_21: -2775695808742072419
+      Day_Tileset2_22: 6485474934742359089
+      Day_Tileset2_23: 1399201910797668316
+      Day_Tileset2_24: -2983487693322872940
+      Day_Tileset2_25: 7021966609728831861
+      Day_Tileset2_26: -5607530648802917464
+      Day_Tileset2_27: 8995115094049417409
+      Day_Tileset2_28: 8318415548419087407
+      Day_Tileset2_3: 7872207093206304663
+      Day_Tileset2_4: 1917020745451278729
+      Day_Tileset2_5: -2956503248187286037
+      Day_Tileset2_6: 7681503847444092548
+      Day_Tileset2_7: 2774329461910196845
+      Day_Tileset2_8: 7079792060331964114
+      Day_Tileset2_9: -7950653880444755936
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

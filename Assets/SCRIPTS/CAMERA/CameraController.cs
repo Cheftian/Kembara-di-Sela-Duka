@@ -23,6 +23,9 @@ public class CameraController : MonoBehaviour
     private Vector3 currentVelocity = Vector3.zero;
     private float sizeVelocity = 0f;
 
+    public Vector2 MinPositionBound => minPosition;
+    public Vector2 MaxPositionBound => maxPosition;
+
     private void Awake()
     {
         cam = GetComponent<Camera>();
