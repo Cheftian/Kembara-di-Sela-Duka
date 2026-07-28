@@ -74,8 +74,9 @@ public class RoomManager : MonoBehaviour
         }
 
         // Pindahkan posisi Player ke koordinat tujuan
-        player.position = destinationPortal.transform.position;
-
+        Vector3 targetPosition = destinationPortal.transform.position;
+        targetPosition.x += destinationPortal.spawnOffsetX; // Menambahkan offset X dari portal tujuan
+        player.position = targetPosition;
         // ------------------------------------------------------------
         // TAHAP 3: JEDA TRANSISI (Layar menahan warna hitam)
         // ------------------------------------------------------------

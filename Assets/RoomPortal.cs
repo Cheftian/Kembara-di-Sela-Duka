@@ -9,12 +9,15 @@ public class RoomPortal : MonoBehaviour
     [Tooltip("Parent GameObject dari ruangan tempat portal ini berada")]
     public GameObject currentRoomParent;
 
+    [Header("Pengaturan Posisi Muncul")]
+    [Tooltip("Offset jarak X saat player muncul di portal ini (misal: -1 agar di kiri portal, 1 agar di kanan portal)")]
+    public float spawnOffsetX = 0f;
+
     private bool playerIsInside = false;
     private Transform playerTransform;
 
     private void Update()
     {
-        // Deteksi input W saat Player berada di dalam area portal
         if (playerIsInside && Input.GetKeyDown(KeyCode.W))
         {
             TeleportPlayer();
@@ -29,7 +32,6 @@ public class RoomPortal : MonoBehaviour
             return;
         }
 
-        // Panggil Manager untuk mengurus visibilitas ruangan dan memindahkan player
         RoomManager.Instance.SwitchRoom(playerTransform, this, targetPortal);
     }
 
