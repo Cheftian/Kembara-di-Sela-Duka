@@ -77,6 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+  dizzyMoveSpeed: 1
   visualTransform: {fileID: 5995554369849842468}
   animator: {fileID: 7470224318956078941}
   spriteRenderer: {fileID: 6511306753981552757}

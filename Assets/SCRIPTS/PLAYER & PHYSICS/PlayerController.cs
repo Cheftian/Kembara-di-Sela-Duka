@@ -5,6 +5,8 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
+    [Tooltip("Kecepatan gerak saat karakter dalam kondisi pusing (Dizzy)")]
+    [SerializeField] private float dizzyMoveSpeed = 2f; // Tambahan: Kecepatan saat dizzy
     
     [Header("Visual & Animation Setup")]
     [Tooltip("Seret GameObject Child yang memiliki komponen Animator dan SpriteRenderer ke sini")]
@@ -17,15 +19,22 @@ public class PlayerController : MonoBehaviour
     private bool isFacingRight = true;
     
     private bool isFlipping = false;
+    private bool isDizzy = false; 
+    private float originalMoveSpeed; // Tambahan: Untuk menyimpan nilai speed asli
 
     private readonly int isWalkingHash = Animator.StringToHash("IsWalking");
+    private readonly int isDizzyHash = Animator.StringToHash("IsDizzy"); 
     private readonly int flipHash = Animator.StringToHash("Flip");
     
     private readonly string defaultStateName = "Idle"; 
 
+    public bool IsDizzy => isDizzy;
+    public bool IsWalking => Mathf.Abs(horizontalInput) > 0f && !isFlipping;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        originalMoveSpeed = moveSpeed; // Tambahan: Simpan nilai awal moveSpeed saat game mulai
         
         if (visualTransform == null && transform.childCount > 0)
         {
@@ -90,8 +99,6 @@ public class PlayerController : MonoBehaviour
         isFlipping = true;                 
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y); 
 
-        // BALIK LOGIKA: Saat mulai berbalik ke KANAN dari posisi KIRI, kita aktifkan flipX di awal animasi.
-        // Jika berbalik ke KIRI, kita matikan flipX di awal karena animasi bawaan Anda bergerak ke kiri.
         if (!isFacingRight)
         {
             spriteRenderer.flipX = true; 
@@ -109,9 +116,6 @@ public class PlayerController : MonoBehaviour
         if (visualTransform == null || animator == null || spriteRenderer == null) return;
 
         isFacingRight = !isFacingRight;
-
-        // PERUBAHAN UTAMA: Pertahankan arah hadap sprite berdasarkan status `isFacingRight` yang baru.
-        // Jika karakter sekarang menghadap KANAN, flipX harus TETAP TRUE agar tidak kembali menghadap kiri.
         spriteRenderer.flipX = !isFacingRight;
 
         animator.Play(defaultStateName, 0, 0f); 
@@ -133,8 +137,28 @@ public class PlayerController : MonoBehaviour
         {
             bool isWalking = Mathf.Abs(horizontalInput) > 0f;
             animator.SetBool(isWalkingHash, isWalking);
+            animator.SetBool(isDizzyHash, isDizzy); 
         }
     }
 
-    public void UpdateMoveSpeed(float newSpeed) => moveSpeed = newSpeed;
+    // Perubahan pada Fungsi ini
+    public void SetDizzyStatus(bool status)
+    {
+        isDizzy = status;
+
+        if (isDizzy)
+        {
+            moveSpeed = dizzyMoveSpeed; // Ganti ke kecepatan lambat saat pusing
+        }
+        else
+        {
+            moveSpeed = originalMoveSpeed; // Kembalikan ke kecepatan normal
+        }
+    }
+
+    public void UpdateMoveSpeed(float newSpeed)
+    {
+        originalMoveSpeed = newSpeed; // Update nilai dasar jika ada power-up kecepatan
+        if (!isDizzy) moveSpeed = newSpeed;
+    }
 }
