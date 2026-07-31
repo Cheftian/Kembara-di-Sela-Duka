@@ -98,7 +98,8 @@ public abstract class BaseMinigame : MonoBehaviour
         if (isTransitioning || isPlayingNarration) return;
         if (!isSolved && !canPlayPuzzle) return;
 
-        StartCoroutine(TransitionOut(isSolved));
+        // PERBAIKAN: Selalu jalankan sekuens transisi keluar
+        StartCoroutine(TransitionOut());
     }
 
     protected virtual void WinMinigame()
@@ -116,7 +117,8 @@ public abstract class BaseMinigame : MonoBehaviour
         }
     }
 
-    private IEnumerator TransitionOut(bool isCompleting)
+    // PERBAIKAN: Parameter boolean dihapus agar transisi keluar selalu berakhir di FinalizeMinigame
+    private IEnumerator TransitionOut()
     {
         isTransitioning = true;
         float elapsed = 0;
@@ -132,16 +134,8 @@ public abstract class BaseMinigame : MonoBehaviour
         rectTransform.anchoredPosition = hiddenPosition;
         isTransitioning = false;
 
-        if (isCompleting)
-        {
-            FinalizeMinigame();
-        }
-        else
-        {
-            gameObject.SetActive(false);
-            if (GameManager.Instance != null)
-                GameManager.Instance.SetGameState(GameManager.GameState.Play);
-        }
+        // PERBAIKAN: Menang atau kalah, selalu panggil fungsi penyelesaian/berdiri ini
+        FinalizeMinigame();
     }
 
     private IEnumerator PlayOutroSequence()
@@ -149,8 +143,6 @@ public abstract class BaseMinigame : MonoBehaviour
         isPlayingNarration = true;
         if (closeButton != null) closeButton.interactable = false;
 
-        // Jeda 0.5s di sini mungkin diperlukan agar visual transisi menang terlihat 
-        // sebelum tertutup panel narasi. Jika tidak butuh, bisa dihapus.
         yield return new WaitForSeconds(0.5f); 
         
         NarrationManager.Instance.PlayNarration(outroNarration);
@@ -191,7 +183,6 @@ public abstract class BaseMinigame : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
 
-        // Langsung kembalikan state tanpa jeda tambahan
         GameManager.Instance.SetGameState(GameManager.GameState.Cutscene);
         
         canPlayPuzzle = true; 
@@ -202,13 +193,18 @@ public abstract class BaseMinigame : MonoBehaviour
 
     private void FinalizeMinigame()
     {
+        // 1. Matikan panel UI terlebih dahulu agar panel menghilang dari layar
         gameObject.SetActive(false);
+
+        // 2. Beri tahu InteractableObject untuk memproses animasi STAND pada player
         if (linkedInteractable != null)
         {
-            linkedInteractable.CompleteMinigame();
+            // Kirim status isSolved (true jika menang, false jika ditutup paksa/kalah)
+            linkedInteractable.CompleteMinigame(isSolved);
         }
         else if (GameManager.Instance != null)
         {
+            // Fallback jika tidak terhubung ke objek interaksi apa pun
             GameManager.Instance.SetGameState(GameManager.GameState.Play);
         }
     }

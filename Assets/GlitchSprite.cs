@@ -1,9 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class GlitchSprite : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] private SpriteRenderer targetSpriteRenderer;
+
     [Header("Sprite Settings")]
     [SerializeField] private Sprite[] glitchSprites;
     
@@ -14,19 +16,35 @@ public class GlitchSprite : MonoBehaviour
     [SerializeField] private float maxGlitchDuration = 0.4f;
     [SerializeField] private float glitchFrameRate = 0.05f;
 
-    private SpriteRenderer spriteRenderer;
     private Sprite originalSprite;
     private Coroutine glitchCoroutine;
     private bool isPlayerInside = false;
+    private PlayerController activePlayer; 
 
     private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        originalSprite = spriteRenderer.sprite;
+        if (targetSpriteRenderer == null)
+        {
+            targetSpriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        if (targetSpriteRenderer != null)
+        {
+            originalSprite = targetSpriteRenderer.sprite;
+        }
 
         if (glitchSprites == null || glitchSprites.Length == 0)
         {
-            Debug.LogError("Glitch Sprites belum dimasukkan ke dalam Inspector!");
+            Debug.LogError("Glitch Sprites belum dimasukkan ke dalam Inspector!", this);
+        }
+    }
+
+    private void Update()
+    {
+        // Jika player mematikan dizzy-nya sendiri (berbalik arah ke kanan), hentikan efek visual objek
+        if (isPlayerInside && activePlayer != null && !activePlayer.IsDizzy)
+        {
+            StopGlitchEffect();
         }
     }
 
@@ -35,15 +53,27 @@ public class GlitchSprite : MonoBehaviour
         if (collision.CompareTag("Player") && !isPlayerInside)
         {
             isPlayerInside = true;
-            
-            // Tambahan: Beritahu player untuk aktifkan animasi dizzy
-            PlayerController player = collision.GetComponent<PlayerController>();
-            if (player != null)
-            {
-                player.SetDizzyStatus(true);
-            }
+            activePlayer = collision.GetComponent<PlayerController>();
+        }
+    }
 
-            glitchCoroutine = StartCoroutine(GlitchRoutine());
+    // KUNCI UTAMA: Mengecek kondisi input player secara realtime selama di dalam area
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && activePlayer != null)
+        {
+            // Jika player sedang tidak dizzy (karena habis balik kanan) tapi SEKARANG menekan tombol A (Kiri)
+            if (!activePlayer.IsDizzy && Input.GetKey(KeyCode.A))
+            {
+                // Aktifkan kembali efek dizzy seketika!
+                activePlayer.SetDizzyStatus(true);
+
+                // Mulai ulang efek glitch pada sprite objek utama jika belum berjalan
+                if (glitchCoroutine == null && targetSpriteRenderer != null)
+                {
+                    glitchCoroutine = StartCoroutine(GlitchRoutine());
+                }
+            }
         }
     }
 
@@ -51,46 +81,53 @@ public class GlitchSprite : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            isPlayerInside = false;
-            
-            // Tambahan: Kembalikan animasi walk player menjadi normal
-            PlayerController player = collision.GetComponent<PlayerController>();
-            if (player != null)
+            if (activePlayer != null && activePlayer.IsDizzy)
             {
-                player.SetDizzyStatus(false);
+                activePlayer.SetDizzyStatus(false);
             }
 
-            if (glitchCoroutine != null)
-            {
-                StopCoroutine(glitchCoroutine);
-            }
-            
-            spriteRenderer.sprite = originalSprite;
+            StopGlitchEffect();
+            isPlayerInside = false;
+            activePlayer = null;
+        }
+    }
+
+    private void StopGlitchEffect()
+    {
+        if (glitchCoroutine != null)
+        {
+            StopCoroutine(glitchCoroutine);
+            glitchCoroutine = null;
+        }
+        
+        if (targetSpriteRenderer != null)
+        {
+            targetSpriteRenderer.sprite = originalSprite;
         }
     }
 
     private IEnumerator GlitchRoutine()
     {
-        while (isPlayerInside)
+        while (isPlayerInside && targetSpriteRenderer != null && activePlayer != null && activePlayer.IsDizzy)
         {
             float normalDuration = Random.Range(minNormalTime, maxNormalTime);
             yield return new WaitForSeconds(normalDuration);
 
-            if (!isPlayerInside) break;
+            if (!isPlayerInside || !activePlayer.IsDizzy) break;
 
             float glitchDuration = Random.Range(minGlitchDuration, maxGlitchDuration);
             float elapsedTime = 0f;
 
-            while (elapsedTime < glitchDuration && isPlayerInside)
+            while (elapsedTime < glitchDuration && isPlayerInside && activePlayer.IsDizzy)
             {
                 int randomIndex = Random.Range(0, glitchSprites.Length);
-                spriteRenderer.sprite = glitchSprites[randomIndex];
+                targetSpriteRenderer.sprite = glitchSprites[randomIndex];
 
                 yield return new WaitForSeconds(glitchFrameRate);
                 elapsedTime += glitchFrameRate;
             }
 
-            spriteRenderer.sprite = originalSprite;
+            targetSpriteRenderer.sprite = originalSprite;
         }
     }
 }
