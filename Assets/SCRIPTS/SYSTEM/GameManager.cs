@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering; // Diperlukan untuk komponen Volume
 using UnityEngine.Rendering.Universal; // Diperlukan untuk DepthOfField di URP
+using System.Collections.Generic; // Diperlukan untuk menggunakan List
 
 public class GameManager : MonoBehaviour
 {
@@ -17,52 +18,50 @@ public class GameManager : MonoBehaviour
     [Header("Player Data")]
     public int memoriesCollected = 0;
 
-    [Header("Post Processing / Blur Settings")]
-    [Tooltip("Masukkan GameObject Global Volume atau Volume khusus Blur ke sini")]
-    [SerializeField] private Volume postProcessVolume;
-    
-    // Variabel internal (Sudah diperbaiki tanpa spasi)
-    private DepthOfField depthOfField;
+    // Menggunakan List untuk menyimpan semua efek DepthOfField yang ditemukan di scene
+    private List<DepthOfField> activeBlurEffects = new List<DepthOfField>();
 
-private void Awake()
-{
-    // Singleton Setup
-    if (Instance != null && Instance != this)
+    private void Awake()
     {
-        Destroy(gameObject);
-    }
-    else
-    {
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-
-    // PERBAIKAN: Jika objek penampung memiliki lebih dari 1 Volume
-    if (postProcessVolume != null)
-    {
-        // Mengambil semua komponen Volume yang menempel pada objek tersebut
-        Volume[] allVolumes = postProcessVolume.GetComponents<Volume>();
-
-        foreach (Volume vol in allVolumes)
+        // Singleton Setup
+        if (Instance != null && Instance != this)
         {
-            // Mencari Volume mana yang memiliki profile berisi efek DepthOfField
-            if (vol.profile != null && vol.profile.TryGet<DepthOfField>(out var dof))
-            {
-                depthOfField = dof;
-                
-                // Opsional: ganti referensi postProcessVolume utama ke Volume yang benar
-                postProcessVolume = vol; 
-                break; 
-            }
+            Destroy(gameObject);
+            return; // Berhenti mengeksekusi kode di bawah jika objek dihancurkan
         }
-    }
-}
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
 
+        // Ambil semua efek blur saat scene pertama kali dimuat
+        FindAllBlurVolumes();
+    }
 
     private void Start()
     {
         // Pastikan saat game mulai, status blur disesuaikan dengan kondisi awal game state
         ApplyBlurState(currentState);
+    }
+
+    /// <summary>
+    /// Mencari semua Volume di scene yang memiliki profile berisi efek DepthOfField (Blur)
+    /// </summary>
+    public void FindAllBlurVolumes()
+    {
+        activeBlurEffects.Clear();
+
+        // Mencari semua komponen Volume yang aktif di dalam scene secara masif
+        Volume[] allVolumes = Object.FindObjectsByType<Volume>(FindObjectsSortMode.None);
+
+        foreach (Volume vol in allVolumes)
+        {
+            if (vol.profile != null && vol.profile.TryGet<DepthOfField>(out var dof))
+            {
+                activeBlurEffects.Add(dof);
+            }
+        }
     }
 
     public void ChangeChapter(Chapter newChapter)
@@ -83,7 +82,7 @@ private void Awake()
     {
         currentState = newState;
         
-        // Contoh logika sederhana: pause physics jika GameState = Pause
+        // Mengatur timeScale: Pause = 0, Play/Cutscene = 1
         Time.timeScale = (newState == GameState.Pause) ? 0 : 1;
 
         // Panggil fungsi untuk mengaktifkan/mematikan blur
@@ -91,20 +90,20 @@ private void Awake()
     }
 
     /// <summary>
-    /// Mengatur keaktifan efek blur berdasarkan Game State saat ini
+    /// Mengatur keaktifan efek blur pada semua kamera berdasarkan Game State saat ini
     /// </summary>
     private void ApplyBlurState(GameState state)
     {
-        if (depthOfField == null) return;
+        // Berjalan jika game dalam kondisi Cutscene ATAU Pause
+        bool shouldBlur = (state == GameState.Cutscene || state == GameState.Pause);
 
-        // Mengaktifkan efek blur (Depth of Field) HANYA jika masuk ke state Cutscene
-        if (state == GameState.Cutscene)
+        // Lakukan perulangan untuk mengaktifkan/mematikan efek pada semua volume yang terdaftar
+        foreach (DepthOfField dof in activeBlurEffects)
         {
-            depthOfField.active = true;
-        }
-        else // Jika kembali ke state Play atau Pause, matikan efek blurnya
-        {
-            depthOfField.active = false;
+            if (dof != null)
+            {
+                dof.active = shouldBlur;
+            }
         }
     }
 }

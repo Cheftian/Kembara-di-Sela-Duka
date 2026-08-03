@@ -6,95 +6,152 @@ public class SceneController : MonoBehaviour
 {
     public static SceneController Instance { get; private set; }
 
+    [Header("Transition Settings")]
+    [SerializeField] private Animator transitionAnimator; // Tarik TransitionPanel yang memiliki Animator ke sini
+    [SerializeField] private float transitionDelay = 1f;   // Durasi tunggu animasi menutup selesai
+
+    [Header("Loading Configuration")]
+    [SerializeField] private string loadingSceneName = "LoadingScene"; 
+    [SerializeField] private float minLoadingTime = 2.5f; // Durasi minimal video loading berputar
+
+    private string targetSceneName; 
+    private bool isProcessingLoad = false; 
+
     private void Awake()
     {
-        // Memastikan hanya ada satu SceneController yang bertahan antar scene
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else
+        else if (Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
     }
 
-    // Dipanggil oleh SaveUIManager saat memilih Load Game
-    public void LoadSavedGame(GameData data)
+    private void OnEnable()
     {
-        if (data == null || string.IsNullOrEmpty(data.currentScene))
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log($"[SceneController] Berhasil masuk ke Scene: {scene.name}");
+
+        // 1. JIKA MASUK KE LOADING SCENE
+        if (scene.name == loadingSceneName)
         {
-            Debug.LogError("Data save kosong atau tidak memiliki nama scene tujuan!");
+            if (string.IsNullOrEmpty(targetSceneName))
+            {
+                Debug.LogError("[SceneController] Nama target scene kosong saat di LoadingScene!");
+                return;
+            }
+            
+            // Langsung buka layar transisi instan agar Video Loading di scene ini terlihat penuh
+            PlayFadeOutAnimation();
+
+            if (!isProcessingLoad)
+            {
+                StartCoroutine(LoadTargetSceneInBackground());
+            }
+        }
+        // 2. JIKA MASUK KE SCENE TUJUAN ASLI (Gameplay / Main Menu)
+        else
+        {
+            isProcessingLoad = false; 
+            // Buka layar secara halus untuk memunculkan ruangan game baru
+            PlayFadeOutAnimation();
+        }
+    }
+
+    // Fungsi utama untuk berpindah scene lewat tombol UI
+    public void ChangeSceneByName(string sceneName)
+    {
+        if (string.IsNullOrEmpty(sceneName))
+        {
+            Debug.LogError("[SceneController] Nama scene kosong!");
             return;
         }
 
-        StartCoroutine(LoadSceneAndRestoreData(data));
+        targetSceneName = sceneName;
+        StartCoroutine(TransitionToLoadingScene());
     }
 
-    private IEnumerator LoadSceneAndRestoreData(GameData data)
+    // Coroutine untuk menutup layar scene lama sebelum masuk ke Loading Scene
+    private IEnumerator TransitionToLoadingScene()
     {
-        // Opsional: Di sini Tian bisa memunculkan UI Loading Screen
+        if (transitionAnimator != null && transitionAnimator.gameObject.activeInHierarchy)
+        {
+            transitionAnimator.Play("Room_FadeIn"); // Layar lama menutup/menggelap halus
+            yield return new WaitForSeconds(transitionDelay);
+        }
 
-        // 1. Mulai memuat scene secara asinkron
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(data.currentScene);
-        
-        // Menahan eksekusi kode hingga scene selesai dimuat sepenuhnya
-        yield return new WaitUntil(() => asyncLoad.isDone);
-
-        // 2. Menerapkan data ke scene yang baru
-        RestoreWorldState(data);
-
-        // Opsional: Di sini Tian bisa menyembunyikan UI Loading Screen
+        SceneManager.LoadScene(loadingSceneName);
     }
 
-    private void RestoreWorldState(GameData data)
+    // Coroutine penahan yang berjalan di dalam LoadingScene
+    private IEnumerator LoadTargetSceneInBackground()
     {
-        // 1. Memulihkan Data GameManager
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.currentChapter = data.savedChapter;
-            GameManager.Instance.memoriesCollected = data.savedMemories;
-            
-            // Logika opsional: Memanggil fungsi ChangeChapter jika diperlukan event khusus saat load
-            // GameManager.Instance.ChangeChapter(data.savedChapter);
-        }
+        isProcessingLoad = true;
+        float startTime = Time.time;
 
-        // 2. Memposisikan Player
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            player.transform.position = data.playerPosition;
-        }
+        // Trik kunci: Berikan jeda 1 frame agar Unity merender Video di LoadingScene terlebih dahulu
+        yield return null; 
 
-        // 3. Memulihkan status aktif/nonaktif InteractableObject
-        InteractableObject[] allInteractables = FindObjectsByType<InteractableObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        // Memuat scene target di background dan langsung mengunci perpindahannya
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(targetSceneName);
         
-        foreach (InteractableObject obj in allInteractables)
+        if (asyncLoad != null)
         {
-            UniqueID uid = obj.GetComponent<UniqueID>();
-            if (uid != null && !string.IsNullOrEmpty(uid.ID))
-            {
-                int savedIndex = data.savedObjects.FindIndex(x => x.objectID == uid.ID);
-                
-                if (savedIndex != -1)
-                {
-                    obj.gameObject.SetActive(data.savedObjects[savedIndex].isActive);
-                }
-            }
+            asyncLoad.allowSceneActivation = false; 
+        }
+        else
+        {
+            Debug.LogError("[SceneController] Gagal menginisialisasi LoadSceneAsync!");
+            SceneManager.LoadScene(targetSceneName);
+            isProcessingLoad = false;
+            yield break;
         }
 
-        if (UIManager.Instance != null && data.collectedKeys != null)
+        // Loop penahan berdasarkan kemajuan data dan durasi waktu minimal video
+        while (asyncLoad.progress < 0.9f || (Time.time - startTime) < minLoadingTime)
         {
-            UIManager.Instance.RestoreActiveKeys(data.collectedKeys);
+            yield return null; 
         }
 
-        // 4. Memulihkan state game menjadi Play
-        if (GameManager.Instance != null)
+        // SEBELUM PINDAH: Tutup video loading secara halus dengan transisi hitam agar tidak flicker patah
+        if (transitionAnimator != null && transitionAnimator.gameObject.activeInHierarchy)
         {
-            GameManager.Instance.SetGameState(GameManager.GameState.Play);
+            transitionAnimator.Play("Room_FadeIn"); // Layar menutup kembali
+            yield return new WaitForSeconds(transitionDelay);
         }
 
-        Debug.Log($"Data permainan berhasil dipulihkan. Chapter saat ini: {GameManager.Instance?.currentChapter}");
+        // Aktifkan scene tujuan asli
+        asyncLoad.allowSceneActivation = true;
+    }
+
+    private void PlayFadeOutAnimation()
+    {
+        if (transitionAnimator != null && transitionAnimator.gameObject.activeInHierarchy)
+        {
+            transitionAnimator.Play("Room_FadeOut"); // Layar menjadi terang / membuka ruangan
+        }
+    }
+
+    // Fungsi untuk keluar dari aplikasi game
+    public void ExitGame()
+    {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 }
