@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering; // Diperlukan untuk komponen Volume
 using UnityEngine.Rendering.Universal; // Diperlukan untuk DepthOfField di URP
+using UnityEngine.SceneManagement; // Diperlukan untuk mendeteksi pergantian scene
 using System.Collections.Generic; // Diperlukan untuk menggunakan List
 
 public class GameManager : MonoBehaviour
@@ -27,22 +28,41 @@ public class GameManager : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
-            return; // Berhenti mengeksekusi kode di bawah jika objek dihancurkan
+            return; 
         }
         else
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-
-        // Ambil semua efek blur saat scene pertama kali dimuat
-        FindAllBlurVolumes();
     }
 
-    private void Start()
+    // Daftarkan listener sceneLoaded saat objek aktif
+    private void OnEnable()
     {
-        // Pastikan saat game mulai, status blur disesuaikan dengan kondisi awal game state
-        ApplyBlurState(currentState);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    // Cabut listener sceneLoaded saat objek nonaktif/hancur untuk mencegah memory leak
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // KUNCI UTAMA: Otomatis berjalan SETIAP KALI SCENE SELESAI DIMUAT
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log($"[GameManager] Mendeteksi scene baru dimuat: {scene.name}. Meriset efek blur...");
+
+        // 1. Bersihkan referensi efek blur dari scene lama yang sudah hancur
+        FindAllBlurVolumes();
+
+        // 2. Paksa status permainan kembali ke PLAY saat pergantian scene selesai
+        currentState = GameState.Play;
+        Time.timeScale = 1f;
+
+        // 3. Paksa SEMUA efek blur di scene baru untuk mati total (false)
+        ApplyBlurState(GameState.Play);
     }
 
     /// <summary>
@@ -52,7 +72,7 @@ public class GameManager : MonoBehaviour
     {
         activeBlurEffects.Clear();
 
-        // Mencari semua komponen Volume yang aktif di dalam scene secara masif
+        // Mencari semua komponen Volume yang aktif di dalam scene baru
         Volume[] allVolumes = Object.FindObjectsByType<Volume>(FindObjectsSortMode.None);
 
         foreach (Volume vol in allVolumes)
@@ -62,6 +82,7 @@ public class GameManager : MonoBehaviour
                 activeBlurEffects.Add(dof);
             }
         }
+        Debug.Log($"[GameManager] Berhasil mendeteksi {activeBlurEffects.Count} efek blur (Depth of Field) di scene ini.");
     }
 
     public void ChangeChapter(Chapter newChapter)

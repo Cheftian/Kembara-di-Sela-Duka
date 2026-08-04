@@ -72,10 +72,26 @@ public class UIManager : MonoBehaviour
 
     private void ReturnToMainMenu()
     {
-        // Pastikan GameState kembali ke Play agar Time.timeScale normal sebelum pindah scene
-        GameManager.Instance.SetGameState(GameManager.GameState.Play);
-        SceneManager.LoadScene(mainMenuSceneName);
+        // 1. Pastikan GameState kembali ke Play agar Time.timeScale normal sebelum pindah scene
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetGameState(GameManager.GameState.Play);
+        }
+
+        // 2. Hubungkan ke SceneController lokal di scene saat ini untuk memicu animasi fade out
+        if (SceneController.Instance != null)
+        {
+            Debug.Log($"[UIManager] Kembali ke Main Menu via SceneController. Target: {mainMenuSceneName}");
+            SceneController.Instance.ChangeSceneByName(mainMenuSceneName);
+        }
+        else
+        {
+            // Pengaman cadangan jika SceneController tidak ditemukan di dalam scene gameplay saat ini
+            Debug.LogWarning("[UIManager] SceneController.Instance tidak ditemukan! Melakukan load scene secara instan.");
+            SceneManager.LoadScene(mainMenuSceneName);
+        }
     }
+
 
     // --- MANAJEMEN DATA KUNCI (KEYS) ---
 

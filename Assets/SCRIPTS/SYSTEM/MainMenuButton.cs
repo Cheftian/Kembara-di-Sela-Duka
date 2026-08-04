@@ -22,13 +22,12 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         originalScale = transform.localScale;
         targetScale = originalScale;
     }
-
     private void Update()
     {
         if (!isHovered)
         {
-            // Efek Pulse (Membesar dan mengecil terus-menerus menggunakan rumus Sinus)
-            float pulse = Mathf.Sin(Time.time * pulseSpeed) * pulseAmount;
+            // SOLUSI: Menggunakan Time.unscaledTime agar rumus sinus tetap bergerak saat game dipause
+            float pulse = Mathf.Sin(Time.unscaledTime * pulseSpeed) * pulseAmount;
             targetScale = originalScale + new Vector3(pulse, pulse, 0);
             
             // Terapkan skala secara langsung saat pulse
@@ -36,9 +35,11 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
         else
         {
-            // Efek Hover (Transisi halus memperbesar skala objek ke target hover)
+            // Efek Hover (Menggunakan ukuran target hover)
             Vector3 hoverScale = originalScale * hoverScaleMultiplier;
-            transform.localScale = Vector3.Lerp(transform.localScale, hoverScale, Time.deltaTime * transitionSpeed);
+            
+            // SOLUSI: Menggunakan Time.unscaledDeltaTime agar transisi Lerp tidak membeku saat game dipause
+            transform.localScale = Vector3.Lerp(transform.localScale, hoverScale, Time.unscaledDeltaTime * transitionSpeed);
         }
     }
 

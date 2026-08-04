@@ -6,29 +6,28 @@ public class SceneController : MonoBehaviour
 {
     public static SceneController Instance { get; private set; }
 
+    [Header("Transition Flags (Atur per Scene)")]
+    [Tooltip("Jika dicentang, layar akan membuka (terang) saat scene ini baru dimulai.")]
+    [SerializeField] private bool runFadeOutOnStart = true;
+    
+    [Tooltip("Jika dicentang, layar akan menutup (gelap) sebelum berpindah ke scene berikutnya.")]
+    [SerializeField] private bool runFadeInOnExit = true;
+
     [Header("Transition Settings")]
-    [SerializeField] private Animator transitionAnimator; // Tarik TransitionPanel yang memiliki Animator ke sini
-    [SerializeField] private float transitionDelay = 1f;   // Durasi tunggu animasi menutup selesai
+    [SerializeField] private Animator transitionAnimator; // Tarik TransitionPanel di scene saat ini ke sini
+    [SerializeField] private float transitionDelay = 1f;   
 
     [Header("Loading Configuration")]
     [SerializeField] private string loadingSceneName = "LoadingScene"; 
-    [SerializeField] private float minLoadingTime = 2.5f; // Durasi minimal video loading berputar
+    [SerializeField] private float minLoadingTime = 2.5f; 
 
-    private string targetSceneName; 
-    private bool isProcessingLoad = false; 
+    // Variabel wajib STATIC agar nama scene tujuan tidak hilang saat objek hancur saat pindah scene
+    private static string targetSceneName; 
+    private static bool isProcessingLoad = false; 
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        Instance = this;
     }
 
     private void OnEnable()
@@ -54,8 +53,11 @@ public class SceneController : MonoBehaviour
                 return;
             }
             
-            // Langsung buka layar transisi instan agar Video Loading di scene ini terlihat penuh
-            PlayFadeOutAnimation();
+            // Cek flag apakah LoadingScene diizinkan membuka layar secara halus
+            if (runFadeOutOnStart)
+            {
+                PlayFadeOutAnimation();
+            }
 
             if (!isProcessingLoad)
             {
@@ -66,8 +68,12 @@ public class SceneController : MonoBehaviour
         else
         {
             isProcessingLoad = false; 
-            // Buka layar secara halus untuk memunculkan ruangan game baru
-            PlayFadeOutAnimation();
+            
+            // Cek flag apakah scene tujuan diizinkan membuka layar secara halus
+            if (runFadeOutOnStart)
+            {
+                PlayFadeOutAnimation();
+            }
         }
     }
 
@@ -87,7 +93,8 @@ public class SceneController : MonoBehaviour
     // Coroutine untuk menutup layar scene lama sebelum masuk ke Loading Scene
     private IEnumerator TransitionToLoadingScene()
     {
-        if (transitionAnimator != null && transitionAnimator.gameObject.activeInHierarchy)
+        // Cek flag apakah scene saat ini diizinkan menutup layar secara halus sebelum keluar
+        if (runFadeInOnExit && transitionAnimator != null && transitionAnimator.gameObject.activeInHierarchy)
         {
             transitionAnimator.Play("Room_FadeIn"); // Layar lama menutup/menggelap halus
             yield return new WaitForSeconds(transitionDelay);
@@ -102,7 +109,7 @@ public class SceneController : MonoBehaviour
         isProcessingLoad = true;
         float startTime = Time.time;
 
-        // Trik kunci: Berikan jeda 1 frame agar Unity merender Video di LoadingScene terlebih dahulu
+        // Berikan jeda 1 frame agar Unity merender Video di LoadingScene terlebih dahulu
         yield return null; 
 
         // Memuat scene target di background dan langsung mengunci perpindahannya
@@ -126,8 +133,8 @@ public class SceneController : MonoBehaviour
             yield return null; 
         }
 
-        // SEBELUM PINDAH: Tutup video loading secara halus dengan transisi hitam agar tidak flicker patah
-        if (transitionAnimator != null && transitionAnimator.gameObject.activeInHierarchy)
+        // SEBELUM PINDAH: Cek flag apakah scene loading diizinkan menutup layar dengan transisi hitam
+        if (runFadeInOnExit && transitionAnimator != null && transitionAnimator.gameObject.activeInHierarchy)
         {
             transitionAnimator.Play("Room_FadeIn"); // Layar menutup kembali
             yield return new WaitForSeconds(transitionDelay);
