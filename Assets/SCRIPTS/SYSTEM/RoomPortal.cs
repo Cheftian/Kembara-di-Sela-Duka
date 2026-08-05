@@ -16,24 +16,33 @@ public class RoomPortal : MonoBehaviour
     private bool playerIsInside = false;
     private Transform playerTransform;
 
-    private void Update()
+    private bool isTeleporting = false; 
+private void Update()
+{
+    // UBAH: Tambahkan kondisi !isTeleporting di dalam IF
+    if (playerIsInside && Input.GetKeyDown(KeyCode.W) && !isTeleporting)
     {
-        if (playerIsInside && Input.GetKeyDown(KeyCode.W))
-        {
-            TeleportPlayer();
-        }
+        TeleportPlayer();
+    }
+}
+
+private void TeleportPlayer()
+{
+    if (targetPortal == null)
+    {
+        Debug.LogWarning("Target Portal belum dipasang pada " + gameObject.name);
+        return;
     }
 
-    private void TeleportPlayer()
-    {
-        if (targetPortal == null)
-        {
-            Debug.LogWarning("Target Portal belum dipasang pada " + gameObject.name);
-            return;
-        }
+    isTeleporting = true; // TAMBAHKAN INI: Kunci input W segera setelah ditekan
+    RoomManager.Instance.SwitchRoom(playerTransform, this, targetPortal);
+}
 
-        RoomManager.Instance.SwitchRoom(playerTransform, this, targetPortal);
-    }
+// TAMBAHKAN FUNGSI BARU INI: Untuk membuka kembali kunci tombol W
+public void ResetTeleportStatus()
+{
+    isTeleporting = false;
+}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -44,12 +53,14 @@ public class RoomPortal : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+private void OnTriggerExit2D(Collider2D collision)
+{
+    if (collision.CompareTag("Player"))
     {
-        if (collision.CompareTag("Player"))
-        {
-            playerIsInside = false;
-            playerTransform = null;
-        }
+        playerIsInside = false;
+        playerTransform = null;
+        isTeleporting = false; // TAMBAHKAN INI: Reset otomatis jika player keluar collider
     }
+}
+
 }

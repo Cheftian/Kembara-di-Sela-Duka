@@ -136,5 +136,7 @@ public class RoomManager : MonoBehaviour
         {
             transitionAnimator.SetTrigger("EndTransition");
         }
+            currentPortal.ResetTeleportStatus();
+    destinationPortal.ResetTeleportStatus();
     }
 }
