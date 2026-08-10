@@ -29,6 +29,19 @@ public class InteractableObject : MonoBehaviour
     [SerializeField] private GameObject[] objectsToEnable;
     [SerializeField] private GameObject[] objectsToDisable;
 
+    [Header("Custom Interaction Animations")]
+    [Tooltip("Nama animasi yang diputar SAAT interaksi dimulai (misal: Sit, Inspect, Bow)")]
+    [SerializeField] private string startAnimationName = "";
+    [Tooltip("Nama animasi yang diputar SETELAH interaksi selesai (misal: Stand, Idle)")]
+    [SerializeField] private string endAnimationName = "";
+
+    private NotificationTrigger notificationTrigger;
+
+    private void Start()
+    {
+        notificationTrigger = GetComponent<NotificationTrigger>();
+    }
+
     private void Awake()
     {
         BoxCollider2D col = GetComponent<BoxCollider2D>();
@@ -45,6 +58,8 @@ public class InteractableObject : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.S))
             {
+                hasInteracted = true; 
+                HideAndDisableNotification();
                 StartCoroutine(InteractionSequence());
             }
         }
@@ -67,74 +82,106 @@ public class InteractableObject : MonoBehaviour
     private IEnumerator InteractionSequence()
     {
         GameManager.Instance.SetGameState(GameManager.GameState.Cutscene);
-
-        // Cari PlayerController di dalam scene
         PlayerController player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerController>();
 
-        // Lock validation process
         if (isLocked)
         {
+            // Periksa apakah syarat kunci (item di hirarki) sudah terpenuhi
             if (CheckUnlockCondition())
             {
-                isLocked = false; 
+                isLocked = false; // Kunci terbuka! Sequence langsung lanjut ke bawah otomatis
             }
             else
             {
+                // JIKA MASIH TERKUNCI: Mainkan narasi terkunci
                 if (lockedNarrationData != null)
                 {
                     NarrationManager.Instance.PlayNarration(lockedNarrationData);
+                    
+                    yield return null; // Tunggu 1 frame agar panel narasi aktif
+
+                    // Tunggu hingga panel narasi terkunci benar-benar ditutup oleh Player
+                    while (NarrationManager.Instance.IsNarrating)
+                    {
+                        yield return null;
+                    }
                 }
-                else
-                {
-                    GameManager.Instance.SetGameState(GameManager.GameState.Play);
-                }
-                yield break; 
+                
+                // Kembalikan game state ke mode bermain normal setelah narasi selesai
+                GameManager.Instance.SetGameState(GameManager.GameState.Play);
+
+                // BARU & UTAMA: Reset status interaksi dan munculkan kembali notifikasi
+                // Ini membuat Player bisa menekan S lagi di objek ini meskipun statusnya masih isLocked
+                hasInteracted = false; 
+                ShowAndEnableNotification();
+                
+                yield break; // Hentikan di sini (jangan lanjut ke minigame/narasi utama)
             }
         }
 
-        // Execute Minigame (Hanya jalankan sekuens SIT jika kondisi objek adalah minigame trigger)
+
+        yield return StartCoroutine(PlayInteractionAnimation(player));
+
         if (isMinigameTrigger && minigameObject != null)
         {
-            if (player != null)
-            {
-                // 1. Jalankan animasi Sit dan tunggu sampai klip selesai
-                yield return StartCoroutine(player.PlayAnimationAndWait("Sit"));
-            }
-
             BaseMinigame minigameScript = minigameObject.GetComponent<BaseMinigame>();
-            
-            if (minigameScript != null)
-            {
-                minigameScript.SetupMinigame(this);
-            }
-            else
-            {
-                Debug.LogWarning($"Object {minigameObject.name} tidak memiliki script turunan BaseMinigame!");
-            }
-            
-            // 2. Tampilkan panel minigame setelah animasi Sit selesai
+            if (minigameScript != null) minigameScript.SetupMinigame(this);
             minigameObject.SetActive(true);
-            yield break; 
         }
 
-        // Execute Narration (Untuk trigger narasi biasa, tidak menjalankan sekuens duduk)
         if (isNarrativeTrigger && narrationData != null)
         {
+            // DIUBAH: Baris ExecuteObjectToggling() di sini dihapus agar tidak aktif di awal
+            
+            // Mainkan narasi melalui manajer
             NarrationManager.Instance.PlayNarration(narrationData);
+            yield return null;
+
+            // Tunggu sampai panel narasi benar-benar ditutup penuh oleh Player
+            while (NarrationManager.Instance.IsNarrating)
+            {
+                yield return null;
+            }
+
+            // BARU: Eksekusi Object Toggling TEPAT SETELAH narasi selesai ditutup
+            if (!isMinigameTrigger)
+            {
+                ExecuteObjectToggling();
+                
+                yield return StartCoroutine(PlayEndInteractionAnimation(player));
+                GameManager.Instance.SetGameState(GameManager.GameState.Play);
+
+                if (!isSingleUse) 
+                {
+                    hasInteracted = false; 
+                    ShowAndEnableNotification();
+                }
+            }
+        }
+        
+        // 4. JALANKAN INTERAKSI BIASA (Jika tidak mencentang minigame maupun narasi)
+        if (!isNarrativeTrigger && !isMinigameTrigger) 
+        {
+            ExecuteObjectToggling();
+            yield return StartCoroutine(PlayEndInteractionAnimation(player));
+            GameManager.Instance.SetGameState(GameManager.GameState.Play);
+            
+            if (!isSingleUse) 
+            {
+                hasInteracted = false; 
+                ShowAndEnableNotification();
+            }
         }
 
+        // Logika Sekali Pakai untuk non-minigame
         if (isSingleUse && !isMinigameTrigger)
         {
             if (!isNarrativeTrigger) GameManager.Instance.SetGameState(GameManager.GameState.Play);
             gameObject.SetActive(false);
             yield break;
         }
-
-        if (!isNarrativeTrigger && !isMinigameTrigger) 
-        {
-            GameManager.Instance.SetGameState(GameManager.GameState.Play);
-        }
     }
+
 
     public void CompleteMinigame(bool puzzleIsSolved)
     {
@@ -142,39 +189,56 @@ public class InteractableObject : MonoBehaviour
     }
 
     private IEnumerator CompleteMinigameSequence(bool puzzleIsSolved)
-{
-    // Jika puzzle berhasil diselesaikan, eksekusi pertukaran objek
-    if (puzzleIsSolved)
     {
-        foreach (GameObject obj in objectsToEnable) if (obj != null) obj.SetActive(true);
-        foreach (GameObject obj in objectsToDisable) if (obj != null) obj.SetActive(false);
-    }
+        if (puzzleIsSolved) ExecuteObjectToggling();
+        if (minigameObject != null) minigameObject.SetActive(false);
 
-    // Pastikan panel minigame sudah nonaktif total di layar sebelum animasi berdiri dimulai
-    if (minigameObject != null)
-    {
-        minigameObject.SetActive(false);
-    }
+        PlayerController player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerController>();
+        yield return StartCoroutine(PlayEndInteractionAnimation(player));
 
-    PlayerController player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerController>();
-    
-    if (player != null)
-    {
-        yield return StartCoroutine(player.PlayAnimationAndWait("Stand"));
+        GameManager.Instance.SetGameState(GameManager.GameState.Play);
         
-        // Kembalikan parameter animator ke setelan Idle dasar
-        player.ResetToIdleState();
+        if (isSingleMinigame && puzzleIsSolved)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            // BARU: Buka kembali kunci input agar player bisa menekan S lagi nanti
+            hasInteracted = false; 
+            ShowAndEnableNotification();
+        }
     }
 
-    // Ubah Game State kembali ke bermain normal SETELAH seluruh sekuens berdiri selesai total
-    GameManager.Instance.SetGameState(GameManager.GameState.Play);
-    
-    // Jika minigame selesai dan disetel sekali pakai, matikan objek interaksi ini
-    if (isSingleMinigame && puzzleIsSolved)
+    private IEnumerator PlayInteractionAnimation(PlayerController player)
     {
-        gameObject.SetActive(false);
+        if (player != null && !string.IsNullOrEmpty(startAnimationName))
+        {
+            yield return StartCoroutine(player.PlayAnimationAndWait(startAnimationName));
+        }
     }
-}
+
+    private IEnumerator PlayEndInteractionAnimation(PlayerController player)
+    {
+        if (player != null && !string.IsNullOrEmpty(endAnimationName))
+        {
+            yield return StartCoroutine(player.PlayAnimationAndWait(endAnimationName));
+            player.ResetToIdleState();
+        }
+    }
+
+    private void ExecuteObjectToggling()
+    {
+        if (objectsToEnable != null)
+        {
+            foreach (GameObject obj in objectsToEnable) if (obj != null) obj.SetActive(true);
+        }
+        
+        if (objectsToDisable != null)
+        {
+            foreach (GameObject obj in objectsToDisable) if (obj != null) obj.SetActive(false);
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -183,12 +247,45 @@ public class InteractableObject : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) isPlayerInRange = false;
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInRange = false;
+            if (!isSingleUse)
+            {
+                hasInteracted = false; 
+            }
+            HideAndDisableNotification(); 
+        }
     }
+
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, interactionRadius);
     }
+    private void HideAndDisableNotification()
+    {
+        if (notificationTrigger != null)
+        {
+            if (notificationTrigger.notification != null)
+            {
+                notificationTrigger.notification.Hide();
+            }
+            notificationTrigger.enabled = false;
+        }
+    }
+
+    private void ShowAndEnableNotification()
+    {
+        if (notificationTrigger != null)
+        {
+            notificationTrigger.enabled = true;
+            if (isPlayerInRange && notificationTrigger.notification != null)
+            {
+                notificationTrigger.notification.Show();
+            }
+        }
+    }
+
 }

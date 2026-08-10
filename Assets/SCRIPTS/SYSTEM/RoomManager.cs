@@ -96,9 +96,7 @@ public class RoomManager : MonoBehaviour
 
     private IEnumerator ExecuteRoomSwitch(Transform player, RoomPortal currentPortal, RoomPortal destinationPortal)
     {
-        // ------------------------------------------------------------
-        // TAHAP 1: MEMULAI TRANSISI (Layar mulai menutup)
-        // ------------------------------------------------------------
+
         if (transitionAnimator != null)
         {
             transitionAnimator.SetTrigger("StartTransition");
@@ -106,9 +104,7 @@ public class RoomManager : MonoBehaviour
 
         yield return new WaitForSeconds(transitionDelay);
 
-        // ------------------------------------------------------------
-        // TAHAP 2: LAYAR SUDAH TERTUTUP TOTAL (Proses Ubah Ruangan)
-        // ------------------------------------------------------------
+
         if (currentPortal.currentRoomParent != null)
         {
             currentPortal.currentRoomParent.SetActive(false);
@@ -119,19 +115,32 @@ public class RoomManager : MonoBehaviour
             destinationPortal.currentRoomParent.SetActive(true);
         }
 
-        // Pindahkan posisi Player ke koordinat tujuan
+        // Pindahkan posisi Player ke koordinat tujuan (Baris bawaan Anda)
         Vector3 targetPosition = destinationPortal.transform.position;
         targetPosition.x += destinationPortal.spawnOffsetX;
         player.position = targetPosition;
         
-        // ------------------------------------------------------------
-        // TAHAP 3: JEDA TRANSISI (Layar menahan warna hitam)
-        // ------------------------------------------------------------
+        // BARU: Ambil komponen PlayerController untuk mengubah status arah hadap secara murni
+        PlayerController playerCtrl = player.GetComponent<PlayerController>();
+
+        if (playerCtrl != null)
+        {
+            if (destinationPortal.faceDirectionOnSpawn == RoomPortal.FaceDirection.Left)
+            {
+                playerCtrl.SetFacingDirection(false); // Parameter false = Menghadap Kiri (isFacingRight = false)
+            }
+            else
+            {
+                playerCtrl.SetFacingDirection(true);  // Parameter true = Menghadap Kanan (isFacingRight = true)
+            }
+        }
+        else
+        {
+            Debug.LogWarning("PlayerController tidak ditemukan pada objek Player saat pergantian ruangan!");
+        }
+
         yield return new WaitForSeconds(holdDelay);
 
-        // ------------------------------------------------------------
-        // TAHAP 4: MEMBUKA LAYAR (Fade Out)
-        // ------------------------------------------------------------
         if (transitionAnimator != null)
         {
             transitionAnimator.SetTrigger("EndTransition");

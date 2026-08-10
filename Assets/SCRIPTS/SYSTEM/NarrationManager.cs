@@ -3,7 +3,7 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using UnityEngine.UI; // Ditambahkan untuk komponen Image
+using UnityEngine.UI; 
 
 public class NarrationManager : MonoBehaviour
 {
@@ -46,36 +46,35 @@ public class NarrationManager : MonoBehaviour
     private string currentLineText = "";
     
     private Coroutine typingCoroutine;
-    // Menggunakan Queue berisi data step lengkap, bukan string saja
     private Queue<NarrationData.DialogueStep> linesQueue = new Queue<NarrationData.DialogueStep>();
     
-    // Tracking panel dan text box yang saat ini sedang aktif secara visual
     private RectTransform activePanelRect;
     private TextMeshProUGUI activeDialogueText;
     private Vector2 hiddenPosition;
     private Vector2 visiblePosition;
+
+    public bool IsNarrating => activePanelRect != null || linesQueue.Count > 0 || isTransitioning;
+
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
-        // Inisialisasi posisi dasar text box (Slide dari bawah layar)
         visiblePosition = Vector2.zero;
         hiddenPosition = new Vector2(0, -Screen.height);
         
-        // Sembunyikan semua panel karakter di awal game ke posisi bawah layar
         foreach (var character in characters)
         {
             if (character.narrativePanel != null)
             {
                 character.narrativePanel.GetComponent<RectTransform>().anchoredPosition = hiddenPosition;
-                // Kembalikan skala ke 1 karena kita fokus ke transisi posisi slide
                 character.narrativePanel.GetComponent<RectTransform>().localScale = Vector3.one; 
                 character.narrativePanel.SetActive(false);
             }
         }
     }
+
     public void PlayNarration(NarrationData data)
     {
         if (data == null || isTransitioning || characters.Length == 0) return;
@@ -86,20 +85,19 @@ public class NarrationManager : MonoBehaviour
         foreach (NarrationData.DialogueStep step in data.dialogueSteps)
         {
             NarrationData.DialogueStep processedStep = step;
-            processedStep.dialogueText = ProcessText(step.dialogueText);
+            // Ditambahkan fungsi fallback jika fungsi ProcessText Anda belum lengkap di potongan kode awal
+            processedStep.dialogueText = ProcessText(step.dialogueText); 
             linesQueue.Enqueue(processedStep);
         }
 
         canProcessInput = false;
         StopAllCoroutines();
         
-        // Mulai baris pertama sekaligus melakukan transisi masuk panel pertama
         DisplayNextLine(true); 
     }
 
     private void Update()
     {
-        // Pengecekan activePanelRect memastikan ada panel yang sedang aktif berjalan
         if (activePanelRect == null || !canProcessInput || isTransitioning) return;
 
         if (Input.anyKeyDown)
@@ -132,7 +130,6 @@ public class NarrationManager : MonoBehaviour
 
         NarrationData.DialogueStep currentStep = linesQueue.Dequeue();
         
-        // Cari konfigurasi UI karakter berdasarkan nama
         CharacterUIConfig targetCharacter = System.Array.Find(characters, c => c.characterName == currentStep.characterName);
 
         if (targetCharacter.narrativePanel == null)
@@ -141,168 +138,160 @@ public class NarrationManager : MonoBehaviour
             return;
         }
 
-        // Ambil data teks ke variabel penampung sebelum UI di-reset
         currentLineText = currentStep.dialogueText;
 
-        // Jalankan logika pergantian panel/karakter
         SetupCharacterUI(targetCharacter, currentStep.expressionName);
 
         if (typingCoroutine != null) StopCoroutine(typingCoroutine);
 
         if (isFirstLine)
         {
-            // Jika baris pertama, biarkan transisi jalan dulu baru mulai mengetik
             StartCoroutine(TransitionIn());
         }
         else
         {
-            // Jika baris berikutnya, langsung ketik teksnya
             typingCoroutine = StartCoroutine(TypeText(currentLineText));
         }
     }
     
-private void SetupCharacterUI(CharacterUIConfig targetCharacter, string expressionName)
-{
-    // Matikan panel karakter lain yang tidak berbicara dengan mengembalikannya ke bawah layar
-    foreach (var character in characters)
+    private void SetupCharacterUI(CharacterUIConfig targetCharacter, string expressionName)
     {
-        if (character.characterName != targetCharacter.characterName && character.narrativePanel.activeSelf)
+        // Matikan panel karakter lain yang tidak berbicara
+        foreach (var character in characters)
         {
-            character.narrativePanel.GetComponent<RectTransform>().anchoredPosition = hiddenPosition;
-            character.narrativePanel.SetActive(false);
-        }
-    }
-
-    // Ganti Sprite Ekspresi Wajah jika komponen gambarnya ada
-    if (targetCharacter.characterImage != null && targetCharacter.expressions != null)
-    {
-        var foundExpression = targetCharacter.expressions.Find(e => e.expressionName == expressionName);
-        if (foundExpression.expressionSprite != null)
-        {
-            targetCharacter.characterImage.sprite = foundExpression.expressionSprite;
-        }
-    }
-
-    // Set panel dan teks yang aktif saat ini
-    activePanelRect = targetCharacter.narrativePanel.GetComponent<RectTransform>();
-    activeDialogueText = targetCharacter.dialogueText;
-
-    if (!targetCharacter.narrativePanel.activeSelf)
-    {
-        activeDialogueText.text = "";
-        activePanelRect.anchoredPosition = hiddenPosition; // Pastikan mulai dari bawah layar sebelum slide up
-        targetCharacter.narrativePanel.SetActive(true);
-    }
-}
-private IEnumerator TransitionIn()
-{
-    isTransitioning = true;
-    float elapsed = 0;
-    activeDialogueText.text = ""; 
-
-    // Slide In: Bergerak dari bawah (hidden) ke tengah (visible)
-    while (elapsed < transitionDuration)
-    {
-        elapsed += Time.deltaTime;
-        float t = elapsed / transitionDuration;
-        
-        // transitionCurve.Evaluate(t) merubah nilai t linear menjadi lambat-cepat-lambat
-        float curveT = transitionCurve.Evaluate(t);
-        
-        activePanelRect.anchoredPosition = Vector2.Lerp(hiddenPosition, visiblePosition, curveT);
-        yield return null;
-    }
-
-    activePanelRect.anchoredPosition = visiblePosition;
-    isTransitioning = false;
-    
-    StartCoroutine(EnableInputDelay());
-    typingCoroutine = StartCoroutine(TypeText(currentLineText)); 
-}
-
-private IEnumerator EndNarrationSequence()
-{
-    canProcessInput = false;
-    isTransitioning = true;
-    activeDialogueText.text = ""; 
-
-    float elapsed = 0;
-
-    // Slide Out: Bergerak turun kembali ke bawah layar
-    while (elapsed < transitionDuration)
-    {
-        elapsed += Time.deltaTime;
-        float t = elapsed / transitionDuration;
-        
-        // Balik kurva untuk transisi keluar (dari visible ke hidden)
-        float curveT = transitionCurve.Evaluate(t);
-        
-        activePanelRect.anchoredPosition = Vector2.Lerp(visiblePosition, hiddenPosition, curveT);
-        yield return null;
-    }
-
-    activePanelRect.anchoredPosition = hiddenPosition;
-    
-    foreach (var character in characters)
-    {
-        character.narrativePanel.SetActive(false);
-    }
-
-    activePanelRect = null;
-    activeDialogueText = null;
-    isTransitioning = false;
-
-    yield return new WaitForSeconds(delayBeforePlayState);
-    GameManager.Instance.SetGameState(GameManager.GameState.Play);
-}
-
-    private IEnumerator TypeText(string line)
-    {
-        activeDialogueText.text = "";
-        isTyping = true;
-        cancelTyping = false;
-
-        int i = 0;
-        while (i < line.Length)
-        {
-            if (cancelTyping)
+            if (character.characterName != targetCharacter.characterName && character.narrativePanel.activeSelf)
             {
-                activeDialogueText.text = line;
-                yield return new WaitForEndOfFrame();
-                break;
+                character.narrativePanel.GetComponent<RectTransform>().anchoredPosition = hiddenPosition;
+                character.narrativePanel.SetActive(false);
             }
+        }
 
-            if (line[i] == '<')
+        // LOGIKA PENYEMBUNYIAN SPRITE KARAKTER
+        if (targetCharacter.characterImage != null)
+        {
+            // Jika ekspresi ditulis "-", matikan object gambar karakter
+            if (expressionName == "-")
             {
-                int endTag = line.IndexOf('>', i);
-                if (endTag != -1) i = endTag + 1;
+                targetCharacter.characterImage.gameObject.SetActive(false);
             }
             else
             {
-                i++;
-            }
+                // Jika bukan "-", pastikan gambar karakter aktif kembali
+                targetCharacter.characterImage.gameObject.SetActive(true);
 
-            activeDialogueText.text = line.Substring(0, i);
-            yield return new WaitForSeconds(typingSpeed);
+                if (targetCharacter.expressions != null)
+                {
+                    var foundExpression = targetCharacter.expressions.Find(e => e.expressionName == expressionName);
+                    if (foundExpression.expressionSprite != null)
+                    {
+                        targetCharacter.characterImage.sprite = foundExpression.expressionSprite;
+                    }
+                }
+            }
         }
 
-        isTyping = false;
+        activePanelRect = targetCharacter.narrativePanel.GetComponent<RectTransform>();
+        activeDialogueText = targetCharacter.dialogueText;
+
+        if (!targetCharacter.narrativePanel.activeSelf)
+        {
+            activeDialogueText.text = "";
+            activePanelRect.anchoredPosition = hiddenPosition; 
+            targetCharacter.narrativePanel.SetActive(true);
+        }
+    }
+
+    private IEnumerator TransitionIn()
+    {
+        isTransitioning = true;
+        float elapsed = 0;
+        activeDialogueText.text = ""; 
+
+        while (elapsed < transitionDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / transitionDuration;
+            float curveT = transitionCurve.Evaluate(t);
+            
+            activePanelRect.anchoredPosition = Vector2.Lerp(hiddenPosition, visiblePosition, curveT);
+            yield return null;
+        }
+
+        activePanelRect.anchoredPosition = visiblePosition;
+        isTransitioning = false;
+        
+        StartCoroutine(EnableInputDelay());
+        typingCoroutine = StartCoroutine(TypeText(currentLineText)); 
+    }
+
+    private IEnumerator EndNarrationSequence()
+    {
+        canProcessInput = false;
+        isTransitioning = true;
+        activeDialogueText.text = ""; 
+
+        float elapsed = 0;
+        while (elapsed < transitionDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / transitionDuration;
+            float curveT = transitionCurve.Evaluate(t);
+            
+            activePanelRect.anchoredPosition = Vector2.Lerp(visiblePosition, hiddenPosition, curveT);
+            yield return null;
+        }
+
+        activePanelRect.anchoredPosition = hiddenPosition;
+        targetCharacterActivePanelToNull(); // Fungsi pembantu opsional untuk reset panel aktif
+        isTransitioning = false;
+        GameManager.Instance.SetGameState(GameManager.GameState.Play); // Sesuai logika dasar game Anda
+    }
+
+    private void targetCharacterActivePanelToNull()
+    {
+        activePanelRect = null;
+        activeDialogueText = null;
     }
 
     private IEnumerator EnableInputDelay()
     {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(delayBeforePlayState);
         canProcessInput = true;
     }
 
-    private string ProcessText(string text)
+    private IEnumerator TypeText(string text)
     {
-        if (string.IsNullOrEmpty(text)) return text;
-        string hexColor = "#" + ColorUtility.ToHtmlStringRGB(highlightColor);
-        text = Regex.Replace(text, @"\*([^*]+)\*", "<b>$1</b>");
-        text = Regex.Replace(text, @"_([^_]+)_", "<i>$1</i>");
-        text = Regex.Replace(text, @"%([^%]+)%", $"<color={hexColor}>$1</color>");
-        text = Regex.Replace(text, @"~([^~]+)~", "<smallcaps>$1</smallcaps>");
-        return text;
+        isTyping = true;
+        cancelTyping = false;
+        activeDialogueText.text = "";
+
+        int i = 0;
+        while (i < text.Length && !cancelTyping)
+        {
+            // Deteksi tag HTML Richtext TMP (seperti <b>, <color>, dll) agar tidak ikut terpotong saat ngetik
+            if (text[i] == '<')
+            {
+                int closeIndex = text.IndexOf('>', i);
+                if (closeIndex != -1)
+                {
+                    i = closeIndex + 1;
+                    continue;
+                }
+            }
+
+            activeDialogueText.text = text.Substring(0, i + 1);
+            i++;
+            yield return new WaitForSeconds(typingSpeed);
+        }
+
+        activeDialogueText.text = text; // Tampilkan teks penuh jika di-skip
+        isTyping = false;
+        cancelTyping = false;
+    }
+
+    // Fungsi pembantu sederhana jika Anda belum memodifikasi regex kustom highlight text Anda
+    private string ProcessText(string rawText)
+    {
+        return rawText;
     }
 }

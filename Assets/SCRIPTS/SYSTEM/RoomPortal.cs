@@ -12,37 +12,57 @@ public class RoomPortal : MonoBehaviour
     [Header("Pengaturan Posisi Muncul")]
     [Tooltip("Offset jarak X saat player muncul di portal ini (misal: -1 agar di kiri portal, 1 agar di kanan portal)")]
     public float spawnOffsetX = 0f;
+    public enum FaceDirection { Left, Right }
+    public FaceDirection faceDirectionOnSpawn = FaceDirection.Right;
 
     private bool playerIsInside = false;
     private Transform playerTransform;
-
     private bool isTeleporting = false; 
-private void Update()
-{
-    // UBAH: Tambahkan kondisi !isTeleporting di dalam IF
-    if (playerIsInside && Input.GetKeyDown(KeyCode.W) && !isTeleporting)
-    {
-        TeleportPlayer();
-    }
-}
 
-private void TeleportPlayer()
-{
-    if (targetPortal == null)
+    // BARU: Tempat menyimpan referensi script NotificationTrigger
+    private NotificationTrigger notificationTrigger;
+
+    private void Start()
     {
-        Debug.LogWarning("Target Portal belum dipasang pada " + gameObject.name);
-        return;
+        // BARU: Ambil komponen NotificationTrigger yang ada di GameObject ini
+        notificationTrigger = GetComponent<NotificationTrigger>();
     }
 
-    isTeleporting = true; // TAMBAHKAN INI: Kunci input W segera setelah ditekan
-    RoomManager.Instance.SwitchRoom(playerTransform, this, targetPortal);
-}
+    private void Update()
+    {
+        if (playerIsInside && Input.GetKeyDown(KeyCode.W) && !isTeleporting)
+        {
+            TeleportPlayer();
+        }
+    }
 
-// TAMBAHKAN FUNGSI BARU INI: Untuk membuka kembali kunci tombol W
-public void ResetTeleportStatus()
-{
-    isTeleporting = false;
-}
+    private void TeleportPlayer()
+    {
+        if (targetPortal == null)
+        {
+            Debug.LogWarning("Target Portal belum dipasang pada " + gameObject.name);
+            return;
+        }
+
+        isTeleporting = true; 
+
+        // BARU: Sembunyikan notifikasi dan matikan trigger-nya sebelum pindah ruangan
+        if (notificationTrigger != null)
+        {
+            if (notificationTrigger.notification != null)
+            {
+                notificationTrigger.notification.Hide(); // Sembunyikan pop-up UI
+            }
+            notificationTrigger.enabled = false; // Matikan script NotificationTrigger
+        }
+
+        RoomManager.Instance.SwitchRoom(playerTransform, this, targetPortal);
+    }
+
+    public void ResetTeleportStatus()
+    {
+        isTeleporting = false;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -53,14 +73,13 @@ public void ResetTeleportStatus()
         }
     }
 
-private void OnTriggerExit2D(Collider2D collision)
-{
-    if (collision.CompareTag("Player"))
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        playerIsInside = false;
-        playerTransform = null;
-        isTeleporting = false; // TAMBAHKAN INI: Reset otomatis jika player keluar collider
+        if (collision.CompareTag("Player"))
+        {
+            playerIsInside = false;
+            playerTransform = null;
+            isTeleporting = false; 
+        }
     }
-}
-
 }

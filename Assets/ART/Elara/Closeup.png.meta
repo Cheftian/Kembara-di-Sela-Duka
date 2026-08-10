@@ -14,6 +14,15 @@ TextureImporter:
   - first:
       213: -8141926502103584743
     second: Closeup_3
+  - first:
+      213: -9062475462433812724
+    second: Closeup_4
+  - first:
+      213: 3681780964818060790
+    second: Closeup_5
+  - first:
+      213: 2174606202484591730
+    second: Closeup_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -143,7 +152,7 @@ TextureImporter:
         width: 567
         height: 1031
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -165,7 +174,7 @@ TextureImporter:
         width: 567
         height: 1031
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -187,7 +196,7 @@ TextureImporter:
         width: 567
         height: 1031
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -209,7 +218,7 @@ TextureImporter:
         width: 567
         height: 1031
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -222,11 +231,77 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Closeup_4
+      rect:
+        serializedVersion: 2
+        x: 3216
+        y: 30
+        width: 567
+        height: 1031
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0f40fbf49e9b3280800000000000000
+      internalID: -9062475462433812724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Closeup_5
+      rect:
+        serializedVersion: 2
+        x: 3926
+        y: 30
+        width: 567
+        height: 1031
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f586c4d740581330800000000000000
+      internalID: 3681780964818060790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Closeup_6
+      rect:
+        serializedVersion: 2
+        x: 4597
+        y: 30
+        width: 618
+        height: 1045
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27c8471d1d0cd2e10800000000000000
+      internalID: 2174606202484591730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: c5511b4556bea0e46b8028170c5ec6b1
     internalID: 0
     vertices: []
     indices: 
@@ -240,6 +315,9 @@ TextureImporter:
       Closeup_1: -7416299071842013175
       Closeup_2: -4413325683351284696
       Closeup_3: -8141926502103584743
+      Closeup_4: -9062475462433812724
+      Closeup_5: 3681780964818060790
+      Closeup_6: 2174606202484591730
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

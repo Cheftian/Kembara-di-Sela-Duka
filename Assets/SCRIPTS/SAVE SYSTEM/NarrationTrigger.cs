@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class NarrationTrigger : MonoBehaviour
@@ -32,8 +33,15 @@ public class NarrationTrigger : MonoBehaviour
     {
         if (triggerMode == TriggerMode.OnEnable)
         {
-            ExecuteNarration();
+            // Menggunakan Coroutine untuk memberikan jeda 1 frame agar Manager siap
+            StartCoroutine(ExecuteWithDelay());
         }
+    }
+
+    private IEnumerator ExecuteWithDelay()
+    {
+        yield return null; // Tunggu 1 frame
+        ExecuteNarration();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

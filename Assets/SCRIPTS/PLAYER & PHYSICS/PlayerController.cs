@@ -14,6 +14,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform visualTransform;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer; 
+
+    [Header("Dizzy Recovery Settings")]
+    [Tooltip("Durasi waktu karakter terdiam dalam posisi Duduk (Sit) sebelum berdiri kembali")]
+    [SerializeField] private float sitDuration = 2.0f;
+
     
     private Rigidbody2D rb;
     private float horizontalInput;
@@ -30,6 +35,8 @@ public class PlayerController : MonoBehaviour
     private readonly int standHash = Animator.StringToHash("Stand");
     
     private readonly string defaultStateName = "Idle"; 
+
+    private bool wasDizzyFromLeftWalk = false;
 
     // Properti Publik untuk Kamera
     public bool IsDizzy => isDizzy;
@@ -68,9 +75,27 @@ public class PlayerController : MonoBehaviour
         }
 
         GetPlayerInput();
+        HandleDizzyLogic();
         HandleFlip();
         UpdateAnimation();
     }
+
+    private void HandleDizzyLogic()
+    {
+        // Jika player diam (idle) saat sedang pusing, matikan isDizzy (memicu Sit & Stand)
+        if (isDizzy && horizontalInput == 0f)
+        {
+            wasDizzyFromLeftWalk = true; 
+            SetDizzyStatus(false);       
+        }
+        // Jika player berjalan ke kiri lagi (A) setelah sempat pulih, buat pusing kembali
+        else if (!isDizzy && horizontalInput < 0f && wasDizzyFromLeftWalk)
+        {
+            SetDizzyStatus(true);        
+        }
+    }
+
+
 
     private void FixedUpdate()
     {
@@ -92,27 +117,27 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKey(KeyCode.D)) horizontalInput = 1f;
     }
 
-    private void HandleFlip()
-    {
-        // JIKA SEDANG FLIPPING, JANGAN PROSES FLIP BARU
-        if (isFlipping) return;
+private void HandleFlip()
+{
+    if (isFlipping) return;
 
-        // KONDISI 1: Menghadap Kiri, lalu menekan Kanan (D)
-        if (horizontalInput > 0 && !isFacingRight)
+    // KONDISI 1: Menghadap Kiri, lalu menekan Kanan (D)
+    if (horizontalInput > 0 && !isFacingRight)
+    {
+        if (isDizzy)
         {
-            // Matikan status dizzy SEBELUM memulai flip agar tidak terjadi konflik loop dengan OnTriggerStay
-            if (isDizzy)
-            {
-                SetDizzyStatus(false);
-            }
-            StartFlip();
+            SetDizzyStatus(false);
         }
-        // KONDISI 2: Menghadap Kanan, lalu menekan Kiri (A)
-        else if (horizontalInput < 0 && isFacingRight)
-        {
-            StartFlip();
-        }
+        wasDizzyFromLeftWalk = false; // <--- TAMBAHKAN INI (Reset ingatan pusing)
+        StartFlip();
     }
+    // KONDISI 2: Menghadap Kanan, lalu menekan Kiri (A)
+    else if (horizontalInput < 0 && isFacingRight)
+    {
+        StartFlip();
+    }
+}
+
 
 
     private void StartFlip()
@@ -153,13 +178,12 @@ public class PlayerController : MonoBehaviour
     {
         rb.linearVelocity = new Vector2(horizontalInput * moveSpeed, rb.linearVelocity.y);
     }
-        private void UpdateAnimation()
+    
+    
+    private void UpdateAnimation()
     {
         if (animator != null)
         {
-            // Pastikan kecepatan animator selalu normal (1f) agar tidak ada animasi yang membeku
-            animator.speed = 1f;
-
             if (isDizzy)
             {
                 // Saat dizzy, status jalan ditentukan dari apakah tombol A sedang ditekan
@@ -167,9 +191,22 @@ public class PlayerController : MonoBehaviour
                 
                 animator.SetBool(isWalkingHash, isWalkingDizzy);
                 animator.SetBool(isDizzyHash, true);
+
+                // BARU: Jika sedang pusing (Dizzy) dan TIDAK sedang berjalan (Idle)
+                if (!isWalkingDizzy && !isFlipping)
+                {
+                    animator.speed = 0f; // Bekukan animasi di tempat (menahan sprite frame terakhir)
+                }
+                else
+                {
+                    animator.speed = 1f; // Jalankan kembali animasi saat player bergerak/membalik
+                }
             }
             else
             {
+                // BARU: Pastikan kecepatan animator kembali normal saat kondisi tidak pusing
+                animator.speed = 1f;
+
                 // Kondisi normal atau saat berjalan ke arah kanan (D)
                 bool isWalking = Mathf.Abs(horizontalInput) > 0f && !isFlipping;
                 animator.SetBool(isWalkingHash, isWalking);
@@ -181,6 +218,18 @@ public class PlayerController : MonoBehaviour
 
     public void SetDizzyStatus(bool status)
     {
+        // Deteksi jika sebelumnya pusing (true), lalu diubah menjadi tidak pusing (false)
+        if (isDizzy && !status)
+        {
+            isDizzy = false;
+            moveSpeed = originalMoveSpeed;
+            
+            // Jalankan urutan animasi pemulihan otomatis
+            StartCoroutine(DizzyRecoverySequence());
+            return;
+        }
+
+        // Logika dasar bawaan Anda sebelumnya
         isDizzy = status;
 
         if (isDizzy)
@@ -192,6 +241,55 @@ public class PlayerController : MonoBehaviour
             moveSpeed = originalMoveSpeed; 
         }
     }
+
+    private IEnumerator DizzyRecoverySequence()
+    {
+        // 1. Kunci total kontrol player dengan mengubah GameState menjadi Cutscene
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetGameState(GameManager.GameState.Cutscene);
+        }
+
+        // Hentikan pergerakan physics Rigidbody seketika agar tidak meluncur
+        horizontalInput = 0f;
+        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+
+        // 2. Pastikan animator.speed normal (1f) agar animasi tidak membeku
+        if (animator != null)
+        {
+            animator.speed = 1f;
+        }
+
+        // 3. Jalankan animasi "Sit" dan tunggu sampai klip selesai
+        yield return StartCoroutine(PlayAnimationAndWait("Sit"));
+
+        // 4. Jeda beberapa waktu dalam kondisi duduk diam
+        yield return new WaitForSeconds(sitDuration);
+
+        // 5. Jalankan animasi "Stand" dan tunggu sampai klip berdiri selesai
+        yield return StartCoroutine(PlayAnimationAndWait("Stand"));
+
+        // BARU: Kembalikan paksa visual animator ke state Idle default Anda
+        if (animator != null)
+        {
+            animator.Play(defaultStateName, 0, 0f); 
+        }
+
+        // BARU: Pastikan semua flag pengunci input di bawah ini bersih total
+        isFlipping = false;
+        horizontalInput = 0f;
+
+        // 6. Reset status parameter animasi kembali bersih ke mode normal
+        ResetToIdleState();
+
+        // 7. Kembalikan kontrol penuh permainan kepada Player
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetGameState(GameManager.GameState.Play);
+        }
+    }
+
+
 
     public void UpdateMoveSpeed(float newSpeed)
     {
@@ -225,14 +323,31 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Mengembalikan paksa status animasi ke mode diam setelah animasi berdiri selesai.
-    /// </summary>
     public void ResetToIdleState()
     {
         if (animator != null)
         {
             animator.SetBool(isWalkingHash, false);
+            animator.SetBool(isDizzyHash, false); // BARU: Pastikan parameter pusing di animator mati total
+            animator.speed = 1f; // BARU: Pastikan kecepatan animator kembali normal
         }
+    }
+
+       public void SetFacingDirection(bool lookRight)
+    {
+        isFacingRight = lookRight;
+        
+        if (spriteRenderer != null)
+        {
+            // Jika lookRight true (Kanan), flipX harus false (Normal)
+            // Jika lookRight false (Kiri), flipX harus true (Flipped)
+            spriteRenderer.flipX = !isFacingRight;
+        }
+        
+        // Reset status membalik jika sedang terjadi transisi ditengah jalan
+        isFlipping = false;
+        
+        // Perbarui animasi agar state berjalan/diam sinkron dengan arah baru
+        UpdateAnimation();
     }
 }

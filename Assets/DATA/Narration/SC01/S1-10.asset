@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
-  m_Name: SC 01 - Lighthouse Sign
+  m_Name: S1-10
   m_EditorClassIdentifier: 
   dialogueSteps:
   - characterName: Elara
-    expressionName: Normal
-    dialogueText: '"Cirubai Lighthouse"'
+    expressionName: Happy
+    dialogueText: Wow, this place hasn't changed much!
   - characterName: Elara
     expressionName: Happy
-    dialogueText: I can't wait!
+    dialogueText: EXCITT!!-
+  - characterName: Elara
+    expressionName: Normal
+    dialogueText: Wait, I need to lower my voice. I want to surprise Dad.

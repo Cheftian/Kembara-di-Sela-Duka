@@ -82,6 +82,7 @@ MonoBehaviour:
   visualTransform: {fileID: 5995554369849842468}
   animator: {fileID: 7470224318956078941}
   spriteRenderer: {fileID: 6511306753981552757}
+  sitDuration: 0.5
 --- !u!70 &1241457197871714226
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

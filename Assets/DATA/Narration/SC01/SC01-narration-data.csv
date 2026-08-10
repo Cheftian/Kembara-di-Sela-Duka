@@ -1,0 +1,77 @@
+fileName;characterName;expressionName;dialogueText
+S1-1;Elara;Normal;Finally I got here…
+S1-1;Elara;Happy;This place hasn't changed much.
+S1-1;Elara;Normal;Will Dad be surprised that I've suddenly arrived here?
+S1-1;Elara;Happy;Can't wait to meet him.
+S1-1;Elara;Normal;I almost forgot, I need to let my friend know I've arrived.
+;;;
+S1-2;Elara;-;"""Cirubai Lighthouse"""
+S1-2;Elara;Happy;I can't wait!
+;;;
+S1-3;Elara;Happy;The cool sea breeze. Simply the best.
+;;;
+S1-4;Elara;Normal;Now is the time.
+S1-4;Elara;Normal;I think dad is inside
+S1-4;Elara;-;*opening the door, but it is locked
+S1-4;Elara;Questioning;Why is it locked? Isn't Dad inside?
+S1-4;Elara;Normal;Hmm... Maybe Dad is somewhere near the beach?
+S1-4;Elara;Normal;Let me check first.
+;;;
+;;;
+S1-L1;Elara;Normal;Maybe Dad is somewhere near the beach?
+;;;
+S1-5;Elara;Normal;Hmm...
+S1-5;Elara;Angry;Why isn't Dad here too?
+S1-5;Elara;Questioning;Where are you, Dad?
+;;;
+S1-6;Elara;Shocked;My head... What is this pressure?
+S1-6;Elara;Shocked;There is something strange about that swing.
+;;;
+S1-7;Elara;Normal;Let me examine this swing.
+;;;
+S1-M1;Elara;Normal;I noticed something wrong with this swing earlier.
+S1-M1;Elara;Questioning;What is it?
+S1-M1D;Elara;Shocked;Did the strap snap? Is it supposed to be like this, or what?
+S1-M1D;Elara;Questioning;That's weird.
+;;;
+S1-8;Elara;Angry;Anyway, where's Dad?!
+;;;
+S1-9;Elara;Questioning;Wait, why is the door opened? Is Dad inside?
+;;;
+S1-10;Elara;Happy;Wow, this place hasn't changed much!
+S1-10;Elara;Happy;EXCITT!!-
+S1-10;Elara;Normal;Wait, I need to lower my voice. I want to surprise Dad.
+;;;
+S1-11;Elara;Happy;Dad must be inside.
+S1-11;Elara;-;*opening the door, but it is locked
+S1-11;Elara;Angry;Why is everything here locked?
+S1-11;Elara;Angry;Where is he?????
+;;;
+S1-L2;Elara;-;It's locked.
+;;;
+S1-12;Elara;Normal;Father's workspace.
+S1-12;Elara;Normal;It's still very clean here.
+;;;
+S1-M2;Elara;Questioning;What photo is this?
+S1-M2;Elara;Questioning;Why is it broken like this?
+S1-M2;Elara;Normal;It looks like I can put it back together.
+S1-M2D;Elara;Shocked;Huh? Isn't this my photo?
+S1-M2D;Elara;Normal;I wonder when I took this photo?!
+S1-M2D;Elara;Shocked;Oh my God, I can't remember it.
+S1-M2D;Elara;Shocked;Hmm
+S1-M2D;Elara;Angry;Anyway, where on earth is Dad?
+S1-M2E;Elara;Normal;This is my photo.
+;;;
+S1-13;Elara;Angry;I'm tired of Dad's hide-and-seek.
+S1-13;Elara;Angry;Hmm... I'll go look for Dad outside again. Maybe he's out there.
+;;;
+S1-14;Elara;Shocked;HAH?!
+S1-14;Elara;Shocked;How did it suddenly end up like this?
+;;;
+S1-L3;Elara;Shocked;Wait, why is the door locked? What happened?!
+S1-L3;Elara;Angry;This isn't funny anymore. DAD! WHERE ARE YOU?
+;;;
+S1-15;Elara;Sad;OH MY GOD! WHAT IS ACTUALLY GOING ON HERE?
+;;;
+S1-16;Elara;Shocked;Wait…
+S1-16;Elara;Sad;WHY did this room suddenly... get a hole in it...
