@@ -247,7 +247,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3419039
 Transform:
   m_ObjectHideFlags: 0
@@ -1655,16 +1655,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 4bcc821adc36b1b4a9fca0b732e3d60a, type: 2}
     - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
+      propertyPath: endAnimationName
+      value: FFlip-back
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: isNarrativeTrigger
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
+      propertyPath: startAnimationName
+      value: FFlip-turn
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: objectsToEnable.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: objectsToDisable.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: 'objectsToEnable.Array.data[0]'
@@ -1682,6 +1690,10 @@ PrefabInstance:
       propertyPath: 'objectsToEnable.Array.data[3]'
       value: 
       objectReference: {fileID: 332317591}
+    - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
+      propertyPath: 'objectsToEnable.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1987572489}
     - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: 'objectsToDisable.Array.data[0]'
       value: 
@@ -2575,7 +2587,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPortal: {fileID: 1987572492}
   currentRoomParent: {fileID: 1146905867}
-  spawnOffsetX: -0.5
+  spawnOffsetX: -2
   faceDirectionOnSpawn: 0
 --- !u!61 &168547175
 BoxCollider2D:
@@ -6842,7 +6854,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3609790645012100861, guid: 36f7728ad92df6d4892122fbcaa1bc3b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1012.7
+      value: 1013
       objectReference: {fileID: 0}
     - target: {fileID: 3609790645012100861, guid: 36f7728ad92df6d4892122fbcaa1bc3b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10760,7 +10772,7 @@ PrefabInstance:
       objectReference: {fileID: 589815106}
     - target: {fileID: 5027981435955853205, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: m_Name
-      value: S1-L1/S1-9
+      value: I-S1-L1/S1-9
       objectReference: {fileID: 0}
     - target: {fileID: 5027981435955853205, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: m_IsActive
@@ -12711,8 +12723,8 @@ MonoBehaviour:
   - {fileID: 806420933}
   - {fileID: 2035688712}
   - {fileID: 514338192}
-  startAnimationName: 
-  endAnimationName: 
+  startAnimationName: BFlip-turn
+  endAnimationName: BFlip-back
 --- !u!61 &1066783063
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12814,6 +12826,8 @@ PlayableDirector:
     value: {fileID: 617142094}
   - key: {fileID: 60169325587117567, guid: 91d81a4e1b78ded4a8f1648e8725d44b, type: 2}
     value: {fileID: 7015529427876923021}
+  - key: {fileID: -8512761911795367434, guid: 91d81a4e1b78ded4a8f1648e8725d44b, type: 2}
+    value: {fileID: 1124688923}
   m_ExposedReferences:
     m_References: []
 --- !u!1001 &1075871298
@@ -13081,16 +13095,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: c116ad4338371844c9cacd77feeb42eb, type: 2}
     - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
-      propertyPath: endAnimationName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: isNarrativeTrigger
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
-      propertyPath: startAnimationName
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: lockedNarrationData
@@ -13098,7 +13104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5027981435955853205, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: m_Name
-      value: S1-2
+      value: I-S1-2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13309,8 +13315,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: c76b8c0929b8c47448f9f0eaef8fedda, type: 2}
     - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
+      propertyPath: endAnimationName
+      value: FFlip-back
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: isNarrativeTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
+      propertyPath: startAnimationName
+      value: FFlip-turn
       objectReference: {fileID: 0}
     - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: objectsToEnable.Array.size
@@ -13382,6 +13396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1124688922}
   - component: {fileID: 1124688921}
+  - component: {fileID: 1124688923}
   m_Layer: 0
   m_Name: Passage
   m_TagString: Untagged
@@ -13433,7 +13448,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 509
-  m_Sprite: {fileID: 5490947617729711963, guid: ab9255327ef303846a14270f99612940, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 517ecfbc44ca0934eaa2d2a616beed6c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -13453,12 +13468,34 @@ Transform:
   m_GameObject: {fileID: 1124688920}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.6533203, y: 1.02, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalPosition: {x: 1.6533203, y: -0.43, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2040856271}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1124688923
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124688920}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1124704963
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16721,16 +16758,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 63e16be2e039e6b4294c3ad248488a97, type: 2}
     - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
-      propertyPath: endAnimationName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: isNarrativeTrigger
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
-      propertyPath: startAnimationName
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: objectsToEnable.Array.size
@@ -16746,7 +16775,7 @@ PrefabInstance:
       objectReference: {fileID: 2045824418}
     - target: {fileID: 5027981435955853205, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: m_Name
-      value: S1-4
+      value: I-S1-4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23590,7 +23619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPortal: {fileID: 168547174}
   currentRoomParent: {fileID: 1674559280}
-  spawnOffsetX: -0.5
+  spawnOffsetX: -2
   faceDirectionOnSpawn: 0
 --- !u!61 &1987572493
 BoxCollider2D:

@@ -15,7 +15,7 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Normal
-    dialogueText: "Finally I got here\uFFFD"
+    dialogueText: Finally I got here...
   - characterName: Elara
     expressionName: Happy
     dialogueText: This place hasn't changed much.

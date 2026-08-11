@@ -350,4 +350,10 @@ private void HandleFlip()
         // Perbarui animasi agar state berjalan/diam sinkron dengan arah baru
         UpdateAnimation();
     }
+
+    public void ClearDizzyMemory()
+    {
+        wasDizzyFromLeftWalk = false;
+    }
+
 }

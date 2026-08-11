@@ -81,9 +81,16 @@ public class GlitchSprite : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            if (activePlayer != null && activePlayer.IsDizzy)
+            if (activePlayer != null)
             {
-                activePlayer.SetDizzyStatus(false);
+                // 1. Matikan status pusing jika dia keluar area saat masih berjalan pusing ke kiri
+                if (activePlayer.IsDizzy)
+                {
+                    activePlayer.SetDizzyStatus(false);
+                }
+
+                // 2. BARU: Paksa hapus memori pusing kiri agar saat berjalan ke kiri di luar area tidak pusing lagi
+                activePlayer.ClearDizzyMemory(); 
             }
 
             StopGlitchEffect();

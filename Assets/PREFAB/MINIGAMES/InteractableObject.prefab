@@ -58,8 +58,8 @@ MonoBehaviour:
   narrationData: {fileID: 0}
   objectsToEnable: []
   objectsToDisable: []
-  startAnimationName: 
-  endAnimationName: 
+  startAnimationName: BFlip-turn
+  endAnimationName: BFlip-back
 --- !u!61 &747353449072506367
 BoxCollider2D:
   m_ObjectHideFlags: 0
