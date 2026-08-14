@@ -15,7 +15,9 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: '-'
-    dialogueText: '"Cirubai Lighthouse"'
+    dialogueEN: '"Cirubai Lighthouse"'
+    dialogueID: '"Cirubai Lighthouse"'
   - characterName: Elara
     expressionName: Happy
-    dialogueText: I can't wait!
+    dialogueEN: I can't wait!
+    dialogueID: Gak sabarnya!

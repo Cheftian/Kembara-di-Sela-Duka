@@ -15,4 +15,5 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Angry
-    dialogueText: Anyway, where's Dad?!
+    dialogueEN: Anyway, where's Dad?!
+    dialogueID: Omong-omong, Ayah di mana sih?!

@@ -6,9 +6,14 @@ public class NarrationData : ScriptableObject
     [System.Serializable]
     public struct DialogueStep
     {
-        public string characterName; // Harus pas dengan nama di NarrationManager
-        public string expressionName; // Harus pas dengan nama ekspresi di list
-        [TextArea(3, 10)] public string dialogueText;
+        public string characterName; 
+        public string expressionName; 
+        
+        [TextArea(3, 5), Header("Bahasa Inggris")] 
+        public string dialogueEN;
+
+        [TextArea(3, 5), Header("Bahasa Indonesia")] 
+        public string dialogueID;
     }
 
     [Tooltip("Daftar urutan percakapan dan karakternya")]

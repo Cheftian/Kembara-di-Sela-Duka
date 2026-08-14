@@ -15,4 +15,5 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Normal
-    dialogueText: Let me examine this swing.
+    dialogueEN: Let me examine this swing.
+    dialogueID: Aku cek dulu.

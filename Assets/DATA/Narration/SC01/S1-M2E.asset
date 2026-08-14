@@ -15,4 +15,5 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Normal
-    dialogueText: This is my photo.
+    dialogueEN: This is my photo.
+    dialogueID: Ini fotoku.

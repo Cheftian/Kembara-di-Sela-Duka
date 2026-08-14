@@ -15,4 +15,5 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Questioning
-    dialogueText: Wait, why is the door opened? Is Dad inside?
+    dialogueEN: Wait, why is the door opened? Is Dad inside?
+    dialogueID: Tunggu, kenapa pintunya terbuka? Apa Ayah di dalam

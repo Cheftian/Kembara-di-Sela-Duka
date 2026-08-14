@@ -15,7 +15,9 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Shocked
-    dialogueText: My head... What is this pressure?
+    dialogueEN: My head... What is this pressure?
+    dialogueID: "Kepalaku\uFFFD Tekanan apa ini?"
   - characterName: Elara
     expressionName: Shocked
-    dialogueText: There is something strange about that swing.
+    dialogueEN: There is something strange about that swing.
+    dialogueID: Ada yang aneh sama bandulan ini.

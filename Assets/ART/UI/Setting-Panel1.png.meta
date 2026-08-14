@@ -138,10 +138,10 @@ TextureImporter:
       name: Setting-Panel1_0
       rect:
         serializedVersion: 2
-        x: 434
-        y: 665
-        width: 46
-        height: 50
+        x: 435
+        y: 666
+        width: 44
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,10 +160,10 @@ TextureImporter:
       name: Setting-Panel1_1
       rect:
         serializedVersion: 2
-        x: 831
-        y: 154
-        width: 941
-        height: 724
+        x: 832
+        y: 155
+        width: 939
+        height: 722
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,10 +182,10 @@ TextureImporter:
       name: Setting-Panel1_2
       rect:
         serializedVersion: 2
-        x: 234
-        y: 563
-        width: 423
-        height: 27
+        x: 235
+        y: 564
+        width: 421
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,10 +204,10 @@ TextureImporter:
       name: Setting-Panel1_3
       rect:
         serializedVersion: 2
-        x: 234
-        y: 464
-        width: 423
-        height: 27
+        x: 235
+        y: 465
+        width: 421
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -222,11 +222,55 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Setting-Panel1_4
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 299
+        width: 206
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fede922dfb6c06c419c8ecb243e8ae42
+      internalID: -58409363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Setting-Panel1_6
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 169
+        width: 206
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea7310f09a364fc47b812f513290f20f
+      internalID: 827425111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ea503929e2f43c749b65580fa01aa4ca
     internalID: 0
     vertices: []
     indices: 
@@ -240,6 +284,10 @@ TextureImporter:
       Setting-Panel1_1: 7375193087339418365
       Setting-Panel1_2: -3977539748822003550
       Setting-Panel1_3: -2075079316309994772
+      Setting-Panel1_4: -58409363
+      Setting-Panel1_5: 287206160
+      Setting-Panel1_6: 827425111
+      Setting-Panel1_7: 844671050
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

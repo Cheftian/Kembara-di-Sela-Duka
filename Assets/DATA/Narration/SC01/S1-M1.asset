@@ -15,7 +15,9 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Normal
-    dialogueText: I noticed something wrong with this swing earlier.
+    dialogueEN: I noticed something wrong with this swing earlier.
+    dialogueID: Aku perhatiin, sebelumnya ada yang beda sama bandulan ini.
   - characterName: Elara
     expressionName: Questioning
-    dialogueText: What is it?
+    dialogueEN: What is it?
+    dialogueID: Apa itu?

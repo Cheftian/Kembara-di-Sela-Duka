@@ -15,19 +15,25 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Normal
-    dialogueText: Now is the time.
+    dialogueEN: Now is the time.
+    dialogueID: Ini saatnya
   - characterName: Elara
     expressionName: Normal
-    dialogueText: I think dad is inside
+    dialogueEN: I think dad is inside
+    dialogueID: Keknya Ayah di dalam
   - characterName: Elara
     expressionName: '-'
-    dialogueText: '*opening the door, but it is locked'
+    dialogueEN: '*opening the door, but it is locked'
+    dialogueID: '*membuka pintu, tapi terkunci'
   - characterName: Elara
     expressionName: Questioning
-    dialogueText: Why is it locked? Isn't Dad inside?
+    dialogueEN: Why is it locked? Isn't Dad inside?
+    dialogueID: Kok terkunci? Bukankah Ayah di dalam?
   - characterName: Elara
     expressionName: Normal
-    dialogueText: Hmm... Maybe Dad is somewhere near the beach?
+    dialogueEN: Hmm... Maybe Dad is somewhere near the beach?
+    dialogueID: "Hmm\uFFFD Sepertinya Ayah di sekitar pantai"
   - characterName: Elara
     expressionName: Normal
-    dialogueText: Let me check first.
+    dialogueEN: Let me check first.
+    dialogueID: Aku cek dulu.

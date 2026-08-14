@@ -15,4 +15,5 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Normal
-    dialogueText: Maybe Dad is somewhere near the beach?
+    dialogueEN: Maybe Dad is somewhere near the beach?
+    dialogueID: Mungkin Ayah ada di sekitar pantai?

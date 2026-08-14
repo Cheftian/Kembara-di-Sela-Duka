@@ -15,4 +15,5 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Happy
-    dialogueText: The cool sea breeze. Simply the best.
+    dialogueEN: The cool sea breeze. Simply the best.
+    dialogueID: Udara sejukk ini, emang yang terbaik

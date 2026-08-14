@@ -15,16 +15,21 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Shocked
-    dialogueText: Huh? Isn't this my photo?
+    dialogueEN: Huh? Isn't this my photo?
+    dialogueID: Eh? Bukankah ini fotoku?
   - characterName: Elara
     expressionName: Normal
-    dialogueText: I wonder when I took this photo?!
+    dialogueEN: I wonder when I took this photo?!
+    dialogueID: Dipikir-pikir kapan ya aku ambil ni foto?!
   - characterName: Elara
     expressionName: Shocked
-    dialogueText: Oh my God, I can't remember it.
+    dialogueEN: Oh my God, I can't remember it.
+    dialogueID: Astaga, gak ingat.
   - characterName: Elara
     expressionName: Shocked
-    dialogueText: Hmm
+    dialogueEN: Hmm
+    dialogueID: Hmm
   - characterName: Elara
     expressionName: Angry
-    dialogueText: Anyway, where on earth is Dad?
+    dialogueEN: Anyway, where on earth is Dad?
+    dialogueID: Omong-omong, di mana sih Ayah?

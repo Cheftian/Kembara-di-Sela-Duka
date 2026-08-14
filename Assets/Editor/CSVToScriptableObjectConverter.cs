@@ -57,7 +57,8 @@ public class CSVToScriptableObjectConverter : EditorWindow
             // Memisahkan kolom dengan metode kustom yang aman dari gangguan tanda petik
             List<string> columns = SplitCSVLine(line, delimiter);
 
-            if (columns.Count >= 4)
+            // DIUBAH: Sekarang mengecek minimal ada 5 kolom (File, Karakter, Ekspresi, EN, ID)
+            if (columns.Count >= 5)
             {
                 string targetFileName = columns[0].Trim();
                 if (string.IsNullOrEmpty(targetFileName))
@@ -66,11 +67,13 @@ public class CSVToScriptableObjectConverter : EditorWindow
                     continue;
                 }
 
+                // DIUBAH: Memasukkan data ke dialogueEN (kolom 4) dan dialogueID (kolom 5)
                 NarrationData.DialogueStep step = new NarrationData.DialogueStep
                 {
                     characterName = columns[1].Trim(),
                     expressionName = columns[2].Trim(),
-                    dialogueText = columns[3].Replace("\\n", "\n").Trim()
+                    dialogueEN = columns[3].Replace("\\n", "\n").Trim(),
+                    dialogueID = columns[4].Replace("\\n", "\n").Trim()
                 };
 
                 if (!narrationGroups.ContainsKey(targetFileName))
@@ -90,7 +93,7 @@ public class CSVToScriptableObjectConverter : EditorWindow
         if (totalRowsImported == 0)
         {
             Debug.LogError($"[Gagal Import] Baris dialog terbaca 0! Terdeteksi {rejectedRows} baris tidak valid. " +
-                           $"Pastikan struktur CSV Anda memiliki minimal 4 kolom.");
+                           $"Pastikan struktur CSV Anda memiliki minimal 5 kolom (NamaFile, Karakter, Ekspresi, DialogueEN, DialogueID).");
             return;
         }
 
@@ -127,10 +130,9 @@ public class CSVToScriptableObjectConverter : EditorWindow
 
         Debug.Log($"<color=cyan><b>[Import Selesai]</b></color> Berhasil memproses total <b>{totalRowsImported}</b> baris dialog.\n" +
                   $"Folder Tujuan: <i>{targetFolder}</i>\n" +
-                  $"🆕 File Baru: <color=green><b>{createdCount}</b></color> | 🔄 Diperbarui: <color=yellow><b>{updatedCount}</b></color>");
+                  $"🆕 File Baru: <color=green><b>{createdCount}</b></color> | 🔄 Diperbarui: <color=yellow><b>{updatedCount}</b></color> | ❌ Ditolak: <color=red><b>{rejectedRows}</b></color>");
     }
 
-    // Fungsi pembantu untuk memotong kolom CSV secara aman dan membersihkan tanda petik luar
     private static List<string> SplitCSVLine(string line, char delimiter)
     {
         List<string> result = new List<string>();
@@ -139,12 +141,10 @@ public class CSVToScriptableObjectConverter : EditorWindow
         foreach (string raw in rawSplits)
         {
             string cleaned = raw.Trim();
-            // Bersihkan tanda petik pembungkus di awal dan akhir kolom jika ada
             if (cleaned.StartsWith("\"") && cleaned.EndsWith("\"") && cleaned.Length >= 2)
             {
                 cleaned = cleaned.Substring(1, cleaned.Length - 2);
             }
-            // Bersihkan lagi tanda petik sisa jika masih ganda akibat sistem Excel
             cleaned = cleaned.Replace("\"\"", "\"");
             result.Add(cleaned);
         }

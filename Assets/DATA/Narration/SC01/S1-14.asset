@@ -15,7 +15,9 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Shocked
-    dialogueText: HAH?!
+    dialogueEN: HAH?!
+    dialogueID: HAH?!
   - characterName: Elara
     expressionName: Shocked
-    dialogueText: How did it suddenly end up like this?
+    dialogueEN: How did it suddenly end up like this?
+    dialogueID: Kok tiba-tiba jadi gini??

@@ -1,77 +1,77 @@
-fileName;characterName;expressionName;dialogueText
-S1-1;Elara;Normal;Finally I got here…
-S1-1;Elara;Happy;This place hasn't changed much.
-S1-1;Elara;Normal;Will Dad be surprised that I've suddenly arrived here?
-S1-1;Elara;Happy;Can't wait to meet him.
-S1-1;Elara;Normal;I almost forgot, I need to let my friend know I've arrived.
-;;;
-S1-2;Elara;-;"""Cirubai Lighthouse"""
-S1-2;Elara;Happy;I can't wait!
-;;;
-S1-3;Elara;Happy;The cool sea breeze. Simply the best.
-;;;
-S1-4;Elara;Normal;Now is the time.
-S1-4;Elara;Normal;I think dad is inside
-S1-4;Elara;-;*opening the door, but it is locked
-S1-4;Elara;Questioning;Why is it locked? Isn't Dad inside?
-S1-4;Elara;Normal;Hmm... Maybe Dad is somewhere near the beach?
-S1-4;Elara;Normal;Let me check first.
-;;;
-;;;
-S1-L1;Elara;Normal;Maybe Dad is somewhere near the beach?
-;;;
-S1-5;Elara;Normal;Hmm...
-S1-5;Elara;Angry;Why isn't Dad here too?
-S1-5;Elara;Questioning;Where are you, Dad?
-;;;
-S1-6;Elara;Shocked;My head... What is this pressure?
-S1-6;Elara;Shocked;There is something strange about that swing.
-;;;
-S1-7;Elara;Normal;Let me examine this swing.
-;;;
-S1-M1;Elara;Normal;I noticed something wrong with this swing earlier.
-S1-M1;Elara;Questioning;What is it?
-S1-M1D;Elara;Shocked;Did the strap snap? Is it supposed to be like this, or what?
-S1-M1D;Elara;Questioning;That's weird.
-;;;
-S1-8;Elara;Angry;Anyway, where's Dad?!
-;;;
-S1-9;Elara;Questioning;Wait, why is the door opened? Is Dad inside?
-;;;
-S1-10;Elara;Happy;Wow, this place hasn't changed much!
-S1-10;Elara;Happy;EXCITT!!-
-S1-10;Elara;Normal;Wait, I need to lower my voice. I want to surprise Dad.
-;;;
-S1-11;Elara;Happy;Dad must be inside.
-S1-11;Elara;-;*opening the door, but it is locked
-S1-11;Elara;Angry;Why is everything here locked?
-S1-11;Elara;Angry;Where is he?????
-;;;
-S1-L2;Elara;-;It's locked.
-;;;
-S1-12;Elara;Normal;Father's workspace.
-S1-12;Elara;Normal;It's still very clean here.
-;;;
-S1-M2;Elara;Questioning;What photo is this?
-S1-M2;Elara;Questioning;Why is it broken like this?
-S1-M2;Elara;Normal;It looks like I can put it back together.
-S1-M2D;Elara;Shocked;Huh? Isn't this my photo?
-S1-M2D;Elara;Normal;I wonder when I took this photo?!
-S1-M2D;Elara;Shocked;Oh my God, I can't remember it.
-S1-M2D;Elara;Shocked;Hmm
-S1-M2D;Elara;Angry;Anyway, where on earth is Dad?
-S1-M2E;Elara;Normal;This is my photo.
-;;;
-S1-13;Elara;Angry;I'm tired of Dad's hide-and-seek.
-S1-13;Elara;Angry;Hmm... I'll go look for Dad outside again. Maybe he's out there.
-;;;
-S1-14;Elara;Shocked;HAH?!
-S1-14;Elara;Shocked;How did it suddenly end up like this?
-;;;
-S1-L3;Elara;Shocked;Wait, why is the door locked? What happened?!
-S1-L3;Elara;Angry;This isn't funny anymore. DAD! WHERE ARE YOU?
-;;;
-S1-15;Elara;Sad;OH MY GOD! WHAT IS ACTUALLY GOING ON HERE?
-;;;
-S1-16;Elara;Shocked;Wait…
-S1-16;Elara;Sad;WHY did this room suddenly... get a hole in it...
+FileName;CharacterName;ExpressionName;DialogueEN;DialogueID
+S1-1;Elara;Normal;Finally I got here…;Akhirnya nyampe juga…
+S1-1;Elara;Happy;This place hasn't changed much.;Tempat ini gak banyak berubah
+S1-1;Elara;Normal;Will Dad be surprised that I've suddenly arrived here?;Ayah kaget gak ya aku tiba-tiba nyampe di sini?
+S1-1;Elara;Happy;Can't wait to meet him.;Gakk sabarnyaa ketemu Ayah
+S1-1;Elara;Normal;I almost forgot, I need to let my friend know I've arrived.;Ohya hampir lupa, aku harus ngabarin temenku kalau aku dah sampai.
+;;;;
+S1-2;Elara;-;"""Cirubai Lighthouse""";"""Cirubai Lighthouse"""
+S1-2;Elara;Happy;I can't wait!;Gak sabarnya!
+;;;;
+S1-3;Elara;Happy;The cool sea breeze. Simply the best.;Udara sejukk ini, emang yang terbaik
+;;;;
+S1-4;Elara;Normal;Now is the time.;Ini saatnya
+S1-4;Elara;Normal;I think dad is inside;Keknya Ayah di dalam
+S1-4;Elara;-;*opening the door, but it is locked;*membuka pintu, tapi terkunci
+S1-4;Elara;Questioning;Why is it locked? Isn't Dad inside?;Kok terkunci? Bukankah Ayah di dalam?
+S1-4;Elara;Normal;Hmm... Maybe Dad is somewhere near the beach?;Hmm… Sepertinya Ayah di sekitar pantai
+S1-4;Elara;Normal;Let me check first.;Aku cek dulu.
+;;;;
+;;;;
+S1-L1;Elara;Normal;Maybe Dad is somewhere near the beach?;Mungkin Ayah ada di sekitar pantai?
+;;;;
+S1-5;Elara;Normal;Hmm...;Hmm…
+S1-5;Elara;Angry;Why isn't Dad here too?;Kenapa ayah gak di sini juga?
+S1-5;Elara;Questioning;Where are you, Dad?;Di mana sih kamu, Yah?
+;;;;
+S1-6;Elara;Shocked;My head... What is this pressure?;Kepalaku… Tekanan apa ini?
+S1-6;Elara;Shocked;There is something strange about that swing.;Ada yang aneh sama bandulan ini.
+;;;;
+S1-7;Elara;Normal;Let me examine this swing.;Aku cek dulu.
+;;;;
+S1-M1;Elara;Normal;I noticed something wrong with this swing earlier.;Aku perhatiin, sebelumnya ada yang beda sama bandulan ini. 
+S1-M1;Elara;Questioning;What is it?;Apa itu?
+S1-M1D;Elara;Shocked;Did the strap snap? Is it supposed to be like this, or what?;Apa talinya terputus? Ini emang fitur atau bug?
+S1-M1D;Elara;Questioning;That's weird.;Aneh.
+;;;;
+S1-8;Elara;Angry;Anyway, where's Dad?!;Omong-omong, Ayah di mana sih?!
+;;;;
+S1-9;Elara;Questioning;Wait, why is the door opened? Is Dad inside?;Tunggu, kenapa pintunya terbuka? Apa Ayah di dalam
+;;;;
+S1-10;Elara;Happy;Wow, this place hasn't changed much!;Wow, tempat ini gak banyak berubah!
+S1-10;Elara;Happy;EXCITT!!-;ASIKKNY-
+S1-10;Elara;Normal;Wait, I need to lower my voice. I want to surprise Dad.;Duh, gak boleh berisik. Aku mau ngejutin Ayah.
+;;;;
+S1-11;Elara;Happy;Dad must be inside.;Ayah pasti di dalam.
+S1-11;Elara;-;*opening the door, but it is locked;*membuka pintu, tapi terkunci
+S1-11;Elara;Angry;Why is everything here locked?;Kenapa semua pintu kekunci?
+S1-11;Elara;Angry;Where is he?????;Manaa sih Ayah?????
+;;;;
+S1-L2;Elara;-;It's locked.;Pintu terkunci.
+;;;;
+S1-12;Elara;Normal;Father's workspace.;Ruang kerja Ayah.
+S1-12;Elara;Normal;It's still very clean here.;Masih keliatan bersih banget.
+;;;;
+S1-M2;Elara;Questioning;What photo is this?;Foto apa ini?
+S1-M2;Elara;Questioning;Why is it broken like this?;Kenapa rusak gini?
+S1-M2;Elara;Normal;It looks like I can put it back together.;Keknya aku bisa nyatuin kembali.
+S1-M2D;Elara;Shocked;Huh? Isn't this my photo?;Eh? Bukankah ini fotoku?
+S1-M2D;Elara;Normal;I wonder when I took this photo?!;Dipikir-pikir kapan ya aku ambil ni foto?!
+S1-M2D;Elara;Shocked;Oh my God, I can't remember it.;Astaga, gak ingat.
+S1-M2D;Elara;Shocked;Hmm;Hmm
+S1-M2D;Elara;Angry;Anyway, where on earth is Dad?;Omong-omong, di mana sih Ayah?
+S1-M2E;Elara;Normal;This is my photo.;Ini fotoku.
+;;;;
+S1-13;Elara;Angry;I'm tired of Dad's hide-and-seek.;Capek bet petak umpet sama Ayah.
+S1-13;Elara;Angry;Hmm... I'll go look for Dad outside again. Maybe he's out there.;Hmm… Aku cek lagi di luar deh. Mungkin Ayah di luar.
+;;;;
+S1-14;Elara;Shocked;HAH?!;HAH?!
+S1-14;Elara;Shocked;How did it suddenly end up like this?;Kok tiba-tiba jadi gini??
+;;;;
+S1-L3;Elara;Shocked;Wait, why is the door locked? What happened?!;Tunggu, kenapa pintunya kekunci? Kenapa ini?!
+S1-L3;Elara;Angry;This isn't funny anymore. DAD! WHERE ARE YOU?;Gak lucu, Yah! AYAH DI MANA?
+;;;;
+S1-15;Elara;Sad;OH MY GOD! WHAT IS ACTUALLY GOING ON HERE?;YA TUHAN! APA YANG SEBENARNYA TERJADI DI SINI?
+;;;;
+S1-16;Elara;Shocked;Wait…;Tunggu…
+S1-16;Elara;Sad;WHY did this room suddenly... get a hole in it...;KENAPA ruangan ini…tiba-tiba berlubang…

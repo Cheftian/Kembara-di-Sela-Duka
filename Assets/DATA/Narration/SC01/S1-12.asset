@@ -15,7 +15,9 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Normal
-    dialogueText: Father's workspace.
+    dialogueEN: Father's workspace.
+    dialogueID: Ruang kerja Ayah.
   - characterName: Elara
     expressionName: Normal
-    dialogueText: It's still very clean here.
+    dialogueEN: It's still very clean here.
+    dialogueID: Masih keliatan bersih banget.

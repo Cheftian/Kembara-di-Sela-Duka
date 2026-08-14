@@ -15,7 +15,9 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Angry
-    dialogueText: I'm tired of Dad's hide-and-seek.
+    dialogueEN: I'm tired of Dad's hide-and-seek.
+    dialogueID: Capek bet petak umpet sama Ayah.
   - characterName: Elara
     expressionName: Angry
-    dialogueText: Hmm... I'll go look for Dad outside again. Maybe he's out there.
+    dialogueEN: Hmm... I'll go look for Dad outside again. Maybe he's out there.
+    dialogueID: "Hmm\uFFFD Aku cek lagi di luar deh. Mungkin Ayah di luar."

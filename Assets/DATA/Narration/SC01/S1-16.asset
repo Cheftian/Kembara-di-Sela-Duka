@@ -15,7 +15,9 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Shocked
-    dialogueText: "Wait\uFFFD"
+    dialogueEN: "Wait\uFFFD"
+    dialogueID: "Tunggu\uFFFD"
   - characterName: Elara
     expressionName: Sad
-    dialogueText: WHY did this room suddenly... get a hole in it...
+    dialogueEN: WHY did this room suddenly... get a hole in it...
+    dialogueID: "KENAPA ruangan ini\uFFFDtiba-tiba berlubang\uFFFD"

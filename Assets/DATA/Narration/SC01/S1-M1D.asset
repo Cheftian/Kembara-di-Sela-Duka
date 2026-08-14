@@ -15,7 +15,9 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Shocked
-    dialogueText: Did the strap snap? Is it supposed to be like this, or what?
+    dialogueEN: Did the strap snap? Is it supposed to be like this, or what?
+    dialogueID: Apa talinya terputus? Ini emang fitur atau bug?
   - characterName: Elara
     expressionName: Questioning
-    dialogueText: That's weird.
+    dialogueEN: That's weird.
+    dialogueID: Aneh.

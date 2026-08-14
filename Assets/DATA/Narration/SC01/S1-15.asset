@@ -15,4 +15,5 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Sad
-    dialogueText: OH MY GOD! WHAT IS ACTUALLY GOING ON HERE?
+    dialogueEN: OH MY GOD! WHAT IS ACTUALLY GOING ON HERE?
+    dialogueID: YA TUHAN! APA YANG SEBENARNYA TERJADI DI SINI?

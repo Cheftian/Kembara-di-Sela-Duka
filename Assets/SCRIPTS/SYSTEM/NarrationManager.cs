@@ -2,12 +2,20 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using UnityEngine.UI; 
 
 public class NarrationManager : MonoBehaviour
 {
     public static NarrationManager Instance { get; private set; }
+
+    // --- SISTEM LOCALIZATION SEDERHANA ---
+    public enum Language { English, Indonesia }
+    [Header("Localization Settings")]
+    [SerializeField] private Language currentLanguage = Language.Indonesia; // Default bahasa
+    
+    // Menyimpan data ScriptableObject yang sedang aktif agar bisa di-refresh jika toggle ditekan di tengah dialog
+    private NarrationData currentActiveData; 
+    private int currentLineIndex = 0; 
 
     [System.Serializable]
     public struct ExpressionData
@@ -20,10 +28,10 @@ public class NarrationManager : MonoBehaviour
     public struct CharacterUIConfig
     {
         public string characterName;
-        public GameObject narrativePanel; // Text box khusus karakter ini
-        public TextMeshProUGUI dialogueText; // Text komponen di text box ini
-        public Image characterImage; // Komponen Image untuk Sprite wajah
-        public List<ExpressionData> expressions; // List ekspresi wajah
+        public GameObject narrativePanel; 
+        public TextMeshProUGUI dialogueText; 
+        public Image characterImage; 
+        public List<ExpressionData> expressions; 
     }
 
     [Header("Character Setup (Maksimal 3)")]
@@ -75,19 +83,49 @@ public class NarrationManager : MonoBehaviour
         }
     }
 
+    // --- FUNGSI BARU UNTUK DIHUBUNGKAN KE TOMBOL TOGEL UI ---
+    public void ToggleLanguage(bool isToggledOn)
+    {
+        // Contoh: Jika toggle bernilai true (ON) -> English, jika false (OFF) -> Indonesia
+        currentLanguage = isToggledOn ? Language.English : Language.Indonesia;
+
+        // Jika pemain mengubah bahasa SAAT dialog sedang berjalan, langsung update teks di layar
+        if (IsNarrating && !isTransitioning && currentActiveData != null)
+        {
+            // Ambil data baris teks saat ini dari ScriptableObject
+            NarrationData.DialogueStep currentStep = currentActiveData.dialogueSteps[currentLineIndex];
+            
+            // Pilih teks bahasa baru
+            string rawText = (currentLanguage == Language.English) ? currentStep.dialogueEN : currentStep.dialogueID;
+            currentLineText = ProcessText(rawText);
+
+            if (isTyping)
+            {
+                // Jika sedang mengetik, stop mengetik teks lama dan mulai mengetik teks baru dari awal
+                if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+                typingCoroutine = StartCoroutine(TypeText(currentLineText));
+            }
+            else
+            {
+                // Jika teks sudah selesai diketik, langsung ubah teks penuhnya
+                activeDialogueText.text = currentLineText;
+            }
+        }
+    }
+
     public void PlayNarration(NarrationData data)
     {
         if (data == null || isTransitioning || characters.Length == 0) return;
 
         GameManager.Instance.SetGameState(GameManager.GameState.Cutscene);
         
+        currentActiveData = data; // Simpan cache data yang sedang diputar
+        currentLineIndex = -1; // Reset index baris teks (-1 karena akan langsung ditambah di DisplayNextLine)
+
         linesQueue.Clear();
         foreach (NarrationData.DialogueStep step in data.dialogueSteps)
         {
-            NarrationData.DialogueStep processedStep = step;
-            // Ditambahkan fungsi fallback jika fungsi ProcessText Anda belum lengkap di potongan kode awal
-            processedStep.dialogueText = ProcessText(step.dialogueText); 
-            linesQueue.Enqueue(processedStep);
+            linesQueue.Enqueue(step);
         }
 
         canProcessInput = false;
@@ -129,6 +167,7 @@ public class NarrationManager : MonoBehaviour
         }
 
         NarrationData.DialogueStep currentStep = linesQueue.Dequeue();
+        currentLineIndex++; // Lacak baris text ke berapa yang sedang aktif saat ini
         
         CharacterUIConfig targetCharacter = System.Array.Find(characters, c => c.characterName == currentStep.characterName);
 
@@ -138,7 +177,9 @@ public class NarrationManager : MonoBehaviour
             return;
         }
 
-        currentLineText = currentStep.dialogueText;
+        // LOGIKA MEMILIH BAHASA BERDASARKAN SYSTEM STATE
+        string rawText = (currentLanguage == Language.English) ? currentStep.dialogueEN : currentStep.dialogueID;
+        currentLineText = ProcessText(rawText);
 
         SetupCharacterUI(targetCharacter, currentStep.expressionName);
 
@@ -156,7 +197,6 @@ public class NarrationManager : MonoBehaviour
     
     private void SetupCharacterUI(CharacterUIConfig targetCharacter, string expressionName)
     {
-        // Matikan panel karakter lain yang tidak berbicara
         foreach (var character in characters)
         {
             if (character.characterName != targetCharacter.characterName && character.narrativePanel.activeSelf)
@@ -166,17 +206,14 @@ public class NarrationManager : MonoBehaviour
             }
         }
 
-        // LOGIKA PENYEMBUNYIAN SPRITE KARAKTER
         if (targetCharacter.characterImage != null)
         {
-            // Jika ekspresi ditulis "-", matikan object gambar karakter
             if (expressionName == "-")
             {
                 targetCharacter.characterImage.gameObject.SetActive(false);
             }
             else
             {
-                // Jika bukan "-", pastikan gambar karakter aktif kembali
                 targetCharacter.characterImage.gameObject.SetActive(true);
 
                 if (targetCharacter.expressions != null)
@@ -242,9 +279,10 @@ public class NarrationManager : MonoBehaviour
         }
 
         activePanelRect.anchoredPosition = hiddenPosition;
-        targetCharacterActivePanelToNull(); // Fungsi pembantu opsional untuk reset panel aktif
+        targetCharacterActivePanelToNull(); 
         isTransitioning = false;
-        GameManager.Instance.SetGameState(GameManager.GameState.Play); // Sesuai logika dasar game Anda
+        currentActiveData = null; // Clear data cache saat narasi selesai
+        GameManager.Instance.SetGameState(GameManager.GameState.Play); 
     }
 
     private void targetCharacterActivePanelToNull()

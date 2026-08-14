@@ -15,10 +15,13 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Normal
-    dialogueText: Hmm...
+    dialogueEN: Hmm...
+    dialogueID: "Hmm\uFFFD"
   - characterName: Elara
     expressionName: Angry
-    dialogueText: Why isn't Dad here too?
+    dialogueEN: Why isn't Dad here too?
+    dialogueID: Kenapa ayah gak di sini juga?
   - characterName: Elara
     expressionName: Questioning
-    dialogueText: Where are you, Dad?
+    dialogueEN: Where are you, Dad?
+    dialogueID: Di mana sih kamu, Yah?

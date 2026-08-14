@@ -15,10 +15,13 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Questioning
-    dialogueText: What photo is this?
+    dialogueEN: What photo is this?
+    dialogueID: Foto apa ini?
   - characterName: Elara
     expressionName: Questioning
-    dialogueText: Why is it broken like this?
+    dialogueEN: Why is it broken like this?
+    dialogueID: Kenapa rusak gini?
   - characterName: Elara
     expressionName: Normal
-    dialogueText: It looks like I can put it back together.
+    dialogueEN: It looks like I can put it back together.
+    dialogueID: Keknya aku bisa nyatuin kembali.

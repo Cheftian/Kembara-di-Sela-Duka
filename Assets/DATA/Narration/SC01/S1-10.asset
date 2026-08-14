@@ -15,10 +15,13 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Happy
-    dialogueText: Wow, this place hasn't changed much!
+    dialogueEN: Wow, this place hasn't changed much!
+    dialogueID: Wow, tempat ini gak banyak berubah!
   - characterName: Elara
     expressionName: Happy
-    dialogueText: EXCITT!!-
+    dialogueEN: EXCITT!!-
+    dialogueID: ASIKKNY-
   - characterName: Elara
     expressionName: Normal
-    dialogueText: Wait, I need to lower my voice. I want to surprise Dad.
+    dialogueEN: Wait, I need to lower my voice. I want to surprise Dad.
+    dialogueID: Duh, gak boleh berisik. Aku mau ngejutin Ayah.

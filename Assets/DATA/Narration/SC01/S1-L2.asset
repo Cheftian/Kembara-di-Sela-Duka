@@ -15,4 +15,5 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: '-'
-    dialogueText: It's locked.
+    dialogueEN: It's locked.
+    dialogueID: Pintu terkunci.

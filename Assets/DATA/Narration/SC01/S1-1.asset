@@ -15,16 +15,21 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Normal
-    dialogueText: Finally I got here...
+    dialogueEN: Finally I got here.
+    dialogueID: Akhirnya nyampe juga.
   - characterName: Elara
     expressionName: Happy
-    dialogueText: This place hasn't changed much.
+    dialogueEN: This place hasn't changed much.
+    dialogueID: Tempat ini gak banyak berubah
   - characterName: Elara
     expressionName: Normal
-    dialogueText: Will Dad be surprised that I've suddenly arrived here?
+    dialogueEN: Will Dad be surprised that I've suddenly arrived here?
+    dialogueID: Ayah kaget gak ya aku tiba-tiba nyampe di sini?
   - characterName: Elara
     expressionName: Happy
-    dialogueText: Can't wait to meet him.
+    dialogueEN: Can't wait to meet him.
+    dialogueID: Gakk sabarnyaa ketemu Ayah
   - characterName: Elara
     expressionName: Normal
-    dialogueText: I almost forgot, I need to let my friend know I've arrived.
+    dialogueEN: I almost forgot, I need to let my friend know I've arrived.
+    dialogueID: Ohya hampir lupa, aku harus ngabarin temenku kalau aku dah sampai.

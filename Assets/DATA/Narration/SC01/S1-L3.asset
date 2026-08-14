@@ -15,7 +15,9 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: Shocked
-    dialogueText: Wait, why is the door locked? What happened?!
+    dialogueEN: Wait, why is the door locked? What happened?!
+    dialogueID: Tunggu, kenapa pintunya kekunci? Kenapa ini?!
   - characterName: Elara
     expressionName: Angry
-    dialogueText: This isn't funny anymore. DAD! WHERE ARE YOU?
+    dialogueEN: This isn't funny anymore. DAD! WHERE ARE YOU?
+    dialogueID: Gak lucu, Yah! AYAH DI MANA?
