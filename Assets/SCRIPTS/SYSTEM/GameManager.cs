@@ -103,12 +103,32 @@ public class GameManager : MonoBehaviour
     {
         currentState = newState;
         
+        // Jika berganti dari Play ke Cutscene atau Pause, paksa player ke posisi Idle
+        if (newState == GameState.Cutscene || newState == GameState.Pause)
+        {
+            // Mencari komponen PlayerController yang aktif di scene saat ini
+            PlayerController player = Object.FindAnyObjectByType<PlayerController>();
+            if (player != null)
+            {
+                // Memanggil fungsi reset bawaan Anda untuk mematikan IsWalking, IsRunning, dll.
+                player.ResetToIdleState();
+                
+                // Paksa memutar animasi Idle default agar visualnya langsung berubah seketika
+                Animator playerAnimator = player.GetComponentInChildren<Animator>();
+                if (playerAnimator != null)
+                {
+                    playerAnimator.Play("Idle", 0, 0f);
+                }
+            }
+        }
+
         // Mengatur timeScale: Pause = 0, Play/Cutscene = 1
         Time.timeScale = (newState == GameState.Pause) ? 0 : 1;
 
         // Panggil fungsi untuk mengaktifkan/mematikan blur
         ApplyBlurState(newState);
     }
+
 
     /// <summary>
     /// Mengatur keaktifan efek blur pada semua kamera berdasarkan Game State saat ini

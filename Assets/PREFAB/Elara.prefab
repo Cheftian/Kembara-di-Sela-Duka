@@ -32,10 +32,11 @@ Transform:
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5995554369849842468}
+  - {fileID: 802487981698771680}
   - {fileID: 4873702760822147663}
   - {fileID: 1330453970388764057}
   - {fileID: 9060403410368671139}
+  - {fileID: 1804823515093395802}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1101586070377965659
@@ -53,7 +54,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 7
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -77,12 +78,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b8209d2e132eb4b8e519687210b02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  dizzyMoveSpeed: 1
-  visualTransform: {fileID: 5995554369849842468}
+  moveSpeed: 5
+  dizzyMoveSpeed: 3
+  runSpeed: 10
+  maxSprintSpeed: 13
+  durationBeforeSprint: 3
+  runAcceleration: 9
+  visualTransform: {fileID: 802487981698771680}
   animator: {fileID: 7470224318956078941}
   spriteRenderer: {fileID: 6511306753981552757}
   sitDuration: 0.5
+  jumpForce: 25
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  groundCheckPoint: {fileID: 1804823515093395802}
+  groundCheckRadius: 0.5
+  jumpCooldownTime: 0.25
+  airMoveSpeed: 8
+  airTiltAngle: 10
+  airTiltLerpSpeed: 2
 --- !u!70 &1241457197871714226
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -120,6 +135,69 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 7.18, y: 26.14}
   m_Direction: 0
+--- !u!1 &2437641149664228959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1804823515093395802}
+  m_Layer: 0
+  m_Name: Ground Check
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1804823515093395802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2437641149664228959}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -11.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3609790645012100861}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3526801190867025802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 802487981698771680}
+  m_Layer: 0
+  m_Name: VisualContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &802487981698771680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3526801190867025802}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5995554369849842468}
+  m_Father: {fileID: 3609790645012100861}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4809824892940082808
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,12 +427,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7716441406682948805}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3609790645012100861}
+  m_Father: {fileID: 802487981698771680}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6511306753981552757
 SpriteRenderer:
