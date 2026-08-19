@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
     private readonly int isWalkingHash = Animator.StringToHash("IsWalking");
     private readonly int isRunningHash = Animator.StringToHash("IsRunning");
     private readonly int stopRunningHash = Animator.StringToHash("StopRunning");
+    private readonly int runPostHash = Animator.StringToHash("RunPost");
     private readonly int isDizzyHash = Animator.StringToHash("IsDizzy"); 
     private readonly int flipHash = Animator.StringToHash("Flip");
     private readonly int sitHash = Animator.StringToHash("Sit");
@@ -168,7 +169,7 @@ public class PlayerController : MonoBehaviour
 
             if (!wasGroundedBefore && isGrounded)
             {
-                currentVelocityX = moveSpeed;
+                ResetMovementStateAfterLanding();
 
                 if (isJumping && !isInJumpPreOrPost)
                 {
@@ -184,6 +185,20 @@ public class PlayerController : MonoBehaviour
             // }
 
         }
+    }
+
+    private void ResetMovementStateAfterLanding()
+    {
+        horizontalInput = 0f;
+        isRunning = false;
+        shiftPressedTimer = 0f;
+        currentVelocityX = 0f;
+        currentSpeed = 0f;
+        jumpInputHeld = false;
+        jumpInputConsumed = false;
+        isFlipping = false;
+        isFullyRunning = false;
+        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
     }
 
     private void FixedUpdate()
@@ -235,8 +250,16 @@ public class PlayerController : MonoBehaviour
         {
             if (isRunning && animator != null)
             {
-                animator.SetTrigger(stopRunningHash);
+                if (shiftPressedTimer <= 0.5f)
+                {
+                    animator.SetTrigger(runPostHash);
+                }
+                else if (shiftPressedTimer > 0.5f)
+                {
+                    animator.SetTrigger(stopRunningHash);
+                }
             }
+            animator.SetTrigger(stopRunningHash);
             isRunning = false;
             shiftPressedTimer = 0f; // Reset timer saat tombol dilepas atau karakter berhenti
         }
@@ -251,7 +274,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleFlip()
     {
-        if (isFlipping) return;
+        if (isFlipping || isInJumpPreOrPost || isJumping) return;
         if (!isGrounded) return;
 
         if (horizontalInput > 0 && !isFacingRight)
