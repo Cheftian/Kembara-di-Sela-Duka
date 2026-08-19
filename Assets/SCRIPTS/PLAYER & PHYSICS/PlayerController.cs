@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float durationBeforeSprint = 2f; 
     [Tooltip("Seberapa cepat akselerasi bertambah (Nilai tinggi = akselerasi lebih cepat)")]
     [SerializeField] private float runAcceleration = 6f; 
+    [SerializeField] private bool canRun = true;
 
     private float shiftPressedTimer = 0f; // Menghitung durasi tombol Shift ditahan
 
@@ -38,12 +40,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundCheckRadius = 0.2f;
     [Tooltip("Waktu jeda sebelum pemain bisa lompat lagi setelah melompat")]
     [SerializeField] private float jumpCooldownTime = 0.25f;
-    [Tooltip("Kecepatan gerak horizontal ke kanan/kiri khusus saat karakter berada di udara (melayang/jatuh)")]
-    [SerializeField] private float airMoveSpeed = 7f;
+    [Tooltip("Kecepatan gerak horizontal khusus saat karakter melompat atau berada di udara")]
+    [FormerlySerializedAs("airMoveSpeed")]
+    [SerializeField] private float jumpMovementSpeed = 7f;
     [Tooltip("Sudut maksimal tilt sprite saat karakter berada di udara dan menekan A/D")]
     [SerializeField] private float airTiltAngle = 25f;
     [Tooltip("Kecepatan merespons tilt visual saat di udara")]
     [SerializeField] private float airTiltLerpSpeed = 6f;
+    [SerializeField] private bool canJump = true;
 
     private bool isGrounded = true;
     private bool isJumping = false;
@@ -85,6 +89,10 @@ public class PlayerController : MonoBehaviour
 
     private bool isFullyRunning = false;
     private float currentVelocityX = 0f;
+
+    [Header("Runtime Speed Information")]
+    [Tooltip("Kecepatan horizontal saat ini sebelum arah gerak diterapkan.")]
+    public float currentSpeed;
 
     private void Awake()
     {
@@ -158,6 +166,16 @@ public class PlayerController : MonoBehaviour
             bool wasGroundedBefore = isGrounded;
             isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
 
+            if (!wasGroundedBefore && isGrounded)
+            {
+                currentVelocityX = moveSpeed;
+
+                if (isJumping && !isInJumpPreOrPost)
+                {
+                    StartCoroutine(JumpPostSequence());
+                }
+            }
+
             // DEBUG 1: Mencetak status deteksi tanah setiap kali terjadi perubahan (Grounded <-> Airborne)
             // if (wasGroundedBefore != isGrounded)
             // {
@@ -165,14 +183,6 @@ public class PlayerController : MonoBehaviour
             //             $"Kecepatan Vertikal Y saat ini: {rb.linearVelocity.y}");
             // }
 
-            // // DETEKSI MENDARAT
-            // if (!wasGroundedBefore && isGrounded && isJumping)
-            // {
-            //     // DEBUG 2: Memastikan apakah pendaratan ini valid atau tidak sengaja terpicu terlalu cepat
-            //     Debug.LogWarning($"[Jump System] Mendarat Terdeteksi! Memicu Coroutine JumpPostSequence. " +
-            //                     $"Kecepatan Y sesaat sebelum menyentuh tanah: {rb.linearVelocity.y}");
-            //     StartCoroutine(JumpPostSequence());
-            // }
         }
     }
 
@@ -215,7 +225,7 @@ public class PlayerController : MonoBehaviour
         }
 
       // Logika Input Lari
-        if (Input.GetKey(KeyCode.LeftShift) && Mathf.Abs(horizontalInput) > 0f && !isDizzy)
+        if (canRun && Input.GetKey(KeyCode.LeftShift) && Mathf.Abs(horizontalInput) > 0f && !isDizzy)
         {
             isRunning = true;
             // Akumulasikan waktu selama tombol Shift ditekan secara terus-menerus
@@ -232,7 +242,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Logika Input Lompat
-        if (jumpKeyPressed && isGrounded && !isDizzy && !isInJumpPreOrPost && !isFlipping && jumpCooldownTimer <= 0f && !jumpInputConsumed)
+        if (canJump && jumpKeyPressed && isGrounded && !isDizzy && !isInJumpPreOrPost && !isFlipping && jumpCooldownTimer <= 0f && !jumpInputConsumed)
         {
             jumpInputConsumed = true;
             StartCoroutine(JumpPreSequence());
@@ -298,7 +308,7 @@ public class PlayerController : MonoBehaviour
 
         if (!isGrounded && !isInJumpPreOrPost)
         {
-            targetSpeed = airMoveSpeed;
+            targetSpeed = jumpMovementSpeed;
         }
         else if (horizontalInput == 0f)
         {
@@ -339,6 +349,7 @@ public class PlayerController : MonoBehaviour
 
         float desiredHorizontalVelocity = horizontalInput * currentVelocityX;
         rb.linearVelocity = new Vector2(desiredHorizontalVelocity, rb.linearVelocity.y);
+        currentSpeed = Mathf.Abs(rb.linearVelocity.x);
     }
 
     private void UpdateAnimation()
@@ -596,6 +607,7 @@ public class PlayerController : MonoBehaviour
 
         isJumping = true;
         isInJumpPreOrPost = false; // Buka kunci gerakan agar pemain bisa mengendalikan arah saat di udara
+        currentVelocityX = jumpMovementSpeed;
 
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
     }
