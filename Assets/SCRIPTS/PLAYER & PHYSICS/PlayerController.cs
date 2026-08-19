@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float airTiltLerpSpeed = 6f;
     [SerializeField] private bool canJump = true;
 
-    private bool isGrounded = true;
+    public bool isGrounded = true;
     private bool isJumping = false;
     private bool isInJumpPreOrPost = false; // Flag pengunci input horizontal
     private float jumpCooldownTimer = 0f;
