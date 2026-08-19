@@ -264,6 +264,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 577824202138868785, guid: 36f7728ad92df6d4892122fbcaa1bc3b, type: 3}
+      propertyPath: idleScale.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 577824202138868785, guid: 36f7728ad92df6d4892122fbcaa1bc3b, type: 3}
+      propertyPath: idleScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 577824202138868785, guid: 36f7728ad92df6d4892122fbcaa1bc3b, type: 3}
+      propertyPath: groundOffset
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 577824202138868785, guid: 36f7728ad92df6d4892122fbcaa1bc3b, type: 3}
+      propertyPath: maxAirborneHeight
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1424261506535622083, guid: 36f7728ad92df6d4892122fbcaa1bc3b, type: 3}
       propertyPath: m_Name
       value: Elara

@@ -78,12 +78,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b8209d2e132eb4b8e519687210b02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  dizzyMoveSpeed: 3
-  runSpeed: 10
-  maxSprintSpeed: 13
+  moveSpeed: 3
+  dizzyMoveSpeed: 1
+  runSpeed: 8
+  maxSprintSpeed: 11
   durationBeforeSprint: 3
-  runAcceleration: 9
+  runAcceleration: 6
   visualTransform: {fileID: 802487981698771680}
   animator: {fileID: 7470224318956078941}
   spriteRenderer: {fileID: 6511306753981552757}
@@ -96,7 +96,7 @@ MonoBehaviour:
   groundCheckRadius: 0.5
   jumpCooldownTime: 0.25
   airMoveSpeed: 8
-  airTiltAngle: 10
+  airTiltAngle: 15
   airTiltLerpSpeed: 2
 --- !u!70 &1241457197871714226
 CapsuleCollider2D:
@@ -624,6 +624,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterRigidbody: {fileID: 1101586070377965659}
-  idleScale: {x: 5, y: 1.5, z: 1}
-  walkingScaleX: 8
-  transitionSpeed: 10
+  playerController: {fileID: 5997534477889649217}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  groundRaycastDistance: 20
+  groundOffset: 0.12
+  idleScale: {x: 6, y: 1.5, z: 1}
+  walkingScaleX: 10
+  runningScaleX: 14
+  transitionSpeed: 8
+  maxAirborneHeight: 6
+  airborneMinScale: 0.5
+  airborneMinAlpha: 0.2

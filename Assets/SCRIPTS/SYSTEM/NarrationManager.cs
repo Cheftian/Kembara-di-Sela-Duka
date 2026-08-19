@@ -16,6 +16,7 @@ public class NarrationManager : MonoBehaviour
     // Menyimpan data ScriptableObject yang sedang aktif agar bisa di-refresh jika toggle ditekan di tengah dialog
     private NarrationData currentActiveData; 
     private int currentLineIndex = 0; 
+    private GameManager.GameState stateAfterNarration = GameManager.GameState.Play;
 
     [System.Serializable]
     public struct ExpressionData
@@ -113,11 +114,15 @@ public class NarrationManager : MonoBehaviour
         }
     }
 
-    public void PlayNarration(NarrationData data)
+    public void PlayNarration(
+        NarrationData data,
+        GameManager.GameState narrationState = GameManager.GameState.Cutscene,
+        GameManager.GameState stateAfterNarration = GameManager.GameState.Play)
     {
         if (data == null || isTransitioning || characters.Length == 0) return;
 
-        GameManager.Instance.SetGameState(GameManager.GameState.Cutscene);
+        GameManager.Instance.SetGameState(narrationState);
+        this.stateAfterNarration = stateAfterNarration;
         
         currentActiveData = data; // Simpan cache data yang sedang diputar
         currentLineIndex = -1; // Reset index baris teks (-1 karena akan langsung ditambah di DisplayNextLine)
@@ -282,7 +287,7 @@ public class NarrationManager : MonoBehaviour
         targetCharacterActivePanelToNull(); 
         isTransitioning = false;
         currentActiveData = null; // Clear data cache saat narasi selesai
-        GameManager.Instance.SetGameState(GameManager.GameState.Play); 
+        GameManager.Instance.SetGameState(stateAfterNarration); 
     }
 
     private void targetCharacterActivePanelToNull()

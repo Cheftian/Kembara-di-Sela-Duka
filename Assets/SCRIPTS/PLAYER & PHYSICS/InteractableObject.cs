@@ -81,7 +81,7 @@ public class InteractableObject : MonoBehaviour
 
     private IEnumerator InteractionSequence()
     {
-        GameManager.Instance.SetGameState(GameManager.GameState.Cutscene);
+        GameManager.Instance.SetGameState(GameManager.GameState.Interacted);
         PlayerController player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerController>();
 
         if (isLocked)
@@ -96,7 +96,10 @@ public class InteractableObject : MonoBehaviour
                 // JIKA MASIH TERKUNCI: Mainkan narasi terkunci
                 if (lockedNarrationData != null)
                 {
-                    NarrationManager.Instance.PlayNarration(lockedNarrationData);
+                    NarrationManager.Instance.PlayNarration(
+                        lockedNarrationData,
+                        GameManager.GameState.Interacted,
+                        GameManager.GameState.Interacted);
                     
                     yield return null; // Tunggu 1 frame agar panel narasi aktif
 
@@ -134,7 +137,10 @@ public class InteractableObject : MonoBehaviour
             // DIUBAH: Baris ExecuteObjectToggling() di sini dihapus agar tidak aktif di awal
             
             // Mainkan narasi melalui manajer
-            NarrationManager.Instance.PlayNarration(narrationData);
+            NarrationManager.Instance.PlayNarration(
+                narrationData,
+                GameManager.GameState.Interacted,
+                GameManager.GameState.Interacted);
             yield return null;
 
             // Tunggu sampai panel narasi benar-benar ditutup penuh oleh Player

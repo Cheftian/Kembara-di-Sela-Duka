@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public enum Chapter { Prologue, Denial, Anger, Bargaining, Depression, Acceptance, Epilogue }
-    public enum GameState { Play, Pause, Cutscene }
+    public enum GameState { Play, Pause, Cutscene, Interacted }
 
     [Header("Game Status")]
     public Chapter currentChapter = Chapter.Prologue;
@@ -103,8 +103,10 @@ public class GameManager : MonoBehaviour
     {
         currentState = newState;
         
-        // Jika berganti dari Play ke Cutscene atau Pause, paksa player ke posisi Idle
-        if (newState == GameState.Cutscene || newState == GameState.Pause)
+        // Mengatur timeScale: Pause = 0, state lainnya = 1
+        Time.timeScale = (newState == GameState.Pause) ? 0 : 1;
+
+        if (newState == GameState.Cutscene)
         {
             // Mencari komponen PlayerController yang aktif di scene saat ini
             PlayerController player = Object.FindAnyObjectByType<PlayerController>();
@@ -122,21 +124,17 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // Mengatur timeScale: Pause = 0, Play/Cutscene = 1
-        Time.timeScale = (newState == GameState.Pause) ? 0 : 1;
-
         // Panggil fungsi untuk mengaktifkan/mematikan blur
         ApplyBlurState(newState);
     }
-
 
     /// <summary>
     /// Mengatur keaktifan efek blur pada semua kamera berdasarkan Game State saat ini
     /// </summary>
     private void ApplyBlurState(GameState state)
     {
-        // Berjalan jika game dalam kondisi Cutscene ATAU Pause
-        bool shouldBlur = (state == GameState.Cutscene || state == GameState.Pause);
+        // Blur aktif saat game dalam kondisi Cutscene, Interacted, atau Pause
+        bool shouldBlur = (state == GameState.Cutscene || state == GameState.Interacted || state == GameState.Pause);
 
         // Lakukan perulangan untuk mengaktifkan/mematikan efek pada semua volume yang terdaftar
         foreach (DepthOfField dof in activeBlurEffects)
