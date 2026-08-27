@@ -15,7 +15,15 @@ public class SceneController : MonoBehaviour
 
     [Header("Transition Settings")]
     [SerializeField] private Animator transitionAnimator; // Tarik TransitionPanel di scene saat ini ke sini
-    [SerializeField] private float transitionDelay = 1f;   
+    [SerializeField] private float transitionDelay = 1f;  
+    [SerializeField] private string BGM_Transition = "Transition-BGM";
+
+    // --- TAMBAHAN VARIABEL SFX BARU ---
+    [Header("Transition SFX Settings")]
+    [Tooltip("Nama SFX saat layar menutup/menggelap (Fade In).")]
+    [SerializeField] private string sfxFadeIn = "Sfx-FadeIn";
+    [Tooltip("Nama SFX saat layar membuka/menerang (Fade Out).")]
+    [SerializeField] private string sfxFadeOut = "Sfx-FadeOut";
 
     [Header("Loading Configuration")]
     [SerializeField] private string loadingSceneName = "LoadingScene"; 
@@ -85,6 +93,11 @@ public class SceneController : MonoBehaviour
             Debug.LogError("[SceneController] Nama scene kosong!");
             return;
         }
+        
+        if (AudioManager.Instance != null && !string.IsNullOrEmpty(BGM_Transition))
+        {
+            AudioManager.Instance.PlayBGM(BGM_Transition);    
+        }
 
         targetSceneName = sceneName;
         StartCoroutine(TransitionToLoadingScene());
@@ -96,10 +109,12 @@ public class SceneController : MonoBehaviour
         // Cek flag apakah scene saat ini diizinkan menutup layar secara halus sebelum keluar
         if (runFadeInOnExit && transitionAnimator != null && transitionAnimator.gameObject.activeInHierarchy)
         {
+            // TAMBAHAN: Putar SFX saat animasi Fade In (layar menutup) dimulai
+            PlayTransitionSFX(sfxFadeIn);
+
             transitionAnimator.Play("Room_FadeIn"); // Layar lama menutup/menggelap halus
             yield return new WaitForSeconds(transitionDelay);
         }
-
         SceneManager.LoadScene(loadingSceneName);
     }
 
@@ -136,6 +151,9 @@ public class SceneController : MonoBehaviour
         // SEBELUM PINDAH: Cek flag apakah scene loading diizinkan menutup layar dengan transisi hitam
         if (runFadeInOnExit && transitionAnimator != null && transitionAnimator.gameObject.activeInHierarchy)
         {
+            // TAMBAHAN: Putar SFX saat animasi Fade In di Loading Scene (layar menutup lagi) dimulai
+            PlayTransitionSFX(sfxFadeIn);
+
             transitionAnimator.Play("Room_FadeIn"); // Layar menutup kembali
             yield return new WaitForSeconds(transitionDelay);
         }
@@ -148,7 +166,19 @@ public class SceneController : MonoBehaviour
     {
         if (transitionAnimator != null && transitionAnimator.gameObject.activeInHierarchy)
         {
+            // TAMBAHAN: Putar SFX saat animasi Fade Out (layar membuka kembali) dimulai
+            PlayTransitionSFX(sfxFadeOut);
+
             transitionAnimator.Play("Room_FadeOut"); // Layar menjadi terang / membuka ruangan
+        }
+    }
+
+    // --- TAMBAHAN FUNGSI HELPER UNTUK MEMANGGIL SFX ---
+    private void PlayTransitionSFX(string sfxName)
+    {
+        if (AudioManager.Instance != null && !string.IsNullOrEmpty(sfxName))
+        {
+            AudioManager.Instance.PlayBGM(sfxName);
         }
     }
 
