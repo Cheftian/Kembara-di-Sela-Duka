@@ -16,7 +16,7 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private Vector3 targetScale;
     private bool isHovered = false;
 
-    private void Start()
+    private void Awake()
     {
         // Menyimpan ukuran asli tombol saat game dimulai
         originalScale = transform.localScale;
