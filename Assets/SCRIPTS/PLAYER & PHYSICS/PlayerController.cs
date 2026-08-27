@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     private float jumpCooldownTimer = 0f;
     private bool jumpInputHeld = false;
     private bool jumpInputConsumed = false;
+    private bool jumpInputBlockedDuringFlip = false;
 
     // Parameter Animator baru
     private readonly int jumpTriggerHash = Animator.StringToHash("JumpTrigger");
@@ -89,6 +90,7 @@ public class PlayerController : MonoBehaviour
     public bool IsRunning => isRunning && !isDizzy; // Lari hanya valid jika tidak pusing
 
     private bool isFullyRunning = false;
+    private bool runPostPending = false;
     private float currentVelocityX = 0f;
 
     [Header("Runtime Speed Information")]
@@ -225,7 +227,23 @@ public class PlayerController : MonoBehaviour
         bool jumpKeyHeld = Input.GetKey(KeyCode.Space);
         bool jumpKeyPressed = Input.GetKeyDown(KeyCode.Space);
 
-        if (jumpKeyHeld)
+        if (runPostPending && !IsRunTransitionPlaying())
+        {
+            runPostPending = false;
+        }
+
+        if (jumpInputBlockedDuringFlip)
+        {
+            jumpInputHeld = jumpKeyHeld;
+            jumpInputConsumed = jumpKeyHeld;
+
+            if (!jumpKeyHeld)
+            {
+                jumpInputBlockedDuringFlip = false;
+                jumpInputConsumed = false;
+            }
+        }
+        else if (jumpKeyHeld)
         {
             if (!jumpInputHeld)
             {
@@ -250,6 +268,7 @@ public class PlayerController : MonoBehaviour
         {
             if (isRunning && animator != null)
             {
+                runPostPending = true;
                 if (shiftPressedTimer <= 0.5f)
                 {
                     animator.SetTrigger(runPostHash);
@@ -265,7 +284,8 @@ public class PlayerController : MonoBehaviour
         }
 
         // Logika Input Lompat
-        if (canJump && jumpKeyPressed && isGrounded && !isDizzy && !isInJumpPreOrPost && !isFlipping && jumpCooldownTimer <= 0f && !jumpInputConsumed)
+        bool isRunPrePlaying = isRunning && !isFullyRunning;
+        if (canJump && jumpKeyPressed && isGrounded && !isDizzy && !isInJumpPreOrPost && !isFlipping && !isRunPrePlaying && !runPostPending && !IsRunTransitionPlaying() && jumpCooldownTimer <= 0f && !jumpInputConsumed)
         {
             jumpInputConsumed = true;
             StartCoroutine(JumpPreSequence());
@@ -292,11 +312,33 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool IsRunTransitionPlaying()
+    {
+        if (animator == null) return false;
+
+        AnimatorStateInfo currentState = animator.GetCurrentAnimatorStateInfo(0);
+        if (currentState.IsName("Run-Pre") || currentState.IsName("Run-Post"))
+        {
+            return true;
+        }
+
+        if (animator.IsInTransition(0))
+        {
+            AnimatorStateInfo nextState = animator.GetNextAnimatorStateInfo(0);
+            return nextState.IsName("Run-Pre") || nextState.IsName("Run-Post");
+        }
+
+        return false;
+    }
+
     private void StartFlip()
     {
         if (visualTransform == null || animator == null || spriteRenderer == null) return;
 
         isFlipping = true;                 
+        jumpInputBlockedDuringFlip = true;
+        jumpInputHeld = false;
+        jumpInputConsumed = true;
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y); 
 
         if (!isFacingRight)
@@ -639,6 +681,13 @@ public class PlayerController : MonoBehaviour
         isJumping = true;
         isInJumpPreOrPost = false; // Buka kunci gerakan agar pemain bisa mengendalikan arah saat di udara
         currentVelocityX = jumpMovementSpeed;
+
+        // KUNCI BARU: Panggil partikel melompat tepat saat karakter melesat ke atas!
+        PlayerParticleController particleController = GetComponent<PlayerParticleController>();
+        if (particleController != null)
+        {
+            particleController.PlayJumpParticles();
+        }
 
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
     }

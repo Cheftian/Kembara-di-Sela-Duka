@@ -4,7 +4,20 @@ public class PlayerParticleController : MonoBehaviour
 {
     [Header("Particle Systems")]
     [SerializeField] private ParticleSystem runParticles;
-    [SerializeField] private ParticleSystem landParticles;
+    
+    [Header("Jump & Land Particle Systems (Dual Setup)")]
+    [Tooltip("Partikel pertama yang aktif saat lompat/mendarat (misal: Semburan Debu)")]
+    [SerializeField] private ParticleSystem jumpParticlesA;
+    [Tooltip("Partikel kedua yang aktif saat lompat/mendarat (misal: Serpihan Batu / Spark)")]
+    [SerializeField] private ParticleSystem jumpParticlesB;
+
+    [Header("Jump Trail Settings")]
+    [Tooltip("Seret GameObject Child yang memiliki komponen Trail Renderer ke sini")]
+    [SerializeField] private TrailRenderer jumpTrail;
+
+    [Header("Particle Rotation Settings")]
+    [Tooltip("Sudut semburan partikel dari tanah (misal: 45 derajat)")]
+    [SerializeField] private float emissionAngle = 45f;
 
     private PlayerController player;
     private Rigidbody2D rb;
@@ -15,12 +28,16 @@ public class PlayerParticleController : MonoBehaviour
         player = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody2D>();
 
-        // KUNCI OTOMATIS: Memaksa partikel lari untuk "Play" di awal agar sistem internal Unity-nya aktif
         if (runParticles != null)
         {
             runParticles.Play();
             var emission = runParticles.emission;
-            emission.enabled = false; // Matikan emisinya dulu, nanti dinyalakan lewat Update
+            emission.enabled = false; 
+        }
+
+        if (jumpTrail != null)
+        {
+            jumpTrail.emitting = false;
         }
     }
 
@@ -45,27 +62,62 @@ public class PlayerParticleController : MonoBehaviour
                 emission.enabled = shouldEmit;
             }
 
-            // Pengaman tambahan: Jika partikel mendadak berhenti (Stopped), paksa Play kembali
             if (shouldEmit && !runParticles.isPlaying)
             {
                 runParticles.Play();
             }
+
+            if (shouldEmit)
+            {
+                UpdateParticleRotation();
+            }
         }
 
-        // 2. Logika Partikel Mendarat
+        // 2. Logika Trail Melompat
+        if (jumpTrail != null)
+        {
+            bool shouldTrail = !isCurrentlyGrounded;
+            if (jumpTrail.emitting != shouldTrail)
+            {
+                jumpTrail.emitting = shouldTrail;
+            }
+        }
+
+        // 3. Logika Partikel Mendarat (Land) - Tetap di sini karena deteksi land sudah akurat
         if (!wasGrounded && isCurrentlyGrounded)
         {
-            PlayParticle(landParticles);
+            PlayJumpParticles();
         }
 
         wasGrounded = isCurrentlyGrounded;
     }
 
-    private void PlayParticle(ParticleSystem particle)
+    private void UpdateParticleRotation()
     {
-        if (particle != null)
+        float horizontalInput = 0f;
+        if (Input.GetKey(KeyCode.A)) horizontalInput = -1f;
+        else if (Input.GetKey(KeyCode.D)) horizontalInput = 1f;
+
+        if (horizontalInput != 0f)
         {
-            particle.Play();
+            float targetZRotation = (horizontalInput > 0f) ? -emissionAngle : emissionAngle;
+            runParticles.transform.localRotation = Quaternion.Euler(0f, 0f, targetZRotation);
+        }
+    }
+
+    // KUNCI UTAMA: Fungsi ini sekarang PUBLIC agar bisa dipanggil oleh PlayerController saat lepas landas
+    public void PlayJumpParticles()
+    {
+        if (jumpParticlesA != null)
+        {
+            jumpParticlesA.Stop();
+            jumpParticlesA.Play();
+        }
+
+        if (jumpParticlesB != null)
+        {
+            jumpParticlesB.Stop();
+            jumpParticlesB.Play();
         }
     }
 }

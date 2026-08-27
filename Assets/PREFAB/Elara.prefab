@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3609790645012100861}
   - component: {fileID: 1101586070377965659}
-  - component: {fileID: 5997534477889649217}
   - component: {fileID: 1241457197871714226}
+  - component: {fileID: 5997534477889649217}
   - component: {fileID: 4184792688404011762}
+  - component: {fileID: 2386797548619560925}
+  - component: {fileID: 5736186191618466813}
   m_Layer: 0
   m_Name: Elara
   m_TagString: Player
@@ -67,41 +69,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5997534477889649217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1424261506535622083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44b8209d2e132eb4b8e519687210b02f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 3
-  dizzyMoveSpeed: 1
-  runSpeed: 8
-  maxSprintSpeed: 11
-  durationBeforeSprint: 3
-  runAcceleration: 8
-  canRun: 1
-  visualTransform: {fileID: 802487981698771680}
-  animator: {fileID: 7470224318956078941}
-  spriteRenderer: {fileID: 6511306753981552757}
-  sitDuration: 0.5
-  jumpForce: 20
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  groundCheckPoint: {fileID: 1804823515093395802}
-  groundCheckRadius: 0.5
-  jumpCooldownTime: 1.5
-  jumpMovementSpeed: 6
-  airTiltAngle: 13
-  airTiltLerpSpeed: 2
-  canJump: 1
-  currentSpeed: 0
 --- !u!70 &1241457197871714226
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -139,6 +106,42 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 7.18, y: 26.14}
   m_Direction: 0
+--- !u!114 &5997534477889649217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424261506535622083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b8209d2e132eb4b8e519687210b02f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  dizzyMoveSpeed: 1
+  runSpeed: 9
+  maxSprintSpeed: 9
+  durationBeforeSprint: 3
+  runAcceleration: 8
+  canRun: 1
+  visualTransform: {fileID: 802487981698771680}
+  animator: {fileID: 7470224318956078941}
+  spriteRenderer: {fileID: 6511306753981552757}
+  sitDuration: 0.5
+  jumpForce: 20
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  groundCheckPoint: {fileID: 1804823515093395802}
+  groundCheckRadius: 0.5
+  jumpCooldownTime: 1.5
+  jumpMovementSpeed: 6
+  airTiltAngle: 13
+  airTiltLerpSpeed: 2
+  canJump: 1
+  isGrounded: 1
+  currentSpeed: 0
 --- !u!114 &4184792688404011762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,8 +155,123 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runParticles: {fileID: 2786752692976308598}
-  jumpParticles: {fileID: 3559139408162587161}
   landParticles: {fileID: 3559139408162587161}
+--- !u!114 &2386797548619560925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424261506535622083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6286270914282394b9e67ff6262472be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 5997534477889649217}
+  rb: {fileID: 1101586070377965659}
+  walkClip: {fileID: 8300000, guid: 82ebc15d077d6274b846cde89a8f8b5b, type: 3}
+  runClip: {fileID: 8300000, guid: bd46156c9760d1c40a3f4db2e0d91737, type: 3}
+  jumpClip: {fileID: 8300000, guid: fbed6f6a7b031e64b9a386a202744d8a, type: 3}
+  landClip: {fileID: 8300000, guid: 87ab3cabb5f2df54aac666e602fb5667, type: 3}
+  flipClip: {fileID: 8300000, guid: a00419155c80ae7408f3ea8754ca07dc, type: 3}
+--- !u!82 &5736186191618466813
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424261506535622083}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2437641149664228959
 GameObject:
   m_ObjectHideFlags: 0

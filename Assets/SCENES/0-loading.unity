@@ -644,6 +644,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BGMTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 7150912700633798199, guid: c30fce688ec60eb488d3ff300c02e768, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7343996621597297070, guid: c30fce688ec60eb488d3ff300c02e768, type: 3}
       propertyPath: m_LocalPosition.x
       value: 958.59985
@@ -1036,6 +1040,8 @@ MonoBehaviour:
   transitionAnimator: {fileID: 0}
   transitionDelay: 1
   BGM_Transition: Transition-BGM
+  sfxFadeIn: Sfx-FadeIn
+  sfxFadeOut: Sfx-FadeOut
   loadingSceneName: 0-loading
   minLoadingTime: 2.5
 --- !u!4 &1810567876

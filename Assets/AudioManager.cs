@@ -78,17 +78,33 @@ public class AudioManager : MonoBehaviour
         SoundEffect sound = FindSoundEffect(soundName, bgmList);
         if (sound.clip == null) return;
 
-        // Jika lagu yang sama persis sedang dimainkan atau mengantre, abaikan agar tidak double
+        // Jika lagu yang sama persis sedang dimainkan, abaikan agar tidak ter-restart dari nol
         if (bgmSource.clip == sound.clip && bgmSource.isPlaying) return;
+
+        // JIKA LAGU BARU ADALAH LAGU LOOPING BIASA (bukan playOnce)
+        // Kita harus potong kompas: bersihkan antrean dan langsung mainkan agar tidak tertukar scene
+        if (!sound.playOnce)
+        {
+            StopCoroutine(BGMQueueProcessor()); // Hentikan processor lama jika sedang berjalan
+            bgmQueue.Clear();                  // Bersihkan sisa antrean yang menumpuk akibat pindah scene
+            
+            bgmSource.clip = sound.clip;
+            bgmSource.loop = true;
+            bgmSource.Play();
+            
+            isBGMCoroutineRunning = false;
+            return; // Keluar fungsi, tidak perlu masuk ke sistem antrean bawah
+        }
+
+        // Jika lagu playOnce yang sama sudah ada di antrean, abaikan agar tidak double
         foreach (var queuedSound in bgmQueue)
         {
             if (queuedSound.clip == sound.clip) return;
         }
 
-        // Masukkan permintaan BGM baru ke dalam antrean
+        // Masukkan ke antrean khusus lagu playOnce
         bgmQueue.Enqueue(sound);
 
-        // Jika Coroutine pengatur antrean belum jalan, jalankan sekarang
         if (!isBGMCoroutineRunning)
         {
             StartCoroutine(BGMQueueProcessor());
@@ -101,23 +117,19 @@ public class AudioManager : MonoBehaviour
 
         while (bgmQueue.Count > 0)
         {
-            // Ambil lagu berikutnya dari antrean
             currentBGM = bgmQueue.Dequeue();
 
             bgmSource.clip = currentBGM.clip;
-            bgmSource.loop = !currentBGM.playOnce; // Loop mati jika playOnce dicentang
+            bgmSource.loop = !currentBGM.playOnce; 
             bgmSource.Play();
 
-            // Jika lagu diset "Play Once", coroutine akan MENUNGGU hingga lagu ini selesai berputar
             if (currentBGM.playOnce)
             {
-                // Tunggu sampai durasi lagu habis, ATAU sampai lagu dihentikan paksa/berubah clip
                 yield return new WaitWhile(() => bgmSource.isPlaying && bgmSource.clip == currentBGM.clip);
             }
             else
             {
-                // Jika lagu biasa (looping), coroutine berhenti di sini. 
-                // Lagu ini akan terus berputar selamanya sampai ada PlayBGM() baru yang masuk antrean.
+                // Bagian ini sekarang hampir tidak pernah tersentuh karena lagu looping langsung dieksekusi di PlayBGM()
                 isBGMCoroutineRunning = false;
                 yield break;
             }

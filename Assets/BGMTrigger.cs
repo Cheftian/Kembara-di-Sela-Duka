@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement; // Wajib ditambahkan untuk mengontrol event Scene
 
 public class AudioTrigger : MonoBehaviour
 {
@@ -24,8 +25,20 @@ public class AudioTrigger : MonoBehaviour
     [Tooltip("Tag objek yang bisa memicu audio (biasanya 'Player').")]
     [SerializeField] private string targetTag = "Player";
 
-    // KONDISI 1: Ketika scene pertama kali dibuka
-    private void Start()
+    private void Awake()
+    {
+        // Daftarkan fungsi ke event SceneManager agar selalu terpanggil tiap scene baru dimuat
+        SceneManager.sceneLoaded += HandleSceneLoaded;
+    }
+
+    private void OnDestroy()
+    {
+        // Selalu bersihkan pendaftaran event saat objek dihancurkan untuk mencegah memory leak
+        SceneManager.sceneLoaded -= HandleSceneLoaded;
+    }
+
+    // KONDISI 1: Menggantikan fungsi Start bawaan agar mendukung reload scene
+    private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (condition == TriggerCondition.OnSceneStart)
         {
