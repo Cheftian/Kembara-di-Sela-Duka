@@ -568,6 +568,14 @@ public class PlayerController : MonoBehaviour
 
     public void ResetToIdleState()
     {
+        // Cutscene dapat memotong animasi flip sebelum event penyelesaiannya dipanggil.
+        isFlipping = false;
+        horizontalInput = 0f;
+        isRunning = false;
+        shiftPressedTimer = 0f;
+        currentVelocityX = 0f;
+        currentSpeed = 0f;
+
         if (animator != null)
         {
             animator.SetBool(isWalkingHash, false);
