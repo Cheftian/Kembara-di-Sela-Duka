@@ -69,9 +69,16 @@ public class GameSettingsManager : MonoBehaviour
     /// </summary>
     public void ApplyLanguageToCurrentManager()
     {
+        // Integrasi dengan NarrationManager (Bawaan lama)
         if (NarrationManager.Instance != null)
         {
             NarrationManager.Instance.ToggleLanguage(isEnglish);
+        }
+
+        // INTEGRASI BARU: Integrasi dengan ObjectiveManager
+        if (ObjectiveManager.Instance != null)
+        {
+            ObjectiveManager.Instance.ToggleLanguage(isEnglish);
         }
     }
 
