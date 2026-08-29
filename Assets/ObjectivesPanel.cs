@@ -160,27 +160,4 @@ public class ObjectivesPanel : MonoBehaviour
             panelRectTransform.anchoredPosition = new Vector3(xPos, currentPos.y, currentPos.z);
         }
     }
-
-
-
-
-    public void OnCloseAnimationComplete()
-    {
-        isOpen = false;
-
-        if (panelAnimator != null)
-        {
-            panelAnimator.ResetTrigger(closeTrigger);
-            panelAnimator.ResetTrigger(openTrigger);
-            
-            // KUNCI UTAMA: Langsung kunci ke state diam tertutup (closed)
-            panelAnimator.Play(closedStateName, 0, 0f);
-        }
-
-        SetPanelXPosition(closeXPosition);
-        SetVisualLayerWeight(0f);
-
-        Debug.Log("[ObjectivesPanel] Status berhasil direset dan dikunci ke state Closed.");
-    }
-
 }
