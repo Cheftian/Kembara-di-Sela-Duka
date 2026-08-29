@@ -2667,7 +2667,7 @@ PrefabInstance:
     - target: {fileID: 1861932747211463172, guid: bead77928b1ce1e47b15645f3c5f8f2f, type: 3}
       propertyPath: objectiveToPlay
       value: 
-      objectReference: {fileID: 11400000, guid: b1cbd500ec95e484a921d0fd4adc4d22, type: 2}
+      objectReference: {fileID: 11400000, guid: 84a654fadea824e429b19cedb0738ebe, type: 2}
     - target: {fileID: 1861932747211463172, guid: bead77928b1ce1e47b15645f3c5f8f2f, type: 3}
       propertyPath: triggerOnlyOnce
       value: 1
@@ -3363,7 +3363,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1995763824}
   m_Father: {fileID: 388885708}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3401,14 +3402,15 @@ MonoBehaviour:
   panelRectTransform: {fileID: 1995763824}
   panelAnimator: {fileID: 1995763828}
   panelContentObject: {fileID: 1995763823}
-  openXPosition: 105
-  closeXPosition: 748
+  openXPosition: -530
+  closeXPosition: 120
   openTrigger: open
   closeTrigger: close
   openStateName: Objectives-open
   closeStateName: Objectives-close
   openedStateName: Objectives-opened
   closedStateName: Objectives-closed
+  autoCloseDelay: 10
 --- !u!1001 &248453604
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4839,7 +4841,6 @@ RectTransform:
   - {fileID: 1579046911}
   - {fileID: 1469666053}
   - {fileID: 246003701}
-  - {fileID: 1995763824}
   - {fileID: 541766620}
   - {fileID: 856751273}
   - {fileID: 2124215453}
@@ -12877,6 +12878,7 @@ GameObject:
   - component: {fileID: 1066783060}
   - component: {fileID: 1066783063}
   - component: {fileID: 1066783061}
+  - component: {fileID: 1066783064}
   m_Layer: 0
   m_Name: Minigames1
   m_TagString: Untagged
@@ -12980,6 +12982,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1066783064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066783059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d3710ad3c54c446b1d06834d9978b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerType: 3
+  triggerOnlyOnce: 1
+  objectiveToPlay: {fileID: 11400000, guid: 2bfceef98aa7cc246a5bce31d02dfd81, type: 2}
+  playerTag: Player
+  interactionKey: 115
 --- !u!1 &1068388124
 GameObject:
   m_ObjectHideFlags: 0
@@ -18592,7 +18611,6 @@ GameObject:
   - component: {fileID: 1535227058}
   - component: {fileID: 1535227060}
   - component: {fileID: 1535227059}
-  - component: {fileID: 1535227061}
   m_Layer: 0
   m_Name: ColliderNotif
   m_TagString: Untagged
@@ -18675,23 +18693,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notification: {fileID: 617142093}
   playerTag: Player
---- !u!114 &1535227061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1535227057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46d3710ad3c54c446b1d06834d9978b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerType: 3
-  triggerOnlyOnce: 1
-  objectiveToPlay: {fileID: 11400000, guid: 2bfceef98aa7cc246a5bce31d02dfd81, type: 2}
-  playerTag: Player
-  interactionKey: 115
 --- !u!1001 &1547851066
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23219,6 +23220,7 @@ GameObject:
   - component: {fileID: 1995763826}
   - component: {fileID: 1995763825}
   - component: {fileID: 1995763828}
+  - component: {fileID: 1995763829}
   m_Layer: 5
   m_Name: ObjectivesPanel
   m_TagString: Untagged
@@ -23239,11 +23241,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 573065341}
-  m_Father: {fileID: 388885708}
+  m_Father: {fileID: 246003701}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 150, y: 5}
+  m_AnchoredPosition: {x: -530, y: -60.25}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1995763825
@@ -23320,6 +23322,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1995763829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995763823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d77dbc9201a3c940a5b34c2a0c59f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1995886898 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2323473627701056262, guid: 99a5d104c353278488d8ec990109ffaa, type: 3}

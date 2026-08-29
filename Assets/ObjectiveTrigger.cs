@@ -103,6 +103,7 @@ public class ObjectiveTrigger : MonoBehaviour
             isPlayerInside = false;
         }
     }
+
     private void ExecuteObjectiveTrigger()
     {
         if (triggerOnlyOnce && hasTriggered) return;
@@ -115,6 +116,7 @@ public class ObjectiveTrigger : MonoBehaviour
 
         if (ObjectiveManager.Instance != null)
         {
+            // Cukup panggil ini, urutan Tutup -> Ganti Teks -> Buka sudah otomatis di dalamnya
             ObjectiveManager.Instance.PlayObjective(objectiveToPlay);
             hasTriggered = true;
             
@@ -123,6 +125,7 @@ public class ObjectiveTrigger : MonoBehaviour
             Debug.Log($"[ObjectiveTrigger] Berhasil mengirim objektif: '{objectiveToPlay.name}'", gameObject);
         }
     }
+
 
 
     public void ResetTrigger()

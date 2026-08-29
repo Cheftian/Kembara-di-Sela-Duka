@@ -21,24 +21,25 @@ public class ObjectivesPanel : MonoBehaviour
     [SerializeField] private string closeStateName = "Objectives-close";
     
     [Header("New State Settings (Diam/Looping)")]
-    [SerializeField] private string openedStateName = "Objectives-opened"; // State diam saat terbuka
-    [SerializeField] private string closedStateName = "Objectives-closed"; // State diam saat tertutup
+    [SerializeField] private string openedStateName = "Objectives-opened"; 
+    [SerializeField] private string closedStateName = "Objectives-closed"; 
 
 
+    [Header("Auto Close Settings")]
+    [SerializeField] private float autoCloseDelay = 4f; 
+    private Coroutine autoCloseCoroutine;
 
-
-    private bool isOpen = false; 
+    public bool IsOpen { get; private set; } = false;
+    private bool isTransitioning = false;
     private int visualLayerIndex = -1;
 
     private void OnEnable()
     {
-        // Berlangganan ke event perubahan Game State dari GameManager
         GameManager.OnGameStateChanged += HandleGameStateChanged;
     }
 
     private void OnDisable()
     {
-        // Melepas langganan saat hancur
         GameManager.OnGameStateChanged -= HandleGameStateChanged;
     }
 
@@ -51,9 +52,9 @@ public class ObjectivesPanel : MonoBehaviour
         
         if (panelAnimator != null)
         {
+            panelAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
             visualLayerIndex = panelAnimator.GetLayerIndex("VisualLayer");
-            // SetVisualLayerWeight(0f); // <-- HAPUS / KOMENTARI BARIS INI
-            panelAnimator.Play(closeStateName, 0, 1f); 
+            panelAnimator.Play(closedStateName, 0, 1f); 
         }
 
         if (GameManager.Instance != null)
@@ -64,7 +65,6 @@ public class ObjectivesPanel : MonoBehaviour
 
     void Update()
     {
-        // Jika game sedang tidak dalam mode Play, block input Tab
         if (GameManager.Instance != null && GameManager.Instance.currentState != GameManager.GameState.Play) return;
 
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -82,23 +82,20 @@ public class ObjectivesPanel : MonoBehaviour
         if (newState == GameManager.GameState.Pause)
         {
             float currentX = panelRectTransform.anchoredPosition.x;
-
             if (panelAnimator != null) panelAnimator.speed = 0f;
             panelContentObject.SetActive(false);
             SetPanelXPosition(currentX);
         }
-        else if (newState == GameManager.GameState.Play)
+        else 
         {
-            // Tentukan target ke state diam (Opened atau Closed)
-            string targetStaticState = isOpen ? openedStateName : closedStateName;
-
             panelContentObject.SetActive(true);
-
             if (panelAnimator != null)
             {
-                // Kunci langsung ke state diam yang sesuai
-                panelAnimator.Play(targetStaticState, 0, 0f);
                 panelAnimator.speed = 1f;
+                if (isTransitioning) return; 
+
+                string targetStaticState = IsOpen ? openedStateName : closedStateName;
+                panelAnimator.Play(targetStaticState, 0, 0f);
             }
         }
     }
@@ -106,43 +103,87 @@ public class ObjectivesPanel : MonoBehaviour
     public void TogglePanel()
     {
         if (GameManager.Instance != null && GameManager.Instance.currentState != GameManager.GameState.Play) return;
-        if (IsAnimationPlaying()) return;
+        if (isTransitioning) return; 
 
-        if (isOpen)
+        if (autoCloseCoroutine != null) StopCoroutine(autoCloseCoroutine);
+
+        isTransitioning = true;
+
+        if (IsOpen)
         {
             if (panelAnimator != null) panelAnimator.SetTrigger(closeTrigger);
-            SetPanelXPosition(closeXPosition);
-            isOpen = false;
+            IsOpen = false;
         }
         else
         {
             if (panelAnimator != null) panelAnimator.SetTrigger(openTrigger);
-            SetPanelXPosition(openXPosition);
-            isOpen = true;
+            IsOpen = true;
+            autoCloseCoroutine = StartCoroutine(ClosePanelAfterDelay());
         }
     }
 
-    private bool IsAnimationPlaying()
+    private IEnumerator ClosePanelAfterDelay()
     {
-        if (panelAnimator == null) return false;
-        if (panelAnimator.IsInTransition(0)) return true;
+        yield return new WaitForSecondsRealtime(autoCloseDelay);
 
-        AnimatorStateInfo stateInfo = panelAnimator.GetCurrentAnimatorStateInfo(0);
-        
-        bool isPlayingOpen = stateInfo.IsName(openStateName) && stateInfo.normalizedTime < 1.0f;
-        bool isPlayingClose = stateInfo.IsName(closeStateName) && stateInfo.normalizedTime < 1.0f;
-
-        return isPlayingOpen || isPlayingClose;
+        if (IsOpen && (GameManager.Instance == null || GameManager.Instance.currentState != GameManager.GameState.Pause))
+        {
+            isTransitioning = true;
+            if (panelAnimator != null) panelAnimator.SetTrigger(closeTrigger);
+            IsOpen = false;
+        }
     }
 
+    public void ForceOpenPanel()
+    {
+        if (autoCloseCoroutine != null) StopCoroutine(autoCloseCoroutine);
+
+        if (!IsOpen)
+        {
+            isTransitioning = true; 
+            if (panelAnimator != null) panelAnimator.SetTrigger(openTrigger);
+            IsOpen = true;
+        }
+        autoCloseCoroutine = StartCoroutine(ClosePanelAfterDelay());
+    }
+
+    public void ForceClosePanel()
+    {
+        if (autoCloseCoroutine != null) StopCoroutine(autoCloseCoroutine);
+
+        if (IsOpen)
+        {
+            isTransitioning = true; 
+            if (panelAnimator != null) panelAnimator.SetTrigger(closeTrigger);
+            IsOpen = false;
+        }
+    }
+
+    public void TriggerAnimationFinish(string type)
+    {
+        isTransitioning = false; // BEBASKAN KUNCI UTAMA (Tombol Tab kembali berfungsi)
+
+        if (type == "close")
+        {
+            SetPanelXPosition(closeXPosition); 
+            if (panelAnimator != null) panelAnimator.Play(closedStateName, 0, 0f); 
+
+            if (ObjectiveManager.Instance != null)
+            {
+                ObjectiveManager.Instance.OnPanelClosedReadyToSwitch();
+            }
+        }
+        else if (type == "open")
+        {
+            SetPanelXPosition(openXPosition); 
+            if (panelAnimator != null) panelAnimator.Play(openedStateName, 0, 0f); 
+        }
+    }
     private void ManageVisualLayerWeight()
     {
         if (panelAnimator == null || visualLayerIndex == -1) return;
-
-        // Memaksa layer animasi idle tetap berjalan penuh (1) terus menerus
         SetVisualLayerWeight(1f);
     }
-
 
     private void SetVisualLayerWeight(float weight)
     {
