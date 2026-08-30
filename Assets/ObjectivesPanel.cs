@@ -201,4 +201,17 @@ public class ObjectivesPanel : MonoBehaviour
             panelRectTransform.anchoredPosition = new Vector3(xPos, currentPos.y, currentPos.z);
         }
     }
+
+    public void ResetTransitionLock()
+    {
+        isTransitioning = false; // Paksa buka kunci input tombol Tab
+        
+        // Pastikan animator mengunci posisi diam yang sesuai dengan status aslinya saat ini
+        if (panelAnimator != null)
+        {
+            panelAnimator.speed = 1f;
+            string targetStaticState = IsOpen ? openedStateName : closedStateName;
+            panelAnimator.Play(targetStaticState, 0, 0f);
+        }
+    }
 }

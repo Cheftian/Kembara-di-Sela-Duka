@@ -39,6 +39,12 @@ public class UIManager : MonoBehaviour
         // Deteksi input tombol Escape untuk Pause/Resume
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (SettingsMenuController.Instance != null && SettingsMenuController.Instance.IsSettingsOpen)
+            {
+                SettingsMenuController.Instance.CloseSettings();
+                return;
+            }
+
             if (AudioManager.Instance != null)
             {
                 AudioManager.Instance.PlaySFX("Pause");

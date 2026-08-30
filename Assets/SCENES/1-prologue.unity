@@ -5284,7 +5284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2239401283745620498, guid: bead77928b1ce1e47b15645f3c5f8f2f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1013.7
+      value: 1011.05
       objectReference: {fileID: 0}
     - target: {fileID: 2239401283745620498, guid: bead77928b1ce1e47b15645f3c5f8f2f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7321,13 +7321,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2762473452897760411, guid: 47e29966c48ad604ca3a08246bde2979, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 587776344}
   m_SourcePrefab: {fileID: 100100000, guid: 47e29966c48ad604ca3a08246bde2979, type: 3}
 --- !u!4 &587776342 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1211985201634905314, guid: 47e29966c48ad604ca3a08246bde2979, type: 3}
   m_PrefabInstance: {fileID: 587776341}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &587776343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2762473452897760411, guid: 47e29966c48ad604ca3a08246bde2979, type: 3}
+  m_PrefabInstance: {fileID: 587776341}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &587776344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587776343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d3710ad3c54c446b1d06834d9978b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerType: 2
+  triggerOnlyOnce: 1
+  objectiveToPlay: {fileID: 11400000, guid: 2bfceef98aa7cc246a5bce31d02dfd81, type: 2}
+  playerTag: Player
+  interactionKey: 115
 --- !u!1 &587949865
 GameObject:
   m_ObjectHideFlags: 0
@@ -12878,7 +12903,6 @@ GameObject:
   - component: {fileID: 1066783060}
   - component: {fileID: 1066783063}
   - component: {fileID: 1066783061}
-  - component: {fileID: 1066783064}
   m_Layer: 0
   m_Name: Minigames1
   m_TagString: Untagged
@@ -12982,23 +13006,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1066783064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1066783059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46d3710ad3c54c446b1d06834d9978b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerType: 3
-  triggerOnlyOnce: 1
-  objectiveToPlay: {fileID: 11400000, guid: 2bfceef98aa7cc246a5bce31d02dfd81, type: 2}
-  playerTag: Player
-  interactionKey: 115
 --- !u!1 &1068388124
 GameObject:
   m_ObjectHideFlags: 0

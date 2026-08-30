@@ -28,6 +28,11 @@ public class ObjectiveManager : MonoBehaviour
     {
         currentLanguage = isToggledOn ? Language.English : Language.Indonesia;
         RefreshDisplay();
+
+        if (objectivesPanel != null)
+        {
+            objectivesPanel.ResetTransitionLock();
+        }
     }
 
     public void PlayObjective(ObjectiveData data)

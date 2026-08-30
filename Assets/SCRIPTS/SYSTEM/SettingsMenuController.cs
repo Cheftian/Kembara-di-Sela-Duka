@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class SettingsMenuController : MonoBehaviour
 {
+    public static SettingsMenuController Instance { get; private set; }
+
     [Header("UI Panels & Buttons")]
     [Tooltip("Tarik GameObject Panel Settings Anda ke sini.")]
     [SerializeField] private GameObject settingsPanel;
@@ -19,8 +21,17 @@ public class SettingsMenuController : MonoBehaviour
 
     private bool isSettingsOpen = false;
 
+    public bool IsSettingsOpen => isSettingsOpen;
+
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         // Pastikan status awal panel settings adalah mati saat game dimulai
         if (settingsPanel != null)
         {
@@ -41,8 +52,17 @@ public class SettingsMenuController : MonoBehaviour
 
     public void ToggleSettings()
     {
-        // Membalikkan status (jika true jadi false, jika false jadi true)
-        isSettingsOpen = !isSettingsOpen;
+        SetSettingsState(!isSettingsOpen);
+    }
+
+    public void CloseSettings()
+    {
+        SetSettingsState(false);
+    }
+
+    private void SetSettingsState(bool open)
+    {
+        isSettingsOpen = open;
 
         // 1. Atur keaktifan Panel Settings
         if (settingsPanel != null)
