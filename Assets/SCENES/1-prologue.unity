@@ -3729,7 +3729,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 279391566}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3737,7 +3737,7 @@ RectTransform:
   - {fileID: 1480171971}
   - {fileID: 114306755}
   - {fileID: 1554803985}
-  m_Father: {fileID: 1125332669}
+  m_Father: {fileID: 879442888253006091}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6690,7 +6690,7 @@ PrefabInstance:
     - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: minigameObject
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 279391566}
     - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: isSingleMinigame
       value: 1
@@ -7290,7 +7290,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1125332669}
+    m_TransformParent: {fileID: 879442888253006091}
     m_Modifications:
     - target: {fileID: 1602548969408154310, guid: 6646e71d57d0cbc4486bbce885624231, type: 3}
       propertyPath: m_Name
@@ -7350,15 +7350,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2351067855195762721, guid: 6646e71d57d0cbc4486bbce885624231, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2351067855195762721, guid: 6646e71d57d0cbc4486bbce885624231, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2351067855195762721, guid: 6646e71d57d0cbc4486bbce885624231, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2351067855195762721, guid: 6646e71d57d0cbc4486bbce885624231, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7399,6 +7399,11 @@ PrefabInstance:
 --- !u!224 &586176942 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2351067855195762721, guid: 6646e71d57d0cbc4486bbce885624231, type: 3}
+  m_PrefabInstance: {fileID: 586176941}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &586176943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1602548969408154310, guid: 6646e71d57d0cbc4486bbce885624231, type: 3}
   m_PrefabInstance: {fileID: 586176941}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &587776341
@@ -9022,7 +9027,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708103639}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9030,7 +9035,7 @@ RectTransform:
   - {fileID: 2015646322}
   - {fileID: 1490113137}
   - {fileID: 420526049}
-  m_Father: {fileID: 1125332669}
+  m_Father: {fileID: 879442888253006091}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -11939,7 +11944,7 @@ MonoBehaviour:
   requiredKeyObjects: []
   isMinigameTrigger: 1
   isSingleMinigame: 1
-  minigameObject: {fileID: 0}
+  minigameObject: {fileID: 708103639}
   isNarrativeTrigger: 0
   narrationData: {fileID: 0}
   objectsToEnable:
@@ -12791,110 +12796,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8818996830979732536, guid: 51854ca9a563aa34fbe22c510b7f9fe8, type: 3}
   m_PrefabInstance: {fileID: 1124704963}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1125332665
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1125332669}
-  - component: {fileID: 1125332668}
-  - component: {fileID: 1125332667}
-  - component: {fileID: 1125332666}
-  m_Layer: 5
-  m_Name: Minigames_UI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1125332666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1125332665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &1125332667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1125332665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
---- !u!223 &1125332668
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1125332665}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!224 &1125332669
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1125332665}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 708103640}
-  - {fileID: 279391567}
-  - {fileID: 586176942}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
 --- !u!1 &1125474678
 GameObject:
   m_ObjectHideFlags: 0
@@ -21154,7 +21055,7 @@ PrefabInstance:
     - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: minigameObject
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 586176943}
     - target: {fileID: 3926110286048265541, guid: 6ba7bcb2651637c478a21ba205984fc9, type: 3}
       propertyPath: isMinigameTrigger
       value: 1
@@ -24499,9 +24400,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7069326090534846439, guid: 27f7fa3206fd7a448977afbc3f0ad2d3, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 708103640}
+    - targetCorrespondingSourceObject: {fileID: 7069326090534846439, guid: 27f7fa3206fd7a448977afbc3f0ad2d3, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 279391567}
+    - targetCorrespondingSourceObject: {fileID: 7069326090534846439, guid: 27f7fa3206fd7a448977afbc3f0ad2d3, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 586176942}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27f7fa3206fd7a448977afbc3f0ad2d3, type: 3}
+--- !u!224 &879442888253006091 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7069326090534846439, guid: 27f7fa3206fd7a448977afbc3f0ad2d3, type: 3}
+  m_PrefabInstance: {fileID: 879442888253006090}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1099004239743815243 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1211985201634905314, guid: 47e29966c48ad604ca3a08246bde2979, type: 3}
@@ -25013,7 +24928,6 @@ SceneRoots:
   - {fileID: 7263571874897619674}
   - {fileID: 8857663336688905314}
   - {fileID: 1782012102}
-  - {fileID: 1125332669}
   - {fileID: 879442888253006090}
   - {fileID: 2024149530}
   - {fileID: 92786674}

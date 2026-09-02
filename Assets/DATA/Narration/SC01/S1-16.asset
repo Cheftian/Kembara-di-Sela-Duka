@@ -21,3 +21,5 @@ MonoBehaviour:
     expressionName: Sad
     dialogueEN: WHY did this room suddenly... get a hole in it...
     dialogueID: "KENAPA ruangan ini\uFFFDtiba-tiba berlubang\uFFFD"
+  loadSceneAfterNarration: 1
+  sceneNameAfterNarration: 2-denial

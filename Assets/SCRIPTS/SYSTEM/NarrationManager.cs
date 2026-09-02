@@ -286,8 +286,25 @@ public class NarrationManager : MonoBehaviour
         activePanelRect.anchoredPosition = hiddenPosition;
         targetCharacterActivePanelToNull(); 
         isTransitioning = false;
+        NarrationData completedNarration = currentActiveData;
         currentActiveData = null; // Clear data cache saat narasi selesai
         GameManager.Instance.SetGameState(stateAfterNarration); 
+
+        if (completedNarration != null && completedNarration.loadSceneAfterNarration)
+        {
+            if (string.IsNullOrEmpty(completedNarration.sceneNameAfterNarration))
+            {
+                Debug.LogError("Scene tujuan setelah narasi belum diisi pada NarrationData!", completedNarration);
+            }
+            else if (SceneController.Instance != null)
+            {
+                SceneController.Instance.ChangeSceneByName(completedNarration.sceneNameAfterNarration);
+            }
+            else
+            {
+                Debug.LogError("SceneController.Instance tidak ditemukan untuk memuat scene setelah narasi!", this);
+            }
+        }
     }
 
     private void targetCharacterActivePanelToNull()

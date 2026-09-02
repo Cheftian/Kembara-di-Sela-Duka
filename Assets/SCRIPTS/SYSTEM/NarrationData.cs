@@ -18,4 +18,11 @@ public class NarrationData : ScriptableObject
 
     [Tooltip("Daftar urutan percakapan dan karakternya")]
     public DialogueStep[] dialogueSteps;
+
+    [Header("Scene Transition")]
+    [Tooltip("Jika dicentang, scene akan dimuat setelah narasi selesai.")]
+    public bool loadSceneAfterNarration = false;
+
+    [Tooltip("Nama scene yang dimuat setelah narasi selesai.")]
+    public string sceneNameAfterNarration;
 }

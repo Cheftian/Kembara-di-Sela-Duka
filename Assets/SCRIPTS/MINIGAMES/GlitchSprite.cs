@@ -8,6 +8,7 @@ public class GlitchSprite : MonoBehaviour
 
     [Header("Sprite Settings")]
     [SerializeField] private Sprite[] glitchSprites;
+    [SerializeField] private bool enableDizzy = true;
     
     [Header("Timing Settings")]
     [SerializeField] private float minNormalTime = 1.0f;
@@ -42,7 +43,7 @@ public class GlitchSprite : MonoBehaviour
     private void Update()
     {
         // Jika player mematikan dizzy-nya sendiri (berbalik arah ke kanan), hentikan efek visual objek
-        if (isPlayerInside && activePlayer != null && !activePlayer.IsDizzy)
+        if (enableDizzy && isPlayerInside && activePlayer != null && !activePlayer.IsDizzy)
         {
             StopGlitchEffect();
         }
@@ -54,6 +55,11 @@ public class GlitchSprite : MonoBehaviour
         {
             isPlayerInside = true;
             activePlayer = collision.GetComponent<PlayerController>();
+
+            if (!enableDizzy && targetSpriteRenderer != null && glitchCoroutine == null)
+            {
+                glitchCoroutine = StartCoroutine(GlitchRoutine());
+            }
         }
     }
 
@@ -63,12 +69,12 @@ public class GlitchSprite : MonoBehaviour
         if (collision.CompareTag("Player") && activePlayer != null)
         {
             // Jika player sedang tidak dizzy (karena habis balik kanan) tapi SEKARANG menekan tombol A (Kiri)
-            if (!activePlayer.IsDizzy && Input.GetKey(KeyCode.A))
+            if (enableDizzy && !activePlayer.IsDizzy && Input.GetKey(KeyCode.A))
             {
                 // Aktifkan kembali efek dizzy seketika!
                 activePlayer.SetDizzyStatus(true);
 
-                // Mulai ulang efek glitch pada sprite objek utama jika belum berjalan
+                // Mulai ulang efek glitch setelah player kembali bergerak ke kiri
                 if (glitchCoroutine == null && targetSpriteRenderer != null)
                 {
                     glitchCoroutine = StartCoroutine(GlitchRoutine());
@@ -115,17 +121,17 @@ public class GlitchSprite : MonoBehaviour
 
     private IEnumerator GlitchRoutine()
     {
-        while (isPlayerInside && targetSpriteRenderer != null && activePlayer != null && activePlayer.IsDizzy)
+        while (isPlayerInside && targetSpriteRenderer != null && activePlayer != null && (!enableDizzy || activePlayer.IsDizzy))
         {
             float normalDuration = Random.Range(minNormalTime, maxNormalTime);
             yield return new WaitForSeconds(normalDuration);
 
-            if (!isPlayerInside || !activePlayer.IsDizzy) break;
+            if (!isPlayerInside || activePlayer == null || (enableDizzy && !activePlayer.IsDizzy)) break;
 
             float glitchDuration = Random.Range(minGlitchDuration, maxGlitchDuration);
             float elapsedTime = 0f;
 
-            while (elapsedTime < glitchDuration && isPlayerInside && activePlayer.IsDizzy)
+            while (elapsedTime < glitchDuration && isPlayerInside && activePlayer != null && (!enableDizzy || activePlayer.IsDizzy))
             {
                 int randomIndex = Random.Range(0, glitchSprites.Length);
                 targetSpriteRenderer.sprite = glitchSprites[randomIndex];
