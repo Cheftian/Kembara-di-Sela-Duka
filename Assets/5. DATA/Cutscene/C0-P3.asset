@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
+  m_Name: C0-P3
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - characterName: Elara
+    expressionName: '-'
+    dialogueEN: Nevermind.
+    dialogueID: Yasudahlah.
+  - characterName: Elara
+    expressionName: '-'
+    dialogueEN: Maybe I should just get some sleep? There's still about a five-hour
+      journey ahead.
+    dialogueID: Tinggal tidur kali ya? Masih sekitar 5 jam perjalanan.
+  - characterName: Elara
+    expressionName: '-'
+    dialogueEN: Father. I'm coming...
+    dialogueID: Ayah. Aku datang...
+  loadSceneAfterNarration: 0
+  sceneNameAfterNarration: 

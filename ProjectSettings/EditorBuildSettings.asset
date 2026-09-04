@@ -6,19 +6,25 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/SCENES/0-splash.unity
+    path: Assets/0. SCENES/0-splash.unity
     guid: 8094255ed3f0ca346905e3650a3db01a
   - enabled: 1
-    path: Assets/SCENES/0-mainmenu.unity
-    guid: 6570f245a2982124cb56d254f6172bce
-  - enabled: 1
-    path: Assets/SCENES/0-loading.unity
+    path: Assets/0. SCENES/0-loading.unity
     guid: f76d54e6825f1d947bce14b10b5fa6ef
   - enabled: 1
-    path: Assets/SCENES/1-prologue.unity
+    path: Assets/0. SCENES/1-mainmenu.unity
+    guid: 6570f245a2982124cb56d254f6172bce
+  - enabled: 1
+    path: Assets/0. SCENES/2-Intro-Cutscene.unity
+    guid: 674e4fb663ef5a14d851aec68e6276ea
+  - enabled: 1
+    path: Assets/0. SCENES/3-prologue.unity
     guid: 0d5fbe8b20162cb4d8a90c260c3d3a35
   - enabled: 1
-    path: Assets/SCENES/2-denial.unity
+    path: Assets/0. SCENES/4-Interlude1-Cutscene.unity
+    guid: 53ecbb4c317daff408872852466ca517
+  - enabled: 1
+    path: Assets/0. SCENES/5-denial.unity
     guid: 5f6bef945488bd940a6cdf640643eb20
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: d5d44740ef747244485abb66bf59a2f2, type: 3}

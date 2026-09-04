@@ -1,0 +1,23 @@
+FileName;CharacterName;ExpressionName;DialogueEN;DialogueID
+C1-P1;Elara;-;Wait…;Tunggu…
+C1-P1;Elara;-;WHY did this room suddenly... get a hole in it...;KENAPA ruangan ini…tiba-tiba berlubang…
+C1-P1;Elara;-;What is happening here?;Apa yang sedang terjadi di sini?
+;;;;
+C1-P2;Elara;-;Ugh... This pressure again!;Akh… Tekanan ini lagi!
+C1-P2;Elara;-;Hit my head!;Pusing banget!
+;;;;
+C1-P3;Elara;-;Wait... something seems wrong?;Tunggu… Kek ada yang salah?
+C1-P3;Elara;-;Is it just my eyes, or does that tree actually look dim?;Ini cuman mataku aja, atau emang pohon itu keliatan redup?
+C1-P3;Elara-Void;-;Lara…;Lara…
+;;;;
+C1-P4;Elara-Void;-;Lara…;Lara…
+;;;;
+C1-P5;Elara;-;Eh?!;Eh?!
+C1-P5;Elara;-;Who is there?;Siapa di sana?
+C1-P5;Elara;-;Don't you realize?;Kamu gak sadar?
+C1-P5;Elara;-;Huh?!;Hahh?!
+;;;;
+C1-P6;Narrator;-;Elara was frightened and walked backwards slowly.;Elara ketakutan dan berjalan mundur secara perlahan.
+C1-P6;Narrator;-;Without realizing it, Lara fell.;Tanpa ia sadar. Lara terjatuh.
+;;;;
+C1-P7;Elara;-;Father!!!!;Ayah!!!!
