@@ -47,7 +47,7 @@ MonoBehaviour:
   pausePanel: {fileID: 5838432011938026062}
   resumeButton: {fileID: 4271475097155932837}
   backToMenuButton: {fileID: 2001792731038976888}
-  mainMenuSceneName: 0-mainmenu
+  mainMenuSceneName: 1-mainmenu
   keyObjects: []
 --- !u!1 &41511219792169877
 GameObject:
@@ -1726,6 +1726,8 @@ MonoBehaviour:
   typingSpeed: 0.05
   highlightColor: {r: 1, g: 0.22548327, b: 0, a: 1}
   delayBeforePlayState: 0
+  autoAdvanceLines: 0
+  autoAdvanceDelay: 2
 --- !u!1 &2453055196325924444
 GameObject:
   m_ObjectHideFlags: 0

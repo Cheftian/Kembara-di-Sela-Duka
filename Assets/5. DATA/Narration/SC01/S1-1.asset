@@ -29,9 +29,5 @@ MonoBehaviour:
     expressionName: Happy
     dialogueEN: Can't wait to meet him.
     dialogueID: Gakk sabarnyaa ketemu Ayah.
-  - characterName: Elara
-    expressionName: Normal
-    dialogueEN: I almost forgot, I need to let my friend know I've arrived.
-    dialogueID: Ohya hampir lupa, aku harus ngabarin temenku kalau aku dah sampai.
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 

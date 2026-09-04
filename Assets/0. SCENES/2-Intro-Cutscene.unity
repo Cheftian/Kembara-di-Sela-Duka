@@ -1294,8 +1294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e21392dea1f5944f862da9e939b1b33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runFadeOutOnStart: 1
-  runFadeInOnExit: 1
+  runFadeOutOnStart: 0
+  runFadeInOnExit: 0
   transitionAnimator: {fileID: 6094334182475497395}
   transitionDelay: 1
   BGM_Transition: 
