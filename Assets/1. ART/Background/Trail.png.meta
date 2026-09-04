@@ -1,0 +1,2431 @@
+fileFormatVersion: 2
+guid: 149ac4d6ee34d864b80fe5adba79bdad
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1813978609571329657
+    second: Trail_0
+  - first:
+      213: -7575988170598135393
+    second: Trail_1
+  - first:
+      213: -8074813064263900232
+    second: Trail_2
+  - first:
+      213: -5381599026686620397
+    second: Trail_3
+  - first:
+      213: 6880935451451831273
+    second: Trail_4
+  - first:
+      213: 3358737328827532005
+    second: Trail_5
+  - first:
+      213: -1744370464167224475
+    second: Trail_6
+  - first:
+      213: 6530385930271431005
+    second: Trail_7
+  - first:
+      213: -7128495114432947557
+    second: Trail_8
+  - first:
+      213: 5801469270409608178
+    second: Trail_9
+  - first:
+      213: -5190717566264663825
+    second: Trail_10
+  - first:
+      213: -6495271276682789643
+    second: Trail_11
+  - first:
+      213: -2179163638729217147
+    second: Trail_12
+  - first:
+      213: -8212658717993202242
+    second: Trail_13
+  - first:
+      213: -1335505846610379499
+    second: Trail_14
+  - first:
+      213: 6229644139377802974
+    second: Trail_15
+  - first:
+      213: 3645866550230096574
+    second: Trail_16
+  - first:
+      213: -2204531320579031904
+    second: Trail_17
+  - first:
+      213: -1783885227315404550
+    second: Trail_18
+  - first:
+      213: 3976791747091640446
+    second: Trail_19
+  - first:
+      213: 2722387792852961782
+    second: Trail_20
+  - first:
+      213: -6146808676379076771
+    second: Trail_21
+  - first:
+      213: -1422044113760241894
+    second: Trail_22
+  - first:
+      213: -9183125806123661931
+    second: Trail_23
+  - first:
+      213: 2652635378275407708
+    second: Trail_24
+  - first:
+      213: 4993351484984332098
+    second: Trail_25
+  - first:
+      213: 6890884769767180999
+    second: Trail_26
+  - first:
+      213: -6094875300627242399
+    second: Trail_27
+  - first:
+      213: -1568681902272508470
+    second: Trail_28
+  - first:
+      213: 1990014368247229482
+    second: Trail_29
+  - first:
+      213: -5484896423994431261
+    second: Trail_30
+  - first:
+      213: -1960645368432898708
+    second: Trail_31
+  - first:
+      213: -196354156100116096
+    second: Trail_32
+  - first:
+      213: -1770105932571116582
+    second: Trail_33
+  - first:
+      213: 2672916556258168748
+    second: Trail_34
+  - first:
+      213: 2956582761557221264
+    second: Trail_35
+  - first:
+      213: 8484179710992067295
+    second: Trail_36
+  - first:
+      213: 7231104063666066328
+    second: Trail_37
+  - first:
+      213: 7624813164297861513
+    second: Trail_38
+  - first:
+      213: 6061305979366248535
+    second: Trail_39
+  - first:
+      213: -3956060792747396775
+    second: Trail_40
+  - first:
+      213: 4709973067027508
+    second: Trail_41
+  - first:
+      213: 3558978260435379856
+    second: Trail_42
+  - first:
+      213: -211423814048108917
+    second: Trail_43
+  - first:
+      213: 8165210108894647246
+    second: Trail_44
+  - first:
+      213: -303871045065593647
+    second: Trail_45
+  - first:
+      213: -5886647436845731386
+    second: Trail_46
+  - first:
+      213: -3662940801883807244
+    second: Trail_47
+  - first:
+      213: -7435192351241691328
+    second: Trail_48
+  - first:
+      213: 2301858650702528190
+    second: Trail_49
+  - first:
+      213: -7295920227204835889
+    second: Trail_50
+  - first:
+      213: -6543537552643512613
+    second: Trail_51
+  - first:
+      213: 14219755560825217
+    second: Trail_52
+  - first:
+      213: 1450209489718068917
+    second: Trail_53
+  - first:
+      213: -5037278240632151649
+    second: Trail_54
+  - first:
+      213: 8419482825489437575
+    second: Trail_55
+  - first:
+      213: -7986099674241350259
+    second: Trail_56
+  - first:
+      213: -4788590551999694210
+    second: Trail_57
+  - first:
+      213: 5639399466264494548
+    second: Trail_58
+  - first:
+      213: -3604478628760019261
+    second: Trail_59
+  - first:
+      213: -6847689324488504198
+    second: Trail_60
+  - first:
+      213: -8602620684266139654
+    second: Trail_61
+  - first:
+      213: 1747516428590456048
+    second: Trail_62
+  - first:
+      213: 5004830069941240193
+    second: Trail_63
+  - first:
+      213: 7419397064032901640
+    second: Trail_64
+  - first:
+      213: -6769833586461454041
+    second: Trail_65
+  - first:
+      213: -5603507869272183149
+    second: Trail_66
+  - first:
+      213: -8281484524758816000
+    second: Trail_67
+  - first:
+      213: -1832061711929596809
+    second: Trail_68
+  - first:
+      213: 8521643347170384563
+    second: Trail_69
+  - first:
+      213: -4709117712249742414
+    second: Trail_70
+  - first:
+      213: -1343650052684789223
+    second: Trail_71
+  - first:
+      213: 8588965060973617165
+    second: Trail_72
+  - first:
+      213: 2553905620609161688
+    second: Trail_73
+  - first:
+      213: -4358963565944549559
+    second: Trail_74
+  - first:
+      213: 4169183731627663446
+    second: Trail_75
+  - first:
+      213: 8952452973016322085
+    second: Trail_76
+  - first:
+      213: 6550527670272062375
+    second: Trail_77
+  - first:
+      213: 1318153951033253543
+    second: Trail_78
+  - first:
+      213: 2915366113860827989
+    second: Trail_79
+  - first:
+      213: 7927005290150895245
+    second: Trail_80
+  - first:
+      213: -4289252330894375814
+    second: Trail_81
+  - first:
+      213: -1109920392348655549
+    second: Trail_82
+  - first:
+      213: 7444702778537661237
+    second: Trail_83
+  - first:
+      213: -1384606566243873963
+    second: Trail_84
+  - first:
+      213: -5456034091097116113
+    second: Trail_85
+  - first:
+      213: -2088971237612518080
+    second: Trail_86
+  - first:
+      213: 3052156756704814072
+    second: Trail_87
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Trail_0
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 156
+        width: 44
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 976f7ad3feb8c2910800000000000000
+      internalID: 1813978609571329657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_1
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 218
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f99cfece5eeacd690800000000000000
+      internalID: -7575988170598135393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_2
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 158
+        width: 53
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b3eddcdc4080ff80800000000000000
+      internalID: -8074813064263900232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_3
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 184
+        width: 101
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31d81cab238b055b0800000000000000
+      internalID: -5381599026686620397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_4
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 153
+        width: 73
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e3bd2a165efd7f50800000000000000
+      internalID: 6880935451451831273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_5
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 179
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e20c922ec1ac9e20800000000000000
+      internalID: 3358737328827532005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_6
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 181
+        width: 9
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56b11ae0e40cac7e0800000000000000
+      internalID: -1744370464167224475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_7
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 190
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d599904776790aa50800000000000000
+      internalID: 6530385930271431005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_8
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 174
+        width: 25
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9add19367f721d90800000000000000
+      internalID: -7128495114432947557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_9
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 175
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fbfb1e5095f28050800000000000000
+      internalID: 5801469270409608178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_10
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 172
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe02a6500edd6f7b0800000000000000
+      internalID: -5190717566264663825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_11
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 178
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fc3681ff292cd5a0800000000000000
+      internalID: -6495271276682789643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_12
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 170
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58be81e573e02c1e0800000000000000
+      internalID: -2179163638729217147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_13
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 143
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebd00849866c60e80800000000000000
+      internalID: -8212658717993202242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_14
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 150
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51db4512284577de0800000000000000
+      internalID: -1335505846610379499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_15
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 152
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ede35b4b654247650800000000000000
+      internalID: 6229644139377802974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_16
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 156
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eba91f09f48b89230800000000000000
+      internalID: 3645866550230096574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_17
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 153
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0acf9aca17ee761e0800000000000000
+      internalID: -2204531320579031904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_18
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 157
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af06cc156dd5e37e0800000000000000
+      internalID: -1783885227315404550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_19
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 157
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e703a172607603730800000000000000
+      internalID: 3976791747091640446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_20
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 159
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f94cd5164dd7c520800000000000000
+      internalID: 2722387792852961782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_21
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 155
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d57d226731622baa0800000000000000
+      internalID: -6146808676379076771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_22
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 149
+        width: 30
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a17b260b962e34ce0800000000000000
+      internalID: -1422044113760241894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_23
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 155
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 595c64ecbbbfe8080800000000000000
+      internalID: -9183125806123661931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_24
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 149
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c575db082dd00d420800000000000000
+      internalID: 2652635378275407708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_25
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 155
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24f092d38b2fb4540800000000000000
+      internalID: 4993351484984332098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_26
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 148
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ca4f1a403751af50800000000000000
+      internalID: 6890884769767180999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_27
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 150
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 162afc3c437aa6ba0800000000000000
+      internalID: -6094875300627242399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_28
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 147
+        width: 10
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acd86710f1cea3ae0800000000000000
+      internalID: -1568681902272508470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_29
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 146
+        width: 23
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2cac4d3683fd9b10800000000000000
+      internalID: 1990014368247229482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_30
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 132
+        width: 28
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e8600a33cbb1e3b0800000000000000
+      internalID: -5484896423994431261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_31
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 133
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6dca04ec636ac4e0800000000000000
+      internalID: -1960645368432898708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_32
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 134
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0812b737fe8664df0800000000000000
+      internalID: -196354156100116096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_33
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 131
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adb794268025f67e0800000000000000
+      internalID: -1770105932571116582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_34
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 136
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: caf470a327b181520800000000000000
+      internalID: 2672916556258168748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_35
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 136
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09f59a36b54e70920800000000000000
+      internalID: 2956582761557221264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_36
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 136
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fda224cfe7cddb570800000000000000
+      internalID: 8484179710992067295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_37
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 138
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89313b875da0a5460800000000000000
+      internalID: 7231104063666066328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_38
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 136
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98932b8cc27c0d960800000000000000
+      internalID: 7624813164297861513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_39
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 132
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 750931f8ca51e1450800000000000000
+      internalID: 6061305979366248535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_40
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 132
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 951f07a4baf3919c0800000000000000
+      internalID: -3956060792747396775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_41
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 130
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 434df8f02bbb01000800000000000000
+      internalID: 4709973067027508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_42
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 131
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 096a6902fd7046130800000000000000
+      internalID: 3558978260435379856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_43
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 128
+        width: 19
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8eaa9a492fd01df0800000000000000
+      internalID: -211423814048108917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_44
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 129
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec318193557a05170800000000000000
+      internalID: 8165210108894647246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_45
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 128
+        width: 18
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dca65df4ee68cbf0800000000000000
+      internalID: -303871045065593647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_46
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 119
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c1b8d0585d6e4ea0800000000000000
+      internalID: -5886647436845731386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_47
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 123
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f16e6e6fbe9a2dc0800000000000000
+      internalID: -3662940801883807244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_48
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 124
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04f998b23f3e0d890800000000000000
+      internalID: -7435192351241691328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_49
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 126
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebeb84e3f38d1ff10800000000000000
+      internalID: 2301858650702528190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_50
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 127
+        width: 19
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc55ed3753fafba90800000000000000
+      internalID: -7295920227204835889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_51
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 123
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd62148d34fa035a0800000000000000
+      internalID: -6543537552643512613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_52
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 122
+        width: 19
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 181fef6dac4823000800000000000000
+      internalID: 14219755560825217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_53
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 120
+        width: 24
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b6cb8ce8dd202410800000000000000
+      internalID: 1450209489718068917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_54
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 121
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f91e058f02ef71ab0800000000000000
+      internalID: -5037278240632151649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_55
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 107
+        width: 28
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 783dccd750308d470800000000000000
+      internalID: 8419482825489437575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_56
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 103
+        width: 27
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d854bff88acab2190800000000000000
+      internalID: -7986099674241350259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_57
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 109
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7a344593428b8db0800000000000000
+      internalID: -4788590551999694210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_58
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 110
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d1093d8feb234e40800000000000000
+      internalID: 5639399466264494548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_59
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 96
+        width: 22
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ce9544d8c15afdc0800000000000000
+      internalID: -3604478628760019261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_60
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 99
+        width: 24
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7cc0a907de18f0a0800000000000000
+      internalID: -6847689324488504198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_61
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 101
+        width: 23
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aff83e8f01a5d9880800000000000000
+      internalID: -8602620684266139654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_62
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 111
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fc1b4ddeec604810800000000000000
+      internalID: 1747516428590456048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_63
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 113
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1818a009e6ab47540800000000000000
+      internalID: 5004830069941240193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_64
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 116
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80ad141f15ef6f660800000000000000
+      internalID: 7419397064032901640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_65
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 75
+        width: 26
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 721d472a838bc02a0800000000000000
+      internalID: -6769833586461454041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_66
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 92
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39eece318475c32b0800000000000000
+      internalID: -5603507869272183149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_67
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 94
+        width: 35
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00b2bd0b3b1421d80800000000000000
+      internalID: -8281484524758816000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_68
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 86
+        width: 39
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 774a7d564953396e0800000000000000
+      internalID: -1832061711929596809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_69
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 92
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ba59a28975f24670800000000000000
+      internalID: 8521643347170384563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_70
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 96
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bb9ad3046ad5aeb0800000000000000
+      internalID: -4709117712249742414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_71
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 90
+        width: 41
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91ac94365656a5de0800000000000000
+      internalID: -1343650052684789223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_72
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 86
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d00e2977732223770800000000000000
+      internalID: 8588965060973617165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_73
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 83
+        width: 43
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d9584a71ab417320800000000000000
+      internalID: 2553905620609161688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_74
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 88
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94f41074bb9d183c0800000000000000
+      internalID: -4358963565944549559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_75
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 89
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 650210fb38aebd930800000000000000
+      internalID: 4169183731627663446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_76
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 84
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 520170dfb808d3c70800000000000000
+      internalID: 8952452973016322085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_77
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 66
+        width: 53
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a3feedb53628ea50800000000000000
+      internalID: 6550527670272062375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_78
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 60
+        width: 60
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ae5d9ad8060b4210800000000000000
+      internalID: 1318153951033253543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_79
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 60
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55bb2e6c806757820800000000000000
+      internalID: 2915366113860827989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_80
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 37
+        width: 89
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8e1614ff41620e60800000000000000
+      internalID: 7927005290150895245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_81
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 49
+        width: 37
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7446010bb38974c0800000000000000
+      internalID: -4289252330894375814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_82
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 66
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 340a815a845c890f0800000000000000
+      internalID: -1109920392348655549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_83
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 39
+        width: 50
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 533d91dbbb5e05760800000000000000
+      internalID: 7444702778537661237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_84
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 45
+        width: 56
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55b4c59f9a3e8cce0800000000000000
+      internalID: -1384606566243873963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_85
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 66
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f223cb5c6e54844b0800000000000000
+      internalID: -5456034091097116113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_86
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 33
+        width: 63
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 045091c2abb7203e0800000000000000
+      internalID: -2088971237612518080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trail_87
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 42
+        width: 21
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f3e23236607b5a20800000000000000
+      internalID: 3052156756704814072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Trail_0: 1813978609571329657
+      Trail_1: -7575988170598135393
+      Trail_10: -5190717566264663825
+      Trail_11: -6495271276682789643
+      Trail_12: -2179163638729217147
+      Trail_13: -8212658717993202242
+      Trail_14: -1335505846610379499
+      Trail_15: 6229644139377802974
+      Trail_16: 3645866550230096574
+      Trail_17: -2204531320579031904
+      Trail_18: -1783885227315404550
+      Trail_19: 3976791747091640446
+      Trail_2: -8074813064263900232
+      Trail_20: 2722387792852961782
+      Trail_21: -6146808676379076771
+      Trail_22: -1422044113760241894
+      Trail_23: -9183125806123661931
+      Trail_24: 2652635378275407708
+      Trail_25: 4993351484984332098
+      Trail_26: 6890884769767180999
+      Trail_27: -6094875300627242399
+      Trail_28: -1568681902272508470
+      Trail_29: 1990014368247229482
+      Trail_3: -5381599026686620397
+      Trail_30: -5484896423994431261
+      Trail_31: -1960645368432898708
+      Trail_32: -196354156100116096
+      Trail_33: -1770105932571116582
+      Trail_34: 2672916556258168748
+      Trail_35: 2956582761557221264
+      Trail_36: 8484179710992067295
+      Trail_37: 7231104063666066328
+      Trail_38: 7624813164297861513
+      Trail_39: 6061305979366248535
+      Trail_4: 6880935451451831273
+      Trail_40: -3956060792747396775
+      Trail_41: 4709973067027508
+      Trail_42: 3558978260435379856
+      Trail_43: -211423814048108917
+      Trail_44: 8165210108894647246
+      Trail_45: -303871045065593647
+      Trail_46: -5886647436845731386
+      Trail_47: -3662940801883807244
+      Trail_48: -7435192351241691328
+      Trail_49: 2301858650702528190
+      Trail_5: 3358737328827532005
+      Trail_50: -7295920227204835889
+      Trail_51: -6543537552643512613
+      Trail_52: 14219755560825217
+      Trail_53: 1450209489718068917
+      Trail_54: -5037278240632151649
+      Trail_55: 8419482825489437575
+      Trail_56: -7986099674241350259
+      Trail_57: -4788590551999694210
+      Trail_58: 5639399466264494548
+      Trail_59: -3604478628760019261
+      Trail_6: -1744370464167224475
+      Trail_60: -6847689324488504198
+      Trail_61: -8602620684266139654
+      Trail_62: 1747516428590456048
+      Trail_63: 5004830069941240193
+      Trail_64: 7419397064032901640
+      Trail_65: -6769833586461454041
+      Trail_66: -5603507869272183149
+      Trail_67: -8281484524758816000
+      Trail_68: -1832061711929596809
+      Trail_69: 8521643347170384563
+      Trail_7: 6530385930271431005
+      Trail_70: -4709117712249742414
+      Trail_71: -1343650052684789223
+      Trail_72: 8588965060973617165
+      Trail_73: 2553905620609161688
+      Trail_74: -4358963565944549559
+      Trail_75: 4169183731627663446
+      Trail_76: 8952452973016322085
+      Trail_77: 6550527670272062375
+      Trail_78: 1318153951033253543
+      Trail_79: 2915366113860827989
+      Trail_8: -7128495114432947557
+      Trail_80: 7927005290150895245
+      Trail_81: -4289252330894375814
+      Trail_82: -1109920392348655549
+      Trail_83: 7444702778537661237
+      Trail_84: -1384606566243873963
+      Trail_85: -5456034091097116113
+      Trail_86: -2088971237612518080
+      Trail_87: 3052156756704814072
+      Trail_9: 5801469270409608178
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
