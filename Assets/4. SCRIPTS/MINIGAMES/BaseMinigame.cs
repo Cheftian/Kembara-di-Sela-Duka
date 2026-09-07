@@ -63,6 +63,11 @@ public abstract class BaseMinigame : MonoBehaviour
 
     protected virtual void OnEnable()
     {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetGameState(GameManager.GameState.Interacted);
+        }
+
         StopAllCoroutines();
         StartCoroutine(TransitionIn());
     }
@@ -145,11 +150,17 @@ public abstract class BaseMinigame : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f); 
         
-        NarrationManager.Instance.PlayNarration(outroNarration);
+        NarrationManager.Instance.PlayNarration(
+            outroNarration,
+            GameManager.GameState.Interacted,
+            GameManager.GameState.Interacted);
         
-        yield return new WaitUntil(() => GameManager.Instance.currentState == GameManager.GameState.Play);
-        
-        GameManager.Instance.SetGameState(GameManager.GameState.Cutscene);
+        yield return new WaitUntil(() => !NarrationManager.Instance.IsNarrating);
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetGameState(GameManager.GameState.Interacted);
+        }
         
         isPlayingNarration = false;
         if (closeButton != null) closeButton.interactable = true;
@@ -179,12 +190,18 @@ public abstract class BaseMinigame : MonoBehaviour
 
         if (shouldPlayNarration)
         {
-            NarrationManager.Instance.PlayNarration(introNarration);
+            NarrationManager.Instance.PlayNarration(
+                introNarration,
+                GameManager.GameState.Interacted,
+                GameManager.GameState.Interacted);
             yield return new WaitForSeconds(2f);
         }
 
-        GameManager.Instance.SetGameState(GameManager.GameState.Cutscene);
-        
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetGameState(GameManager.GameState.Interacted);
+        }
+
         canPlayPuzzle = true; 
         isPlayingNarration = false;
         

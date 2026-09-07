@@ -150,7 +150,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1999286080}
+  m_Father: {fileID: 1972081627}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -715,7 +715,7 @@ MonoBehaviour:
     panelObject: {fileID: 1972081626}
     panelCanvasGroup: {fileID: 1972081628}
     narrationsInPanel:
-    - {fileID: 11400000, guid: 9325078e7e4a8dc48b8951d1c85c814d, type: 2}
+    - {fileID: 11400000, guid: 040ae0b0f66f01e4aba6dac1845993b9, type: 2}
   - panelName: C1-P5
     panelObject: {fileID: 55995777}
     panelCanvasGroup: {fileID: 55995779}
@@ -1529,7 +1529,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1549788}
   m_Father: {fileID: 683496067}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1619,7 +1620,6 @@ RectTransform:
   m_Children:
   - {fileID: 837242345}
   - {fileID: 131696200}
-  - {fileID: 1549788}
   m_Father: {fileID: 8923554996018954437}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
