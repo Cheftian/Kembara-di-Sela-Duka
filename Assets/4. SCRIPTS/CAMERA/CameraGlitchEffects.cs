@@ -2,25 +2,27 @@ using UnityEngine;
 using UnityEngine.Rendering; // Tambahan untuk Post-Processing Volume
 using UnityEngine.Rendering.Universal; // Tambahan untuk URP Effects
 
+[DefaultExecutionOrder(1000)]
 public class CameraGlitchEffects : MonoBehaviour
 {
-    [Header("Target Setup")]
-    [SerializeField] private Transform playerTransform;
+    [Header("Player Setup")]
     [SerializeField] private PlayerController playerController;
-
-    [Header("Default Camera Settings")]
-    [SerializeField] private Vector3 defaultOffset = new Vector3(0f, 0f, -10f);
-    [SerializeField] private float defaultCameraSize = 5f;
-
-    [Header("Dizzy Zoom Progresif")]
-    [SerializeField] private float maxZoomSize = 3.5f; 
-    [SerializeField] private float zoomInSpeed = 0.5f; 
-    [SerializeField] private float zoomOutSpeed = 2f;  
-    [SerializeField] private float cameraFollowSpeed = 5f; 
+    [SerializeField] private float zoomFocusStrength = 1f;
 
     [Header("Camera Shake Settings")]
     [SerializeField] private float maxShakeMagnitude = 0.15f;
     [SerializeField] private float shakeFrequency = 25f;
+
+    [Header("Procedural Intensity")]
+    [Tooltip("Kecepatan efek meningkat dari ringan hingga maksimal.")]
+    [SerializeField] private float effectBuildUpSpeed = 1f;
+    [Tooltip("Kecepatan efek kembali normal saat player berhenti dizzy berjalan.")]
+    [SerializeField] private float effectFadeSpeed = 2f;
+    [SerializeField] private float returnToOriginalSpeed = 5f;
+
+    [Header("Procedural Zoom")]
+    [Tooltip("Ukuran orthographic minimum saat efek mencapai intensitas maksimal.")]
+    [SerializeField] private float maxZoomSize = 3.5f;
 
     [Header("Post-Processing Settings")]
     [Tooltip("Maksimal kepekatan Vignette saat kamera mencapai batas zoom terdekat")]
@@ -30,10 +32,13 @@ public class CameraGlitchEffects : MonoBehaviour
     [SerializeField] private float vignetteFadeSpeed = 2f;
 
     private Camera cam;
-    private float currentTargetSize;
-    private Vector3 initialCameraPosition;
-    private float aspectRatio = 16f / 9f; 
+    private CameraController cameraController;
     private float shakeTime;
+    private Vector3 effectStartPosition;
+    private Vector3 lastEffectBasePosition;
+    private float effectStartCameraSize;
+    private float effectIntensity;
+    private bool effectSessionActive;
 
     // Variabel internal Post-Processing
     private Volume postProcessVolume;
@@ -43,19 +48,12 @@ public class CameraGlitchEffects : MonoBehaviour
     private void Start()
     {
         cam = GetComponent<Camera>();
+        cameraController = GetComponent<CameraController>();
         
         if (playerController == null)
         {
             playerController = Object.FindFirstObjectByType<PlayerController>();
         }
-        if (playerTransform == null && playerController != null)
-        {
-            playerTransform = playerController.transform;
-        }
-
-        currentTargetSize = defaultCameraSize;
-        cam.orthographicSize = defaultCameraSize;
-        initialCameraPosition = transform.position;
 
         // Inisialisasi Post-Processing Volume pada Main Camera
         postProcessVolume = GetComponent<Volume>();
@@ -67,78 +65,104 @@ public class CameraGlitchEffects : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (playerTransform == null || playerController == null || cam == null) return;
+        if (playerController == null || cam == null) return;
 
-        // 1. LOGIKA PROGRESIF ZOOM
         bool isPlayerWalkingDizzy = playerController.IsDizzy && playerController.IsWalking;
+        bool isDizzy = playerController.IsDizzy;
+        ClampCurrentCameraPosition();
+
+        if (isPlayerWalkingDizzy && !effectSessionActive)
+        {
+            effectSessionActive = true;
+            effectStartPosition = transform.position;
+            effectStartCameraSize = cam.orthographicSize;
+        }
 
         if (isPlayerWalkingDizzy)
         {
-            currentTargetSize -= zoomInSpeed * Time.deltaTime;
-            currentTargetSize = Mathf.Max(currentTargetSize, maxZoomSize); 
-        }
-        else
-        {
-            currentTargetSize += zoomOutSpeed * Time.deltaTime;
-            currentTargetSize = Mathf.Min(currentTargetSize, defaultCameraSize); 
-        }
-
-        cam.orthographicSize = currentTargetSize;
-
-        // Hitung persentase progres zoom (0 saat normal, 1 saat zoom maksimal)
-        float zoomProgress = Mathf.InverseLerp(defaultCameraSize, maxZoomSize, cam.orthographicSize);
-
-        // 2. HITUNG BATAS DINAMIS (Batas Ruang Gerak Akibat Zoom In)
-        float maxDeltaY = defaultCameraSize - cam.orthographicSize;
-        float maxDeltaX = maxDeltaY * aspectRatio;
-
-        float dynamicMinX = initialCameraPosition.x - maxDeltaX;
-        float dynamicMaxX = initialCameraPosition.x + maxDeltaX;
-        float dynamicMinY = initialCameraPosition.y - maxDeltaY;
-        float dynamicMaxY = initialCameraPosition.y + maxDeltaY;
-
-        // 3. PERGERAKAN MENGIKUTI PLAYER
-        Vector3 dynamicOffset = defaultOffset;
-        dynamicOffset.y += zoomProgress * 0.8f; 
-
-        // Target posisi kamera mengikuti Player
-        Vector3 targetCameraPosition = playerTransform.position + dynamicOffset;
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetCameraPosition, Time.deltaTime * cameraFollowSpeed);
-
-        // 4. LOCK BOUNDARIES DINAMIS
-        float clampedX = Mathf.Clamp(smoothedPosition.x, dynamicMinX, dynamicMaxX);
-        float clampedY = Mathf.Clamp(smoothedPosition.y, dynamicMinY, dynamicMaxY);
-        
-        Vector3 finalBasePosition = new Vector3(clampedX, clampedY, transform.position.z);
-
-        // 5. EFEK CAMERA SHAKE (GUNCANGAN PROGRESIF)
-        if (isPlayerWalkingDizzy && zoomProgress > 0.05f)
-        {
+            effectIntensity = Mathf.MoveTowards(effectIntensity, 1f, effectBuildUpSpeed * Time.deltaTime);
             shakeTime += Time.deltaTime * shakeFrequency;
-            float currentShakeMagnitude = zoomProgress * maxShakeMagnitude;
-
+            float currentShakeMagnitude = maxShakeMagnitude * effectIntensity;
             float shakeX = (Mathf.PerlinNoise(shakeTime, 0f) - 0.5f) * 2f * currentShakeMagnitude;
             float shakeY = (Mathf.PerlinNoise(0f, shakeTime) - 0.5f) * 2f * currentShakeMagnitude;
 
-            Vector3 shakeOffset = new Vector3(shakeX, shakeY, 0f);
-            transform.position = finalBasePosition + shakeOffset;
-
-            // Vignette mengikuti ketebalan zoom secara presisi
-            targetVignetteIntensity = zoomProgress * maxVignetteIntensity;
+            targetVignetteIntensity = maxVignetteIntensity * effectIntensity;
+            ApplyZoomTowardPlayer(effectStartCameraSize);
+            lastEffectBasePosition = transform.position;
+            transform.position += new Vector3(shakeX, shakeY, 0f);
+            ClampCurrentCameraPosition();
         }
-        else
+        else if (isDizzy && effectSessionActive)
         {
-            transform.position = finalBasePosition;
             shakeTime = 0f;
+            targetVignetteIntensity = 0f;
+            effectIntensity = 0f;
+            cam.orthographicSize = effectStartCameraSize;
+            transform.position = ClampPosition(lastEffectBasePosition, cam.orthographicSize);
+        }
+        else if (effectSessionActive)
+        {
+            effectIntensity = Mathf.MoveTowards(effectIntensity, 0f, effectFadeSpeed * Time.deltaTime);
+            targetVignetteIntensity = Mathf.MoveTowards(targetVignetteIntensity, 0f, vignetteFadeSpeed * Time.deltaTime);
+            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, effectStartCameraSize, returnToOriginalSpeed * Time.deltaTime);
 
-            // Mengurangi vignette perlahan saat normal/idle
-            targetVignetteIntensity = Mathf.MoveTowards(targetVignetteIntensity, 0f, Time.deltaTime * vignetteFadeSpeed);
+            Vector3 returnPosition = effectStartPosition;
+            if (cameraController != null)
+            {
+                returnPosition = cameraController.ClampPositionToBoundaries(returnPosition, cam.orthographicSize);
+            }
+
+            transform.position = ClampPosition(
+                Vector3.Lerp(transform.position, returnPosition, returnToOriginalSpeed * Time.deltaTime),
+                cam.orthographicSize);
+
+            if (effectIntensity <= 0.001f && Mathf.Abs(cam.orthographicSize - effectStartCameraSize) <= 0.001f && Vector3.Distance(transform.position, returnPosition) <= 0.001f)
+            {
+                transform.position = returnPosition;
+                cam.orthographicSize = effectStartCameraSize;
+                effectSessionActive = false;
+            }
         }
 
-        // 6. TERAPKAN EFEK VIGNETTE KE LAYAR
         if (vignetteEffect != null)
         {
             vignetteEffect.intensity.Override(targetVignetteIntensity);
         }
+
+    }
+
+    private void ApplyZoomTowardPlayer(float normalCameraSize)
+    {
+        float zoomedCameraSize = Mathf.Lerp(normalCameraSize, Mathf.Min(normalCameraSize, maxZoomSize), effectIntensity);
+        cam.orthographicSize = zoomedCameraSize;
+
+        Vector3 zoomFocusPosition = Vector3.Lerp(
+            transform.position,
+            playerController.transform.position,
+            effectIntensity * zoomFocusStrength);
+        zoomFocusPosition.z = transform.position.z;
+
+        if (cameraController != null)
+        {
+            zoomFocusPosition = cameraController.ClampPositionToBoundaries(zoomFocusPosition, zoomedCameraSize);
+        }
+
+        transform.position = zoomFocusPosition;
+    }
+
+    private void ClampCurrentCameraPosition()
+    {
+        transform.position = ClampPosition(transform.position, cam.orthographicSize);
+    }
+
+    private Vector3 ClampPosition(Vector3 position, float orthographicSize)
+    {
+        if (cameraController != null)
+        {
+            position = cameraController.ClampPositionToBoundaries(position, orthographicSize);
+        }
+
+        position.z = transform.position.z;
+        return position;
     }
 }

@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     [Header("Jump Settings")]
     [SerializeField] private float jumpForce = 12f;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask platformLayer;
     [SerializeField] private Transform groundCheckPoint;
     [SerializeField] private float groundCheckRadius = 0.2f;
     [Tooltip("Waktu jeda sebelum pemain bisa lompat lagi setelah melompat")]
@@ -49,7 +50,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float airTiltLerpSpeed = 6f;
     [SerializeField] private bool canJump = true;
 
+    private Collider2D[] slopeColliders;
+    
+
     public bool isGrounded = true;
+    public bool isPlatforming = false;
     private bool isJumping = false;
     private bool isInJumpPreOrPost = false; // Flag pengunci input horizontal
     private float jumpCooldownTimer = 0f;
@@ -101,7 +106,14 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         originalMoveSpeed = moveSpeed; 
-        
+
+        if (platformLayer.value == 0)
+        {
+            platformLayer = LayerMask.GetMask("Platform");
+        }
+
+        UpdateSlopePlatformsList();
+
         if (visualTransform == null && transform.childCount > 0)
         {
             visualTransform = transform.GetChild(0);
@@ -126,6 +138,7 @@ public class PlayerController : MonoBehaviour
 
         // KUNCI UTAMA: Panggil fungsi deteksi tanah di sini agar berjalan setiap frame!
         CheckGroundStatus();
+        ManageSlopePlatforms();
 
         if (GameManager.Instance != null && GameManager.Instance.currentState != GameManager.GameState.Play)
         {
@@ -167,7 +180,19 @@ public class PlayerController : MonoBehaviour
         if (groundCheckPoint != null)
         {
             bool wasGroundedBefore = isGrounded;
-            isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
+            bool isOnGroundLayer = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
+            bool isOnPlatformLayer = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, platformLayer);
+
+            if (isOnGroundLayer)
+            {
+                isPlatforming = false;
+            }
+            else if (isOnPlatformLayer)
+            {
+                isPlatforming = true;
+            }
+
+            isGrounded = isOnGroundLayer || isOnPlatformLayer;
 
             if (!wasGroundedBefore && isGrounded)
             {
@@ -297,12 +322,18 @@ public class PlayerController : MonoBehaviour
         if (isFlipping || isInJumpPreOrPost || isJumping) return;
         if (!isGrounded) return;
 
-        if (horizontalInput > 0 && !isFacingRight)
+        if (isDizzy)
         {
-            if (isDizzy)
+            if (horizontalInput > 0f)
             {
                 SetDizzyStatus(false);
             }
+
+            return;
+        }
+
+        if (horizontalInput > 0 && !isFacingRight)
+        {
             wasDizzyFromLeftWalk = false; 
             StartFlip();
         }
@@ -471,6 +502,11 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool(isWalkingHash, isWalkingDizzy);
                 animator.SetBool(isRunningHash, false); 
                 animator.SetBool(isDizzyHash, true);
+
+                if (isWalkingDizzy && spriteRenderer != null)
+                {
+                    spriteRenderer.flipX = true;
+                }
 
                 if (!isWalkingDizzy && !isFlipping) animator.speed = 0f;
                 else animator.speed = 1f;
@@ -729,4 +765,32 @@ public class PlayerController : MonoBehaviour
             Gizmos.DrawWireSphere(groundCheckPoint.position, groundCheckRadius);
         }
     }
+
+    public void UpdateSlopePlatformsList()
+    {
+        // Mencari semua objek dengan tag, lalu mengambil komponen Collider2D-nya
+        GameObject[] slopeObjects = GameObject.FindGameObjectsWithTag("SlopePlatform");
+        slopeColliders = new Collider2D[slopeObjects.Length];
+        
+        for (int i = 0; i < slopeObjects.Length; i++)
+        {
+            slopeColliders[i] = slopeObjects[i].GetComponent<Collider2D>();
+        }
+    }
+
+    private void ManageSlopePlatforms()
+    {
+        if (slopeColliders == null || slopeColliders.Length == 0) return;
+
+        bool shouldEnableSlope = !isGrounded || isPlatforming;
+
+        foreach (Collider2D collider in slopeColliders)
+        {
+            if (collider != null)
+            {
+                collider.enabled = shouldEnableSlope;
+            }
+        }
+    }
+
 }

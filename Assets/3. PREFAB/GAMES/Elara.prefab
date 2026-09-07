@@ -58,7 +58,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 4
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: a8195ccd27be06c4b994e47853f05af7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -67,7 +67,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &2124478691704380018
 CapsuleCollider2D:
@@ -133,7 +133,10 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  groundCheckPoint: {fileID: 3377301636933169847}
+  platformLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  groundCheckPoint: {fileID: 6166868880516955937}
   groundCheckRadius: 0.5
   jumpCooldownTime: 1.5
   jumpMovementSpeed: 6
@@ -141,6 +144,7 @@ MonoBehaviour:
   airTiltLerpSpeed: 2
   canJump: 1
   isGrounded: 1
+  isPlatforming: 0
   currentSpeed: 0
 --- !u!114 &9089433078560300038
 MonoBehaviour:
@@ -5537,7 +5541,7 @@ MonoBehaviour:
   playerController: {fileID: 8530139792062499244}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   groundRaycastDistance: 20
   groundOffset: 0.12
   idleScale: {x: 6, y: 1.5, z: 1}
@@ -10586,6 +10590,37 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!1 &8066152021546613534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6166868880516955937}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6166868880516955937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8066152021546613534}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.71, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3377301636933169847}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8485396280906977717
 GameObject:
   m_ObjectHideFlags: 0
@@ -15542,5 +15577,6 @@ Transform:
   - {fileID: 1442214615026066827}
   - {fileID: 8739656576368373555}
   - {fileID: 7281638261783214238}
+  - {fileID: 6166868880516955937}
   m_Father: {fileID: 6160560826907780959}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
