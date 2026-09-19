@@ -281,6 +281,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  platformLayer:
+    serializedVersion: 2
+    m_Bits: 0
   groundCheckPoint: {fileID: 1804823515093395802}
   groundCheckRadius: 0.5
   jumpCooldownTime: 1.5
@@ -289,6 +292,7 @@ MonoBehaviour:
   airTiltLerpSpeed: 2
   canJump: 1
   isGrounded: 1
+  isPlatforming: 0
   currentSpeed: 0
 --- !u!114 &4184792688404011762
 MonoBehaviour:
@@ -891,7 +895,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 3
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.2603773, g: 0.2603773, b: 0.2603773, a: 0.73333335}
   m_FlipX: 0
