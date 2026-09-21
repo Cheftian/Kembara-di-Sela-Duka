@@ -53,6 +53,44 @@ public class InteractableObject : MonoBehaviour
         BoxCollider2D col = GetComponent<BoxCollider2D>();
         col.isTrigger = true;
         col.size = new Vector2(interactionRadius * 2, interactionRadius);
+
+        ApplyInitialObjectState();
+    }
+
+    private void OnEnable()
+    {
+        ApplyInitialObjectState();
+    }
+
+    private void ApplyInitialObjectState()
+    {
+        if (!gameObject.activeInHierarchy) return;
+
+        if (objectsToEnable != null)
+        {
+            foreach (GameObject obj in objectsToEnable)
+            {
+                if (obj != null)
+                {
+                    InteractableObject interactableObject = obj.GetComponent<InteractableObject>();
+                    if (interactableObject != null) interactableObject.ApplyInitialObjectState();
+                    obj.SetActive(false);
+                }
+            }
+        }
+
+        if (objectsToDisable != null)
+        {
+            foreach (GameObject obj in objectsToDisable)
+            {
+                if (obj != null)
+                {
+                    InteractableObject interactableObject = obj.GetComponent<InteractableObject>();
+                    if (interactableObject != null) interactableObject.ApplyInitialObjectState();
+                    obj.SetActive(true);
+                }
+            }
+        }
     }
 
     private void Update()
@@ -273,6 +311,8 @@ public class InteractableObject : MonoBehaviour
 
     private void ExecuteObjectToggling()
     {
+        if (!gameObject.activeInHierarchy) return;
+
         if (objectsToEnable != null)
         {
             foreach (GameObject obj in objectsToEnable) if (obj != null) obj.SetActive(true);
