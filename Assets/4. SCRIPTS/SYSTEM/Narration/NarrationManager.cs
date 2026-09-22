@@ -43,6 +43,7 @@ public class NarrationManager : MonoBehaviour
     [SerializeField] private AnimationCurve transitionCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     [Header("Settings")]
+    [SerializeField] private string sceneTransitionName = "RoomFadeOut";
     [SerializeField] private float typingSpeed = 0.05f;
     [SerializeField] private Color highlightColor = Color.yellow;
     [SerializeField] private float delayBeforePlayState = 1.0f;
@@ -303,7 +304,7 @@ public class NarrationManager : MonoBehaviour
             }
             else if (SceneController.Instance != null)
             {
-                SceneController.Instance.ChangeSceneByName(completedNarration.sceneNameAfterNarration);
+                SceneController.Instance.ChangeSceneByName(sceneTransitionName,completedNarration.sceneNameAfterNarration);
             }
             else
             {

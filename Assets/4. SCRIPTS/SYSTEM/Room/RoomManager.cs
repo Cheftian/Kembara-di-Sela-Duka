@@ -97,10 +97,7 @@ public class RoomManager : MonoBehaviour
     private IEnumerator ExecuteRoomSwitch(Transform player, RoomPortal currentPortal, RoomPortal destinationPortal)
     {
 
-        if (transitionAnimator != null)
-        {
-            transitionAnimator.SetTrigger("StartTransition");
-        }
+        SceneController.Instance.PlayTransitionByName("Room_FadeOut");
 
         yield return new WaitForSeconds(transitionDelay);
 
@@ -141,10 +138,8 @@ public class RoomManager : MonoBehaviour
 
         yield return new WaitForSeconds(holdDelay);
 
-        if (transitionAnimator != null)
-        {
-            transitionAnimator.SetTrigger("EndTransition");
-        }
+        SceneController.Instance.PlayTransitionByName("Room_FadeIn");
+
             currentPortal.ResetTeleportStatus();
     destinationPortal.ResetTeleportStatus();
     }

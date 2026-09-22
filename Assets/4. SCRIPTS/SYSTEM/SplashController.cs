@@ -17,6 +17,8 @@ public class SplashController : MonoBehaviour
     [Header("Scene Destination")]
     [Tooltip("Nama scene berikutnya setelah splash selesai (misal MainMenu).")]
     [SerializeField] private string nextSceneName = "MainMenu";
+    [SerializeField] private string nextSceneTransitionName = "RoomFadeOut";
+
 
     [Header("Fade Settings")]
     [SerializeField] private float fadeDuration = 0.5f;
@@ -124,7 +126,7 @@ public class SplashController : MonoBehaviour
         // Pindah ke Main Menu menggunakan SceneController yang sudah kamu buat sebelumnya
         if (SceneController.Instance != null)
         {
-            SceneController.Instance.ChangeSceneByName(nextSceneName);
+            SceneController.Instance.ChangeSceneByName(nextSceneTransitionName,nextSceneName);
         }
         else
         {

@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button backToMenuButton;
 
     [Header("Scene Settings")]
+    [SerializeField] private string mainMenuTransitionName = "RoomFadeOut";
     [SerializeField] private string mainMenuSceneName = "MainMenu";
 
     [Header("Key Objects Management")]
@@ -92,7 +93,7 @@ public class UIManager : MonoBehaviour
         if (SceneController.Instance != null)
         {
             Debug.Log($"[UIManager] Kembali ke Main Menu via SceneController. Target: {mainMenuSceneName}");
-            SceneController.Instance.ChangeSceneByName(mainMenuSceneName);
+            SceneController.Instance.ChangeSceneByName(mainMenuTransitionName,mainMenuSceneName);
         }
         else
         {

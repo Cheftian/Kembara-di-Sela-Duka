@@ -28,6 +28,7 @@ public class InteractableObject : MonoBehaviour
     [Header("Scene Change Trigger")]
     [SerializeField] private bool isSceneChangeTrigger = false;
     [SerializeField] private string sceneName;
+    [SerializeField] private string sceneTransitionName = "RoomFadeOut";
     [Tooltip("Jika aktif, scene tujuan dimuat melalui LoadingScene. Jika tidak, scene dimuat langsung.")]
     [SerializeField] private bool useLoadingScene = true;
 
@@ -125,6 +126,7 @@ public class InteractableObject : MonoBehaviour
 
     private IEnumerator InteractionSequence()
     {
+        bool objectTogglingExecuted = false;
         GameManager.Instance.SetGameState(GameManager.GameState.Interacted);
         PlayerController player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerController>();
 
@@ -191,11 +193,11 @@ public class InteractableObject : MonoBehaviour
 
             if (useLoadingScene)
             {
-                SceneController.Instance.ChangeSceneWithLoading(sceneName);
+                SceneController.Instance.ChangeSceneWithLoading(sceneTransitionName, sceneName);
             }
             else
             {
-                SceneController.Instance.ChangeSceneWithoutLoading(sceneName);
+                SceneController.Instance.ChangeSceneWithoutLoading(sceneTransitionName, sceneName);
             }
 
             yield break;
@@ -229,6 +231,7 @@ public class InteractableObject : MonoBehaviour
             if (!isMinigameTrigger)
             {
                 ExecuteObjectToggling();
+                objectTogglingExecuted = true;
                 
                 yield return StartCoroutine(PlayEndInteractionAnimation(player));
                 GameManager.Instance.SetGameState(GameManager.GameState.Play);
@@ -245,6 +248,7 @@ public class InteractableObject : MonoBehaviour
         if (!isNarrativeTrigger && !isMinigameTrigger) 
         {
             ExecuteObjectToggling();
+            objectTogglingExecuted = true;
             yield return StartCoroutine(PlayEndInteractionAnimation(player));
             GameManager.Instance.SetGameState(GameManager.GameState.Play);
             
@@ -258,6 +262,11 @@ public class InteractableObject : MonoBehaviour
         // Logika Sekali Pakai untuk non-minigame
         if (isSingleUse && !isMinigameTrigger)
         {
+            if (!objectTogglingExecuted)
+            {
+                ExecuteObjectToggling();
+            }
+
             if (!isNarrativeTrigger) GameManager.Instance.SetGameState(GameManager.GameState.Play);
             gameObject.SetActive(false);
             yield break;

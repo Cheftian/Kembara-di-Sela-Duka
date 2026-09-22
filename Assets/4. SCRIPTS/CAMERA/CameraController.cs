@@ -40,8 +40,13 @@ public class CameraController : MonoBehaviour
     public Vector2 MinPositionBound => minPosition;
     public Vector2 MaxPositionBound => maxPosition;
 
+    public static CameraController Instance { get; private set; }
+    private float shakeTimer = 0f;
+    private float shakeMagnitude = 0f;
+
     private void Awake()
     {
+        Instance = this; // Memungkinkan RevealerTool memanggil skrip ini
         cam = GetComponent<Camera>();
         baseCameraSize = cameraSize;
     }
@@ -97,10 +102,18 @@ public class CameraController : MonoBehaviour
         targetPosition = ClampPositionToBoundaries(targetPosition, cameraSize);
 
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref currentVelocity, smoothTime);
-
         Vector3 boundedPosition = ClampPositionToBoundaries(transform.position, cam != null ? cam.orthographicSize : cameraSize);
         boundedPosition.z = targetPosition.z;
         transform.position = boundedPosition;
+
+        // --- TAMBAHKAN KODE INI DI BARIS PALING BAWAH FUNGSI ---
+        if (shakeTimer > 0)
+        {
+            // Guncang posisi kamera yang sudah dibatasi boundary tanpa merusak sistem follow target
+            transform.position += (Vector3)Random.insideUnitCircle * shakeMagnitude;
+            shakeTimer -= Time.deltaTime;
+        }
+
     }
 
     private void ApplyCameraSize()
@@ -171,6 +184,12 @@ public class CameraController : MonoBehaviour
     {
         baseCameraSize = newSize;
         cameraSize = newSize;
+    }
+
+    public void TriggerShake(float duration, float magnitude)
+    {
+        shakeTimer = duration;
+        shakeMagnitude = magnitude;
     }
     public void SetManualControl(bool state) => canMoveManually = state;
 }

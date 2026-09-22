@@ -35,6 +35,7 @@ public class CutsceneManager : MonoBehaviour
     [Header("Cutscene Ending Settings")]
     [Tooltip("Nama scene berikutnya yang akan dimuat secara otomatis setelah panel terakhir selesai.")]
     [SerializeField] private string sceneNameAfterCutscene;
+    [SerializeField] private string sceneTransitionNameAfterCutscene= "RoomFadeOut";
     [SerializeField] private GameManager.GameState stateAfterCutscene = GameManager.GameState.Play;
 
     [Header("Auto Play Settings")]
@@ -168,7 +169,7 @@ public class CutsceneManager : MonoBehaviour
         {
             if (SceneController.Instance != null)
             {
-                SceneController.Instance.ChangeSceneWithoutLoading(sceneNameAfterCutscene);
+                SceneController.Instance.ChangeSceneWithoutLoading(sceneTransitionNameAfterCutscene, sceneNameAfterCutscene);
             }
             else
             {
