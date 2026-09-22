@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
     [Header("Dizzy Recovery Settings")]
     [Tooltip("Durasi waktu karakter terdiam dalam posisi Duduk (Sit) sebelum berdiri kembali")]
     [SerializeField] private float sitDuration = 2.0f;
+    [Tooltip("Durasi player tetap duduk setelah teleport sebelum menjalankan Stand")]
+    [SerializeField] private float sitDelayAfterTeleport = 1.5f;
+    [SerializeField] private string glitchFlashInName = "FlashIn";
 
     [Header("Jump Settings")]
     [SerializeField] private float jumpForce = 12f;
@@ -89,6 +92,7 @@ public class PlayerController : MonoBehaviour
     private readonly string defaultStateName = "Idle"; 
 
     private bool wasDizzyFromLeftWalk = false;
+    private bool isGlitchExiting = false;
 
     public bool IsDizzy => isDizzy;
     public bool IsWalking => Mathf.Abs(horizontalInput) > 0f && !isFlipping;
@@ -576,6 +580,75 @@ public class PlayerController : MonoBehaviour
         else
         {
             moveSpeed = originalMoveSpeed; 
+        }
+    }
+
+    public void BeginGlitchExit(RoomPortal destinationPortal)
+    {
+        if (isGlitchExiting || destinationPortal == null) return;
+
+        isGlitchExiting = true;
+        isDizzy = false;
+        isRunning = false;
+        moveSpeed = originalMoveSpeed;
+        StartCoroutine(GlitchExitSequence(destinationPortal));
+    }
+
+    private IEnumerator GlitchExitSequence(RoomPortal destinationPortal)
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetGameState(GameManager.GameState.Cutscene);
+        }
+
+        horizontalInput = 0f;
+        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+
+        if (animator != null)
+        {
+            animator.speed = 1f;
+        }
+
+        if (SceneController.Instance != null && !string.IsNullOrEmpty(glitchFlashInName))
+        {
+            SceneController.Instance.PlayTransitionByName(glitchFlashInName);
+        }
+
+        yield return StartCoroutine(PlayAnimationAndWait("Sit"));
+        yield return new WaitForSeconds(sitDuration);
+        bool teleportStarted = destinationPortal.TeleportPlayerFromGlitch(transform);
+
+        if (!teleportStarted)
+        {
+            CompleteGlitchExit();
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.SetGameState(GameManager.GameState.Play);
+            }
+        }
+    }
+
+    public void CompleteGlitchExit()
+    {
+        StartCoroutine(CompleteGlitchExitSequence());
+    }
+
+    private IEnumerator CompleteGlitchExitSequence()
+    {
+        yield return new WaitForSeconds(sitDelayAfterTeleport);
+        yield return StartCoroutine(PlayAnimationAndWait("Stand"));
+
+        isGlitchExiting = false;
+        ResetToIdleState();
+
+        if (animator != null)
+        {
+            animator.Play(defaultStateName, 0, 0f);
+        }
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetGameState(GameManager.GameState.Play);
         }
     }
 

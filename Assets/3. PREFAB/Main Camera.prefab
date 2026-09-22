@@ -186,11 +186,11 @@ MonoBehaviour:
   zoomFocusStrength: 1
   maxShakeMagnitude: 0.1
   shakeFrequency: 35
-  effectBuildUpSpeed: 0.3
-  effectFadeSpeed: 1
-  returnToOriginalSpeed: 1.5
-  maxZoomSize: 9.5
-  maxVignetteIntensity: 0.45
+  effectBuildUpSpeed: 0.1
+  effectFadeSpeed: 0.1
+  returnToOriginalSpeed: 0.1
+  maxZoomSize: 6
+  maxVignetteIntensity: 0.7
   vignetteFadeSpeed: 2
 --- !u!114 &2834509437697910543
 MonoBehaviour:

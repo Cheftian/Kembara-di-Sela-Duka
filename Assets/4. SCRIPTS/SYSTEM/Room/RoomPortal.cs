@@ -3,8 +3,13 @@ using UnityEngine;
 public class RoomPortal : MonoBehaviour
 {
     [Header("Target Konfigurasi")]
-    [Tooltip("Target portal tujuan saat Player menekan W")]
+    [Tooltip("Target portal tujuan saat Player menekan tombol yang dipilih")]
     public RoomPortal targetPortal; 
+
+    public enum PortalKey { W, S }
+
+    [Tooltip("Tombol yang digunakan untuk mengaktifkan portal. W memakai transisi room biasa, S memakai FlashIn dan FlashOut.")]
+    [SerializeField] private PortalKey activationKey = PortalKey.W;
     
     [Tooltip("Parent GameObject dari ruangan tempat portal ini berada")]
     public GameObject currentRoomParent;
@@ -30,9 +35,22 @@ public class RoomPortal : MonoBehaviour
 
     private void Update()
     {
-        if (playerIsInside && Input.GetKeyDown(KeyCode.W) && !isTeleporting)
+        if (!playerIsInside || isTeleporting)
         {
-            TeleportPlayer();
+            return;
+        }
+
+        KeyCode selectedKey = activationKey == PortalKey.S ? KeyCode.S : KeyCode.W;
+        if (Input.GetKeyDown(selectedKey))
+        {
+            if (activationKey == PortalKey.S)
+            {
+                TeleportPlayerWithFlash();
+            }
+            else
+            {
+                TeleportPlayer();
+            }
         }
     }
 
@@ -57,6 +75,66 @@ public class RoomPortal : MonoBehaviour
         }
 
         RoomManager.Instance.SwitchRoom(playerTransform, this, targetPortal);
+    }
+
+    private void TeleportPlayerWithFlash()
+    {
+        if (targetPortal == null)
+        {
+            Debug.LogWarning("Target Portal belum dipasang pada " + gameObject.name);
+            return;
+        }
+
+        if (RoomManager.Instance == null)
+        {
+            Debug.LogError("RoomManager.Instance tidak ditemukan saat teleport dengan tombol S.", this);
+            return;
+        }
+
+        isTeleporting = true;
+
+        if (notificationTrigger != null)
+        {
+            if (notificationTrigger.notification != null)
+            {
+                notificationTrigger.notification.Hide();
+            }
+
+            notificationTrigger.enabled = false;
+        }
+
+        RoomManager.Instance.SwitchRoomWithFlash(playerTransform, this, targetPortal);
+    }
+
+    public bool TeleportPlayerFromGlitch(Transform player)
+    {
+        if (targetPortal == null)
+        {
+            Debug.LogError("Portal glitch belum memiliki Target Portal: " + gameObject.name, this);
+            return false;
+        }
+
+        if (player == null)
+        {
+            Debug.LogError("Player tidak ditemukan saat teleport dari glitch.", this);
+            return false;
+        }
+
+        if (isTeleporting)
+        {
+            Debug.LogWarning("Teleport glitch dibatalkan karena portal sedang teleporting: " + gameObject.name, this);
+            return false;
+        }
+
+        if (RoomManager.Instance == null)
+        {
+            Debug.LogError("RoomManager.Instance tidak ditemukan saat teleport dari glitch.", this);
+            return false;
+        }
+
+        isTeleporting = true;
+        RoomManager.Instance.SwitchRoomFromGlitch(player, this, targetPortal);
+        return true;
     }
 
     public void ResetTeleportStatus()

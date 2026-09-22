@@ -1030,7 +1030,7 @@ MonoBehaviour:
   fadeCanvasGroup: {fileID: 1087214910}
   splashAudioName: 
   nextSceneName: 1-mainmenu
-  nextSceneTransitionName: RoomFadeOut
+  nextSceneTransitionName: Room_FadeOut
   fadeDuration: 1.5
 --- !u!4 &1630668020
 Transform:

@@ -33,6 +33,12 @@ public class RoomManager : MonoBehaviour
     [Tooltip("Waktu tunggu layar tetap hitam pekat SETELAH ruangan berubah, sebelum Fade Out dimulai")]
     public float holdDelay = 0.5f;
 
+    [Header("Glitch Exit Transition")]
+    [SerializeField] private string glitchFlashInName = "FlashIn";
+    [SerializeField] private string glitchFlashOutName = "FlashOut";
+    [Tooltip("Jeda minimal saat menggunakan tombol S sebelum room tujuan diaktifkan")]
+    [SerializeField] private float glitchRoomDelay = 5f;
+
     private void Awake()
     {
         if (Instance == null) 
@@ -91,15 +97,51 @@ public class RoomManager : MonoBehaviour
 
     public void SwitchRoom(Transform player, RoomPortal currentPortal, RoomPortal destinationPortal)
     {
-        StartCoroutine(ExecuteRoomSwitch(player, currentPortal, destinationPortal));
+        StartCoroutine(ExecuteRoomSwitch(player, currentPortal, destinationPortal, false, false, false, false));
     }
 
-    private IEnumerator ExecuteRoomSwitch(Transform player, RoomPortal currentPortal, RoomPortal destinationPortal)
+    public void SwitchRoomFromGlitch(Transform player, RoomPortal currentPortal, RoomPortal destinationPortal)
+    {
+        StartCoroutine(ExecuteRoomSwitch(player, currentPortal, destinationPortal, true, true, false, true));
+    }
+
+    public void SwitchRoomWithFlash(Transform player, RoomPortal currentPortal, RoomPortal destinationPortal)
+    {
+        StartCoroutine(ExecuteRoomSwitch(player, currentPortal, destinationPortal, true, false, true, true));
+    }
+
+    private IEnumerator ExecuteRoomSwitch(Transform player, RoomPortal currentPortal, RoomPortal destinationPortal, bool useFlashTransition, bool isGlitchExit, bool delayBeforeFlash, bool standAfterFlash)
     {
 
-        SceneController.Instance.PlayTransitionByName("Room_FadeOut");
+        string transitionOut = useFlashTransition ? glitchFlashOutName : "Room_FadeIn";
 
-        yield return new WaitForSeconds(transitionDelay);
+        if (!useFlashTransition)
+        {
+            SceneController.Instance.PlayTransitionByName("Room_FadeOut");
+            yield return new WaitForSeconds(transitionDelay);
+        }
+        else
+        {
+            if (delayBeforeFlash)
+            {
+                float minimumFlashRoomDelay = Mathf.Max(5f, glitchRoomDelay);
+                yield return new WaitForSeconds(minimumFlashRoomDelay);
+
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.SetGameState(GameManager.GameState.Cutscene);
+                }
+
+                PlayerController playerController = player.GetComponent<PlayerController>();
+                if (playerController != null)
+                {
+                    yield return StartCoroutine(playerController.PlayAnimationAndWait("Sit"));
+                }
+            }
+
+            SceneController.Instance.PlayTransitionByName(glitchFlashInName);
+            yield return new WaitForSeconds(transitionDelay);
+        }
 
 
         if (currentPortal.currentRoomParent != null)
@@ -136,11 +178,27 @@ public class RoomManager : MonoBehaviour
             Debug.LogWarning("PlayerController tidak ditemukan pada objek Player saat pergantian ruangan!");
         }
 
-        yield return new WaitForSeconds(holdDelay);
+        if (useFlashTransition)
+        {
+            SceneController.Instance.PlayTransitionByName(transitionOut);
+            yield return new WaitForSeconds(transitionDelay);
 
-        SceneController.Instance.PlayTransitionByName("Room_FadeIn");
+            if (standAfterFlash)
+            {
+                PlayerController playerController = player.GetComponent<PlayerController>();
+                if (playerController != null)
+                {
+                    playerController.CompleteGlitchExit();
+                }
+            }
+        }
+        else
+        {
+            yield return new WaitForSeconds(holdDelay);
+            SceneController.Instance.PlayTransitionByName(transitionOut);
+        }
 
-            currentPortal.ResetTeleportStatus();
-    destinationPortal.ResetTeleportStatus();
+        currentPortal.ResetTeleportStatus();
+        destinationPortal.ResetTeleportStatus();
     }
 }
