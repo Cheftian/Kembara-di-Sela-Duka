@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 4184792688404011762}
   - component: {fileID: 2386797548619560925}
   - component: {fileID: 5736186191618466813}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Elara
   m_TagString: Player
   m_Icon: {fileID: 0}

@@ -1,0 +1,271 @@
+fileFormatVersion: 2
+guid: ace78fda8e75b3c4886717a3693d030b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2818168917967442275
+    second: 5-Land_0
+  - first:
+      213: 6657474334971089805
+    second: 5-Land_1
+  - first:
+      213: -1539099300389797272
+    second: 5-Land_2
+  - first:
+      213: 4811946191659671683
+    second: 5-Land_3
+  - first:
+      213: 2512446821380636012
+    second: 5-Land_4
+  - first:
+      213: 3109267753121622430
+    second: 5-Land_5
+  - first:
+      213: -6465780903325247531
+    second: 5-Land_6
+  - first:
+      213: 4455171221157615571
+    second: 5-Land_7
+  - first:
+      213: 3224128847796685757
+    second: 5-Land_8
+  - first:
+      213: -5518467055550295111
+    second: 5-Land_9
+  - first:
+      213: 5827387969687772805
+    second: 5-Land_10
+  - first:
+      213: -8805381928836261999
+    second: 5-Land_11
+  - first:
+      213: 8806596174720954142
+    second: 5-Land_12
+  - first:
+      213: 5773750801236145169
+    second: 5-Land_13
+  - first:
+      213: -3135626390737233728
+    second: 5-Land_14
+  - first:
+      213: -8761450486940287896
+    second: 5-Land_15
+  - first:
+      213: -2150944589189987087
+    second: 5-Land_16
+  - first:
+      213: -8619596189205910702
+    second: 5-Land_17
+  - first:
+      213: -4827403721290858714
+    second: 5-Land_18
+  - first:
+      213: -3783135509856468442
+    second: 5-Land_19
+  - first:
+      213: -8174751144927655641
+    second: 5-Land_20
+  - first:
+      213: -290879055936303698
+    second: 5-Land_21
+  - first:
+      213: 6075689064052760552
+    second: 5-Land_22
+  - first:
+      213: -2117642295348259534
+    second: 5-Land_23
+  - first:
+      213: 8351837637942358780
+    second: 5-Land_24
+  - first:
+      213: -8573172855306050759
+    second: 5-Land_25
+  - first:
+      213: 2356655004689232714
+    second: 5-Land_26
+  - first:
+      213: 8396360947288530129
+    second: 5-Land_27
+  - first:
+      213: 4491895621864105518
+    second: 5-Land_28
+  - first:
+      213: -372170391783401004
+    second: 5-Land_29
+  - first:
+      213: 2002142027357771326
+    second: 5-Land_30
+  - first:
+      213: -2100557000784909639
+    second: 5-Land_31
+  - first:
+      213: 7998796689049670459
+    second: 5-Land_32
+  - first:
+      213: 263521042024640632
+    second: 5-Land_33
+  - first:
+      213: 9072082919583493709
+    second: 5-Land_34
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 5-Land_0
+      rect:
+        serializedVersion: 2
+        x: 2213
+        y: 74
+        width: 3637
+        height: 1522
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3611f7813b52c1720800000000000000
+      internalID: 2818168917967442275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 74b6449a9de4cac4fb5e7e4e2e20eb4c
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      5-Land_0: 2818168917967442275
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

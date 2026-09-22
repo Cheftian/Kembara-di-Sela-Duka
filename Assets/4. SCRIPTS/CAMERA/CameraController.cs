@@ -18,6 +18,8 @@ public class CameraController : MonoBehaviour
     [Tooltip("Nilai kenaikan ukuran kamera pada setiap langkah Y.")]
     [SerializeField] private float cameraSizeIncreasePerStep = 0.1f;
     [SerializeField] private float maxCameraSizeIncrease = 1f;
+    [Tooltip("Waktu yang diperlukan ukuran kamera untuk mengikuti perubahan ketinggian.")]
+    [SerializeField] private float verticalCameraSizeSmoothTime = 0.5f;
 
     [Header("Manual Movement Settings")]
     [SerializeField] private bool canMoveManually = false;
@@ -32,6 +34,7 @@ public class CameraController : MonoBehaviour
     private Camera cam;
     private Vector3 currentVelocity = Vector3.zero;
     private float sizeVelocity = 0f;
+    private float verticalCameraSizeVelocity = 0f;
     private float baseCameraSize;
 
     public Vector2 MinPositionBound => minPosition;
@@ -110,22 +113,28 @@ public class CameraController : MonoBehaviour
 
     private void UpdateCameraSizeForTargetHeight()
     {
-        if (!enableVerticalCameraSize || target == null)
+        float desiredCameraSize = baseCameraSize;
+
+        if (enableVerticalCameraSize && target != null)
         {
-            cameraSize = LimitCameraSizeToBoundaries(baseCameraSize);
-            return;
+            float heightAboveStart = transform.position.y - cameraSizeIncreaseHeight;
+            if (heightAboveStart >= 0f && cameraSizeIncreaseYStep > 0f)
+            {
+                int increaseSteps = Mathf.FloorToInt(heightAboveStart / cameraSizeIncreaseYStep) + 1;
+                float sizeIncrease = Mathf.Min(increaseSteps * cameraSizeIncreasePerStep, maxCameraSizeIncrease);
+                desiredCameraSize += Mathf.Max(0f, sizeIncrease);
+            }
         }
 
-        float heightAboveStart = transform.position.y - cameraSizeIncreaseHeight;
-        if (heightAboveStart < 0f || cameraSizeIncreaseYStep <= 0f)
-        {
-            cameraSize = LimitCameraSizeToBoundaries(baseCameraSize);
-            return;
-        }
-
-        int increaseSteps = Mathf.FloorToInt(heightAboveStart / cameraSizeIncreaseYStep) + 1;
-        float sizeIncrease = Mathf.Min(increaseSteps * cameraSizeIncreasePerStep, maxCameraSizeIncrease);
-        cameraSize = LimitCameraSizeToBoundaries(baseCameraSize + Mathf.Max(0f, sizeIncrease));
+        desiredCameraSize = LimitCameraSizeToBoundaries(desiredCameraSize);
+        float smoothTime = Mathf.Max(0.01f, verticalCameraSizeSmoothTime);
+        cameraSize = Mathf.SmoothDamp(
+            cameraSize,
+            desiredCameraSize,
+            ref verticalCameraSizeVelocity,
+            smoothTime,
+            Mathf.Infinity,
+            Time.deltaTime);
     }
 
     public Vector3 ClampPositionToBoundaries(Vector3 position, float orthographicSize)
