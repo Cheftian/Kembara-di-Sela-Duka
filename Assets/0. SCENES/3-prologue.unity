@@ -652,7 +652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 5797993239090343377}
+  notificationType: 0
   playerTag: Player
 --- !u!114 &53862242
 MonoBehaviour:
@@ -765,7 +765,7 @@ MonoBehaviour:
   targetPortal: {fileID: 55022399}
   activationKey: 0
   currentRoomParent: {fileID: 1104178537}
-  spawnOffsetX: -1
+  spawnOffsetX: 0
   faceDirectionOnSpawn: 0
 --- !u!61 &55022400
 BoxCollider2D:
@@ -2197,6 +2197,10 @@ PrefabInstance:
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
+      propertyPath: enableHorizontalCameraSize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
       propertyPath: verticalCameraSizeSmoothTime
       value: 0.5
       objectReference: {fileID: 0}
@@ -2657,7 +2661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 8742701899501212409}
+  notificationType: 1
   playerTag: Player
 --- !u!4 &111842214 stripped
 Transform:
@@ -3227,7 +3231,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 454756689}
+    m_TransformParent: {fileID: 1322046957}
     m_Modifications:
     - target: {fileID: 903810776213613702, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
       propertyPath: m_Enabled
@@ -3301,6 +3305,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2591456805286303003, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
+      propertyPath: notificationType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3884053792739410806, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -3319,11 +3327,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8340378375347927608, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 25.655273
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8340378375347927608, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.549988
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8340378375347927608, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4243,7 +4251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 5797993239090343377}
+  notificationType: 0
   playerTag: Player
 --- !u!114 &168547174
 MonoBehaviour:
@@ -6470,7 +6478,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1573124507}
+    m_TransformParent: {fileID: 1322046957}
     m_Modifications:
     - target: {fileID: 2022327401204109291, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
       propertyPath: routeTargets.Array.size
@@ -6544,17 +6552,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Butterfly_Anchor (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2591456805286303003, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
+      propertyPath: notificationType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8340378375347927608, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 41.12384
+      value: -3.67
       objectReference: {fileID: 0}
     - target: {fileID: 8340378375347927608, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -39.317383
+      value: -193.16736
       objectReference: {fileID: 0}
     - target: {fileID: 8340378375347927608, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.28001297
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8340378375347927608, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7125,7 +7137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 8742701899501212409}
+  notificationType: 1
   playerTag: Player
 --- !u!1 &338166427
 GameObject:
@@ -7357,7 +7369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 5797993239090343377}
+  notificationType: 0
   playerTag: Player
 --- !u!1 &344600972
 GameObject:
@@ -11184,7 +11196,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1561138723}
-  - {fileID: 870951714}
   - {fileID: 287182685}
   - {fileID: 359317149}
   - {fileID: 1103968244}
@@ -11977,7 +11988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 8742701899501212409}
+  notificationType: 1
   playerTag: Player
 --- !u!4 &495555113 stripped
 Transform:
@@ -12135,6 +12146,10 @@ PrefabInstance:
     - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
       propertyPath: cameraSizeIncreasePerStep
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
+      propertyPath: enableHorizontalCameraSize
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
       propertyPath: verticalCameraSizeSmoothTime
@@ -12355,7 +12370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 8742701899501212409}
+  notificationType: 1
   playerTag: Player
 --- !u!1001 &521811164
 PrefabInstance:
@@ -15197,7 +15212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 8742701899501212409}
+  notificationType: 1
   playerTag: Player
 --- !u!4 &691588924 stripped
 Transform:
@@ -16074,7 +16089,7 @@ Transform:
   m_GameObject: {fileID: 784349611}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.561218, y: 48.476624, z: 0}
+  m_LocalPosition: {x: -24.19, y: 48.476624, z: 0}
   m_LocalScale: {x: 7.1699, y: 5.2750797, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20707,7 +20722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 8742701899501212409}
+  notificationType: 1
   playerTag: Player
 --- !u!1001 &922877468
 PrefabInstance:
@@ -21115,7 +21130,7 @@ MonoBehaviour:
   targetPortal: {fileID: 937101340}
   activationKey: 0
   currentRoomParent: {fileID: 338397688}
-  spawnOffsetX: -1
+  spawnOffsetX: 0
   faceDirectionOnSpawn: 0
 --- !u!61 &937101341
 BoxCollider2D:
@@ -23968,7 +23983,6 @@ GameObject:
   - component: {fileID: 1073109293}
   - component: {fileID: 1073109296}
   - component: {fileID: 1073109295}
-  - component: {fileID: 1073109294}
   m_Layer: 0
   m_Name: IO (1)
   m_TagString: Untagged
@@ -23991,20 +24005,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1622766534}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1073109294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1073109292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  notification: {fileID: 8742701899501212409}
-  playerTag: Player
 --- !u!114 &1073109295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24850,7 +24850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 8742701899501212409}
+  notificationType: 1
   playerTag: Player
 --- !u!1 &1124688920
 GameObject:
@@ -25265,6 +25265,10 @@ PrefabInstance:
     - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
       propertyPath: cameraSizeIncreasePerStep
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
+      propertyPath: enableHorizontalCameraSize
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
       propertyPath: verticalCameraSizeSmoothTime
@@ -27500,7 +27504,6 @@ GameObject:
   - component: {fileID: 1233936451}
   - component: {fileID: 1233936454}
   - component: {fileID: 1233936453}
-  - component: {fileID: 1233936452}
   m_Layer: 0
   m_Name: IO (2)
   m_TagString: Untagged
@@ -27523,20 +27526,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1622766534}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1233936452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1233936450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  notification: {fileID: 8742701899501212409}
-  playerTag: Player
 --- !u!114 &1233936453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28975,6 +28964,40 @@ MonoBehaviour:
   minOrder: 502
   maxOrder: 600
   includeSubChildren: 1
+--- !u!1 &1322046956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1322046957}
+  m_Layer: 0
+  m_Name: ButterflyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1322046957
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322046956}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1026.2552, y: 995.35, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 870951714}
+  - {fileID: 294412211}
+  - {fileID: 1640984807}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1323339577
 GameObject:
   m_ObjectHideFlags: 0
@@ -29872,7 +29895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 5797993239090343377}
+  notificationType: 0
   playerTag: Player
 --- !u!61 &1355851377
 BoxCollider2D:
@@ -33960,7 +33983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 8742701899501212409}
+  notificationType: 1
   playerTag: Player
 --- !u!1 &1546594264
 GameObject:
@@ -35107,7 +35130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 8742701899501212409}
+  notificationType: 1
   playerTag: Player
 --- !u!1001 &1561138722
 PrefabInstance:
@@ -35343,7 +35366,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 294412211}
   - {fileID: 707838751}
   - {fileID: 262630226}
   - {fileID: 1209339215}
@@ -35865,7 +35887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 8742701899501212409}
+  notificationType: 1
   playerTag: Player
 --- !u!4 &1605015660 stripped
 Transform:
@@ -36024,7 +36046,6 @@ Transform:
   - {fileID: 823761544}
   - {fileID: 1514094028}
   - {fileID: 1073109293}
-  - {fileID: 1640984807}
   - {fileID: 1233936451}
   m_Father: {fileID: 1104178538}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -36225,7 +36246,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1622766534}
+    m_TransformParent: {fileID: 1322046957}
     m_Modifications:
     - target: {fileID: 2022327401204109291, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
       propertyPath: routeTargets.Array.size
@@ -36259,13 +36280,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Butterfly_Anchor (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2591456805286303003, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
+      propertyPath: notificationType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8340378375347927608, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.1297607
+      value: -18.35498
       objectReference: {fileID: 0}
     - target: {fileID: 8340378375347927608, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.327393
+      value: -86.46735
       objectReference: {fileID: 0}
     - target: {fileID: 8340378375347927608, guid: a6400135385876d47b9a8ecb80f3e7b8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -37656,6 +37681,10 @@ PrefabInstance:
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
+      propertyPath: enableHorizontalCameraSize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
       propertyPath: verticalCameraSizeSmoothTime
       value: 0.5
       objectReference: {fileID: 0}
@@ -38882,6 +38911,10 @@ PrefabInstance:
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
+      propertyPath: enableHorizontalCameraSize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
       propertyPath: verticalCameraSizeSmoothTime
       value: 0.5
       objectReference: {fileID: 0}
@@ -39052,7 +39085,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 52910592988646608, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
       propertyPath: m_Name
-      value: Camera_Beach_1_Void
+      value: Camera_Beach_0_Void
       objectReference: {fileID: 0}
     - target: {fileID: 72627054733073943, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
       propertyPath: orthographic size
@@ -39087,6 +39120,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
+      propertyPath: cameraSizeIncreaseWidth
+      value: 1003.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
       propertyPath: cameraSizeIncreaseXStep
       value: 0.25
       objectReference: {fileID: 0}
@@ -39101,6 +39138,10 @@ PrefabInstance:
     - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
       propertyPath: enableHorizontalCameraSize
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
+      propertyPath: horizontalCameraSizeDirection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
       propertyPath: horizontalCameraSizeSmoothTime
@@ -40146,7 +40187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 8742701899501212409}
+  notificationType: 1
   playerTag: Player
 --- !u!4 &1832914922 stripped
 Transform:
@@ -42095,7 +42136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 5797993239090343377}
+  notificationType: 0
   playerTag: Player
 --- !u!114 &1987572492
 MonoBehaviour:
@@ -42990,7 +43031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 5797993239090343377}
+  notificationType: 0
   playerTag: Player
 --- !u!114 &2023147454
 MonoBehaviour:
@@ -43613,7 +43654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ef23cef5f85d64da9e92f36d2840d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 5797993239090343377}
+  notificationType: 0
   playerTag: Player
 --- !u!1 &2054214936
 GameObject:
@@ -46476,6 +46517,14 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 3609790645485543862}
+    - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
+      propertyPath: enableVerticalCameraSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 498649033985749695, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
+      propertyPath: enableHorizontalCameraSize
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2488160275109886728, guid: 35d047d54e15bc644b1e5fb85ad9c367, type: 3}
       propertyPath: m_LocalPosition.x
       value: 24.8
@@ -47038,17 +47087,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 270541694}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8742701899501212409 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2055391572988988688, guid: 86ec6256e1ba6a44785057945b0af609, type: 3}
-  m_PrefabInstance: {fileID: 8857663336688905314}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37ae9075d72e9e641806a40c73c68249, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8857663336688905314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47199,3 +47237,4 @@ SceneRoots:
   - {fileID: 2040856271}
   - {fileID: 2024149530}
   - {fileID: 1996769408}
+  - {fileID: 1322046957}

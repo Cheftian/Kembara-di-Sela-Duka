@@ -67,10 +67,7 @@ public class RoomPortal : MonoBehaviour
         // BARU: Sembunyikan notifikasi dan matikan trigger-nya sebelum pindah ruangan
         if (notificationTrigger != null)
         {
-            if (notificationTrigger.notification != null)
-            {
-                notificationTrigger.notification.Hide(); // Sembunyikan pop-up UI
-            }
+            notificationTrigger.HideNotification(); // Sembunyikan pop-up UI
             notificationTrigger.enabled = false; // Matikan script NotificationTrigger
         }
 
@@ -95,10 +92,7 @@ public class RoomPortal : MonoBehaviour
 
         if (notificationTrigger != null)
         {
-            if (notificationTrigger.notification != null)
-            {
-                notificationTrigger.notification.Hide();
-            }
+            notificationTrigger.HideNotification();
 
             notificationTrigger.enabled = false;
         }

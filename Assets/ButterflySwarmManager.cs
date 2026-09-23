@@ -27,10 +27,20 @@ public class ButterflySwarmManager : MonoBehaviour
     private bool isPlayerInside = false;
     private bool isSwarmFlying = false;
     private bool routeCompleted = false;
+    private NotificationTrigger notificationTrigger;
+    private BoxCollider2D interactionCollider;
 
     void Start()
     {
+        notificationTrigger = GetComponent<NotificationTrigger>();
+        interactionCollider = GetComponent<BoxCollider2D>();
         UpdateButterflyArray();
+
+        if (routeTargets == null || routeTargets.Length == 0)
+        {
+            routeCompleted = true;
+            SetInteractionEnabled(false);
+        }
     }
 
     void Update()
@@ -68,6 +78,14 @@ public class ButterflySwarmManager : MonoBehaviour
 
         RoutePoint currentRoute = routeTargets[currentRouteIndex];
         UpdateButterflyArray(); 
+
+        SetInteractionEnabled(false);
+
+        PlayerController player = GameObject.FindGameObjectWithTag(playerTag)?.GetComponent<PlayerController>();
+        if (player != null)
+        {
+            player.Flip(4);
+        }
 
         if (butterflies.Length == 0)
         {
@@ -165,7 +183,33 @@ public class ButterflySwarmManager : MonoBehaviour
         if (currentRouteIndex >= routeTargets.Length)
         {
             routeCompleted = true;
+            SetInteractionEnabled(false);
             Debug.Log("Swarm telah mencapai rute terakhir.");
+        }
+        else
+        {
+            SetInteractionEnabled(true);
+        }
+    }
+
+    private void SetInteractionEnabled(bool isEnabled)
+    {
+        if (notificationTrigger != null)
+        {
+            if (isEnabled)
+            {
+                notificationTrigger.enabled = true;
+            }
+            else
+            {
+                notificationTrigger.HideNotification();
+                notificationTrigger.enabled = false;
+            }
+        }
+
+        if (interactionCollider != null)
+        {
+            interactionCollider.enabled = isEnabled;
         }
     }
 

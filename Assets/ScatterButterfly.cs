@@ -105,6 +105,7 @@ public class ScatterButterfly : MonoBehaviour
     {
         // Menjaga posisi global visual saat ini agar tidak teleportasi saat dipasang ke parent baru
         transform.SetParent(parentTransform, true);
+        PickNewLocalIdleTarget();
     }
 
     void Update()
@@ -157,15 +158,6 @@ public class ScatterButterfly : MonoBehaviour
             {
                 arrived = true;
                 currentState = ButterflyState.Idle;
-                
-                // Pindahkan parent secara global tanpa merusak posisi visual (mencegah lompatan visual)
-                if (manager != null && manager.GetCurrentTargetTransform() != null)
-                {
-                    AttachToParentAndNormalize(manager.GetCurrentTargetTransform());
-                }
-                
-                // Langsung tentukan titik acak baru berbasis koordinat lokal di parent yang baru
-                PickNewLocalIdleTarget();
 
                 if (manager != null)
                 {

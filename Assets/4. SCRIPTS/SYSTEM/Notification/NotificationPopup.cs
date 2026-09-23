@@ -3,12 +3,23 @@ using System.Collections;
 
 public class NotificationPopup : MonoBehaviour
 {
+    public enum NotificationType
+    {
+        W,
+        S
+    }
+
+    [Header("Jenis Notifikasi")]
+    [SerializeField] private NotificationType notificationType = NotificationType.W;
+
     [Header("Pengaturan Animasi")]
     [Tooltip("Durasi animasi pop up dan pop down dalam detik")]
     public float duration = 0.2f;
 
     private Coroutine activeCoroutine;
     private Vector3 originalScale;
+
+    public NotificationType Type => notificationType;
 
     private void Awake()
     {

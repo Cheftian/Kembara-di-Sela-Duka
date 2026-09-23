@@ -361,10 +361,7 @@ public class InteractableObject : MonoBehaviour
     {
         if (notificationTrigger != null)
         {
-            if (notificationTrigger.notification != null)
-            {
-                notificationTrigger.notification.Hide();
-            }
+            notificationTrigger.HideNotification();
             notificationTrigger.enabled = false;
         }
     }
@@ -374,9 +371,9 @@ public class InteractableObject : MonoBehaviour
         if (notificationTrigger != null)
         {
             notificationTrigger.enabled = true;
-            if (isPlayerInRange && notificationTrigger.notification != null)
+            if (isPlayerInRange)
             {
-                notificationTrigger.notification.Show();
+                notificationTrigger.ShowNotification();
             }
         }
     }

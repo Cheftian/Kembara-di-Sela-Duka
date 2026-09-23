@@ -129,6 +129,8 @@ MonoBehaviour:
   animator: {fileID: 3756406642943183995}
   spriteRenderer: {fileID: 5893212274104831725}
   sitDuration: 0.5
+  sitDelayAfterTeleport: 1.5
+  glitchFlashInName: FlashIn
   jumpForce: 20
   groundLayer:
     serializedVersion: 2
@@ -379,6 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ae9075d72e9e641806a40c73c68249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notificationType: 1
   duration: 0.2
 --- !u!1 &1503398977691742832
 GameObject:
@@ -603,6 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ae9075d72e9e641806a40c73c68249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notificationType: 0
   duration: 0.2
 --- !u!1 &2253406642698675846
 GameObject:

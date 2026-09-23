@@ -388,6 +388,29 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger(flipHash);     
     }
 
+    public void Flip(int flipCount)
+    {
+        if (flipCount > 0)
+        {
+            StartCoroutine(FlipSequence(flipCount));
+        }
+    }
+
+    private IEnumerator FlipSequence(int flipCount)
+    {
+        for (int i = 0; i < flipCount; i++)
+        {
+            StartFlip();
+
+            while (isFlipping)
+            {
+                yield return null;
+            }
+
+            yield return null;
+        }
+    }
+
     public void OnFlipAnimationComplete()
     {
         if (visualTransform == null || animator == null || spriteRenderer == null) return;

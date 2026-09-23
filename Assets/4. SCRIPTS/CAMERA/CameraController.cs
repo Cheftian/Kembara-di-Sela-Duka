@@ -1,5 +1,17 @@
 using UnityEngine;
 
+public enum VerticalCameraSizeDirection
+{
+    Up,
+    Down
+}
+
+public enum HorizontalCameraSizeDirection
+{
+    Left,
+    Right
+}
+
 public class CameraController : MonoBehaviour
 {
     [Header("Follow Settings")]
@@ -11,6 +23,7 @@ public class CameraController : MonoBehaviour
 
     [Header("Vertical Camera Size")]
     [SerializeField] private bool enableVerticalCameraSize = false;
+    [SerializeField] private VerticalCameraSizeDirection verticalCameraSizeDirection = VerticalCameraSizeDirection.Up;
     [Tooltip("Nilai Y absolut posisi kamera saat kamera mulai memperbesar ukurannya.")]
     [SerializeField] private float cameraSizeIncreaseHeight = 10f;
     [Tooltip("Jarak Y untuk setiap kenaikan ukuran kamera.")]
@@ -20,6 +33,17 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float maxCameraSizeIncrease = 1f;
     [Tooltip("Waktu yang diperlukan ukuran kamera untuk mengikuti perubahan ketinggian.")]
     [SerializeField] private float verticalCameraSizeSmoothTime = 0.5f;
+
+    [Header("Horizontal Camera Size")]
+    [SerializeField] private bool enableHorizontalCameraSize = false;
+    [SerializeField] private HorizontalCameraSizeDirection horizontalCameraSizeDirection = HorizontalCameraSizeDirection.Right;
+    [Tooltip("Nilai X absolut posisi kamera saat kamera mulai memperbesar ukurannya.")]
+    [SerializeField] private float cameraSizeIncreaseWidth = 10f;
+    [Tooltip("Jarak X untuk setiap kenaikan ukuran kamera.")]
+    [SerializeField] private float cameraSizeIncreaseXStep = 1f;
+    [Tooltip("Nilai kenaikan ukuran kamera pada setiap langkah X.")]
+    [SerializeField] private float cameraSizeIncreasePerXStep = 0.1f;
+    [SerializeField] private float maxHorizontalCameraSizeIncrease = 1f;
 
     [Header("Manual Movement Settings")]
     [SerializeField] private bool canMoveManually = false;
@@ -130,11 +154,28 @@ public class CameraController : MonoBehaviour
 
         if (enableVerticalCameraSize && target != null)
         {
-            float heightAboveStart = transform.position.y - cameraSizeIncreaseHeight;
-            if (heightAboveStart >= 0f && cameraSizeIncreaseYStep > 0f)
+            float verticalDistanceFromStart = verticalCameraSizeDirection == VerticalCameraSizeDirection.Up
+                ? transform.position.y - cameraSizeIncreaseHeight
+                : cameraSizeIncreaseHeight - transform.position.y;
+
+            if (verticalDistanceFromStart >= 0f && cameraSizeIncreaseYStep > 0f)
             {
-                int increaseSteps = Mathf.FloorToInt(heightAboveStart / cameraSizeIncreaseYStep) + 1;
+                int increaseSteps = Mathf.FloorToInt(verticalDistanceFromStart / cameraSizeIncreaseYStep) + 1;
                 float sizeIncrease = Mathf.Min(increaseSteps * cameraSizeIncreasePerStep, maxCameraSizeIncrease);
+                desiredCameraSize += Mathf.Max(0f, sizeIncrease);
+            }
+        }
+
+        if (enableHorizontalCameraSize && target != null)
+        {
+            float horizontalDistanceFromStart = horizontalCameraSizeDirection == HorizontalCameraSizeDirection.Right
+                ? transform.position.x - cameraSizeIncreaseWidth
+                : cameraSizeIncreaseWidth - transform.position.x;
+
+            if (horizontalDistanceFromStart >= 0f && cameraSizeIncreaseXStep > 0f)
+            {
+                int increaseSteps = Mathf.FloorToInt(horizontalDistanceFromStart / cameraSizeIncreaseXStep) + 1;
+                float sizeIncrease = Mathf.Min(increaseSteps * cameraSizeIncreasePerXStep, maxHorizontalCameraSizeIncrease);
                 desiredCameraSize += Mathf.Max(0f, sizeIncrease);
             }
         }

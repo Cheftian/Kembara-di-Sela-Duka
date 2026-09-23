@@ -158,12 +158,19 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: -10}
   smoothTime: 0.25
   cameraSize: 6
-  enableVerticalCameraSize: 1
+  enableVerticalCameraSize: 0
+  verticalCameraSizeDirection: 0
   cameraSizeIncreaseHeight: 915
   cameraSizeIncreaseYStep: 0.25
   cameraSizeIncreasePerStep: 1
   maxCameraSizeIncrease: 4.5
   verticalCameraSizeSmoothTime: 2
+  enableHorizontalCameraSize: 0
+  horizontalCameraSizeDirection: 1
+  cameraSizeIncreaseWidth: 10
+  cameraSizeIncreaseXStep: 1
+  cameraSizeIncreasePerXStep: 0.1
+  maxHorizontalCameraSizeIncrease: 1
   canMoveManually: 1
   manualMoveSpeed: 2
   maxManualDistance: 15
