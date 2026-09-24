@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
+  m_Name: 1-Beach-1-1
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: Ahh, the melody of the waves.
+    dialogueID: Ahh, senandung ombak.
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: Its dance, its breeze.
+    dialogueID: Tariannya, hembusannya.
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: There's nothing quite like it.
+    dialogueID: Gak ada duanya pokokk.
+  loadSceneAfterNarration: 0
+  sceneNameAfterNarration: 

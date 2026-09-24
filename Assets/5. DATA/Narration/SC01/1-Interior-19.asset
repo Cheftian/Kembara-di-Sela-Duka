@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
+  m_Name: 1-Interior-19
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - characterName: Elara
+    expressionName: Sad
+    dialogueEN: Great. Now the second floor is broken too.
+    dialogueID: Bagus. Sekarang lantai 2 juga ikutan rusak.
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: What actually happened here?
+    dialogueID: Apa yang sebenarnya terjadi di sini?
+  - characterName: Elara
+    expressionName: Shocked
+    dialogueEN: I have to get out and find Dad.
+    dialogueID: Aku harus segera keluar dan cari ayah.
+  loadSceneAfterNarration: 0
+  sceneNameAfterNarration: 

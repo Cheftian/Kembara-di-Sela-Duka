@@ -57,15 +57,29 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Vector2 minPosition;
     [SerializeField] private Vector2 maxPosition;
 
+    [Header("Glitch Boundary Settings")]
+    [Tooltip("Seberapa jauh batas bawah kamera dapat turun saat efek dizzy aktif.")]
+    [SerializeField] private float glitchMinimumYDrop = 2f;
+    [Tooltip("Kecepatan perubahan batas bawah kamera saat efek dizzy mulai/berakhir.")]
+    [SerializeField] private float glitchBoundarySmoothTime = 0.35f;
+
     private Camera cam;
     private Vector3 currentVelocity = Vector3.zero;
     private float sizeVelocity = 0f;
     private float verticalCameraSizeVelocity = 0f;
     private float baseCameraSize;
     private float currentFollowSpeed;
+    private float currentGlitchMinimumYDrop;
+    private float glitchBoundaryVelocity;
+    private bool glitchEffectActive;
+    private float glitchFocusStrength;
+    private Vector3 glitchFocusPosition;
+    private float glitchCameraSize;
+    private Vector3 glitchShakeOffset;
 
     public Vector2 MinPositionBound => minPosition;
     public Vector2 MaxPositionBound => maxPosition;
+    public float CurrentCameraSize => cam != null ? cam.orthographicSize : cameraSize;
 
     public static CameraController Instance { get; private set; }
     private float shakeTimer = 0f;
@@ -87,6 +101,7 @@ public class CameraController : MonoBehaviour
         }
 
         UpdateCameraSizeForTargetHeight();
+        UpdateGlitchBoundary();
         ApplyCameraSize();
         HandleCameraMovement();
     }
@@ -126,6 +141,16 @@ public class CameraController : MonoBehaviour
             targetPosition = followPosition;
         }
 
+        if (glitchEffectActive && target != null)
+        {
+            Vector3 focusPosition = glitchFocusPosition;
+            focusPosition.z = targetPosition.z;
+            targetPosition = Vector3.Lerp(
+                targetPosition,
+                focusPosition,
+                Mathf.Clamp01(glitchFocusStrength));
+        }
+
         targetPosition = ClampPositionToBoundaries(targetPosition, cameraSize);
 
         float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
@@ -152,6 +177,14 @@ public class CameraController : MonoBehaviour
         boundedPosition.z = targetPosition.z;
         transform.position = boundedPosition;
 
+        if (glitchEffectActive)
+        {
+            Vector3 glitchPosition = transform.position + glitchShakeOffset;
+            glitchPosition = ClampPositionToBoundaries(glitchPosition, cam != null ? cam.orthographicSize : cameraSize);
+            glitchPosition.z = targetPosition.z;
+            transform.position = glitchPosition;
+        }
+
         // --- TAMBAHKAN KODE INI DI BARIS PALING BAWAH FUNGSI ---
         if (shakeTimer > 0)
         {
@@ -166,8 +199,21 @@ public class CameraController : MonoBehaviour
     {
         if (cam != null)
         {
-            cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, cameraSize, ref sizeVelocity, smoothTime);
+            float targetSize = glitchEffectActive ? glitchCameraSize : cameraSize;
+            cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, targetSize, ref sizeVelocity, smoothTime);
         }
+    }
+
+    private void UpdateGlitchBoundary()
+    {
+        float targetDrop = glitchEffectActive ? glitchMinimumYDrop * glitchFocusStrength : 0f;
+        currentGlitchMinimumYDrop = Mathf.SmoothDamp(
+            currentGlitchMinimumYDrop,
+            Mathf.Max(0f, targetDrop),
+            ref glitchBoundaryVelocity,
+            Mathf.Max(0.01f, glitchBoundarySmoothTime),
+            Mathf.Infinity,
+            Time.deltaTime);
     }
 
     private void UpdateCameraSizeForTargetHeight()
@@ -221,7 +267,7 @@ public class CameraController : MonoBehaviour
         float halfWidth = orthographicSize * cam.aspect;
         float minX = minPosition.x + halfWidth;
         float maxX = maxPosition.x - halfWidth;
-        float minY = minPosition.y + halfHeight;
+        float minY = minPosition.y - currentGlitchMinimumYDrop + halfHeight;
         float maxY = maxPosition.y - halfHeight;
 
         position.x = minX <= maxX ? Mathf.Clamp(position.x, minX, maxX) : (minPosition.x + maxPosition.x) * 0.5f;
@@ -233,7 +279,7 @@ public class CameraController : MonoBehaviour
     {
         if (!useBoundaries || cam == null) return desiredSize;
 
-        float maxSizeFromHeight = (maxPosition.y - minPosition.y) * 0.5f;
+        float maxSizeFromHeight = (maxPosition.y - (minPosition.y - currentGlitchMinimumYDrop)) * 0.5f;
         float maxSizeFromWidth = (maxPosition.x - minPosition.x) / (2f * cam.aspect);
         float maximumCameraSize = Mathf.Min(maxSizeFromHeight, maxSizeFromWidth);
         return Mathf.Min(desiredSize, Mathf.Max(0f, maximumCameraSize));
@@ -254,5 +300,23 @@ public class CameraController : MonoBehaviour
         shakeTimer = duration;
         shakeMagnitude = magnitude;
     }
+
+    public void SetGlitchEffect(Vector3 focusPosition, float focusStrength, float desiredCameraSize, Vector3 shakeOffset)
+    {
+        glitchEffectActive = true;
+        glitchFocusPosition = focusPosition;
+        glitchFocusStrength = Mathf.Clamp01(focusStrength);
+        glitchCameraSize = desiredCameraSize;
+        glitchShakeOffset = shakeOffset;
+    }
+
+    public void ClearGlitchEffect()
+    {
+        glitchEffectActive = false;
+        glitchFocusStrength = 0f;
+        glitchFocusPosition = Vector3.zero;
+        glitchShakeOffset = Vector3.zero;
+    }
+
     public void SetManualControl(bool state) => canMoveManually = state;
 }

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
+  m_Name: 1-Beach-1-8-Minigames
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: There. That's better.
+    dialogueID: Nah. Ini baru benar.
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: My favorite swing.
+    dialogueID: Ayunan favoritku.
+  - characterName: Elara
+    expressionName: Normal
+    dialogueEN: 
+    dialogueID: 
+  - characterName: Elara
+    expressionName: Normal
+    dialogueEN: Hmmmm.
+    dialogueID: Hmmmm.
+  - characterName: Elara
+    expressionName: Sad
+    dialogueEN: Why am I getting scared being here for so long?
+    dialogueID: Kok aku jadi takut ya lama-lama di sini.
+  - characterName: Elara
+    expressionName: Sad
+    dialogueEN: I'll go look for Dad again. Where is heee?
+    dialogueID: Aku cari Ayah lagi aja deh. Mana sih Ayahh.
+  loadSceneAfterNarration: 0
+  sceneNameAfterNarration: 

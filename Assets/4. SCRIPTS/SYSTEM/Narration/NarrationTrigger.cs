@@ -7,7 +7,8 @@ public class NarrationTrigger : MonoBehaviour
     public enum TriggerMode
     {
         OnEnable,
-        OnPlayerEnter
+        OnPlayerEnter,
+        OnInteracted
     }
 
     [Header("Trigger Settings")]
@@ -21,6 +22,8 @@ public class NarrationTrigger : MonoBehaviour
     [SerializeField] private NarrationData narrationData;
 
     private bool hasTriggered = false;
+    private bool isPlayerInside = false;
+    private PlayerController activePlayer;
 
     private void Awake()
     {
@@ -50,26 +53,56 @@ public class NarrationTrigger : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
-                ExecuteNarration();
+                ExecuteNarration(other.GetComponentInParent<PlayerController>());
             }
+        }
+        else if (triggerMode == TriggerMode.OnInteracted && other.CompareTag("Player"))
+        {
+            isPlayerInside = true;
+            activePlayer = other.GetComponentInParent<PlayerController>();
         }
     }
 
-    private void ExecuteNarration()
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (triggerMode == TriggerMode.OnInteracted && other.CompareTag("Player"))
+        {
+            isPlayerInside = false;
+            activePlayer = null;
+        }
+    }
+
+    private void Update()
+    {
+        if (triggerMode == TriggerMode.OnInteracted && isPlayerInside && Input.GetKeyDown(KeyCode.S))
+        {
+            ExecuteNarration(activePlayer);
+        }
+    }
+
+    private void ExecuteNarration(PlayerController player = null)
     {
         if (narrationData == null) return;
         if (triggerOnlyOnce && hasTriggered) return;
 
         // Validasi: Jika pemicunya adalah Player Enter, pastikan Elara sedang dalam state Play.
         // Jika pemicunya OnEnable, validasi ini dilewati karena objek mungkin di-enable saat cutscene lain sedang berjalan.
-        if (triggerMode == TriggerMode.OnPlayerEnter)
+        if (triggerMode == TriggerMode.OnPlayerEnter || triggerMode == TriggerMode.OnInteracted)
         {
             if (GameManager.Instance != null && GameManager.Instance.currentState != GameManager.GameState.Play) 
                 return;
         }
 
         hasTriggered = true;
-        NarrationManager.Instance.PlayNarration(narrationData);
+
+        if (player != null && player.IsDizzy && IsPlayerInsideGlitch(player))
+        {
+            player.PlayNarrationWithSit(narrationData);
+        }
+        else
+        {
+            NarrationManager.Instance.PlayNarration(narrationData);
+        }
 
         // Jika hanya boleh dipicu sekali, matikan komponen agar tidak membebani memori
         if (triggerOnlyOnce)
@@ -77,5 +110,17 @@ public class NarrationTrigger : MonoBehaviour
             GetComponent<BoxCollider2D>().enabled = false;
             this.enabled = false;
         }
+    }
+
+    private bool IsPlayerInsideGlitch(PlayerController player)
+    {
+        GlitchSprite[] glitchSprites = FindObjectsByType<GlitchSprite>(FindObjectsSortMode.None);
+
+        foreach (GlitchSprite glitchSprite in glitchSprites)
+        {
+            if (glitchSprite.IsPlayerInside(player)) return true;
+        }
+
+        return false;
     }
 }

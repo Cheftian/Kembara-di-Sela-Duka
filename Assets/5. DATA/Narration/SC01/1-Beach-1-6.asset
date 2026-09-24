@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
+  m_Name: 1-Beach-1-6
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: There. I'm out again.
+    dialogueID: Nahh. Aku keluar lagi.
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: So the butterfly theory was right.
+    dialogueID: Berarti teori kupu-kupu itu benar.
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: Wait.
+    dialogueID: Tunggu.
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: But why is the swing's rope broken now?
+    dialogueID: Tapi kenapa sekarang tali ayunannya putus?
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: Didn't it feel like this when I arrived earlier?
+    dialogueID: Perasaann tadi waktu nyampe gak gini?
+  - characterName: Elara
+    expressionName: Normal
+    dialogueEN: I have to <b>fix the swing</b>.
+    dialogueID: Aku harus <b>perbaiki ayunannya</b>
+  loadSceneAfterNarration: 0
+  sceneNameAfterNarration: 

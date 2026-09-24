@@ -15,8 +15,8 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Narrator
     expressionName: '-'
-    dialogueEN: 17 July 2023
-    dialogueID: 17 Juli 2023
+    dialogueEN: 17 July 1999
+    dialogueID: 17 Juli 1999
   - characterName: Narrator
     expressionName: '-'
     dialogueEN: 09.40 WIB

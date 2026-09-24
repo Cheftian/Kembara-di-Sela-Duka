@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
+  m_Name: 1-Entrance-1
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: Finally made it.
+    dialogueID: Akhirnya nyampe juga
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: This place hasn't changed much, huh?
+    dialogueID: Tempat ini gak banyak berubah, ya?
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: I wonder if Dad will be surprised that I suddenly showed up.
+    dialogueID: Ayah kaget gak ya, tiba-tiba aku dahh nyampe?
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: I want to <b>surprise Dad at the lighthouse</b>. He should be there.
+    dialogueID: Aku mau <b>kejutin Ayah di mercusuar</b>. Harusnya Ayah ada di sana.
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: I can't wait to see Dad and walk around with him again.
+    dialogueID: Gak sabar ingin ketemu Ayah trus berkeliling.
+  - characterName: Elara
+    expressionName: Normal
+    dialogueEN: Come to think of it, it's been so long since I went around with Dad.
+    dialogueID: Dipikir-pikir udah lama banget gak keliling sama Ayah.
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: Three years? I think so.
+    dialogueID: 3 Tahun? Sepertinya iya.
+  - characterName: Elara
+    expressionName: Sad
+    dialogueEN: College was really hectic, so I couldn't even stop by. Phew.
+    dialogueID: Kuliah kemaren bener-bener padet sampe gak bisa mampir. Huft.
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: Yep, it's time!
+    dialogueID: Yap, ini waktunya!
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: An adventure, Lara and Cahya. Hahahaa.
+    dialogueID: Pengelanaa, Lara dan Cahya. Hahahaa.
+  - characterName: Elara
+    expressionName: Normal
+    dialogueEN: 
+    dialogueID: 
+  - characterName: Elara
+    expressionName: Shocked
+    dialogueEN: Huh?
+    dialogueID: Eh?
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: Wait. Why is there someone here for once?
+    dialogueID: Bentar. Tumben ada orang di sini?
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: Dad's friend?
+    dialogueID: Temen Ayah?
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: Who could it be?
+    dialogueID: Sapa kali ya?
+  loadSceneAfterNarration: 0
+  sceneNameAfterNarration: 

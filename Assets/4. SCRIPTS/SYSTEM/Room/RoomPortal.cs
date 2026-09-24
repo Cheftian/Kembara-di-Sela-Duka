@@ -56,9 +56,8 @@ public class RoomPortal : MonoBehaviour
 
     private void TeleportPlayer()
     {
-        if (targetPortal == null)
+        if (!HasValidTargetPortal())
         {
-            Debug.LogWarning("Target Portal belum dipasang pada " + gameObject.name);
             return;
         }
 
@@ -76,9 +75,8 @@ public class RoomPortal : MonoBehaviour
 
     private void TeleportPlayerWithFlash()
     {
-        if (targetPortal == null)
+        if (!HasValidTargetPortal())
         {
-            Debug.LogWarning("Target Portal belum dipasang pada " + gameObject.name);
             return;
         }
 
@@ -104,7 +102,7 @@ public class RoomPortal : MonoBehaviour
     {
         if (targetPortal == null)
         {
-            Debug.LogError("Portal glitch belum memiliki Target Portal: " + gameObject.name, this);
+            Debug.LogWarning("Target Portal belum dipasang pada " + gameObject.name);
             return false;
         }
 
@@ -127,7 +125,25 @@ public class RoomPortal : MonoBehaviour
         }
 
         isTeleporting = true;
-        RoomManager.Instance.SwitchRoomFromGlitch(player, this, targetPortal);
+        RoomPortal destinationPortal = targetPortal == this ? this : targetPortal;
+        RoomManager.Instance.SwitchRoomFromGlitch(player, this, destinationPortal);
+        return true;
+    }
+
+    private bool HasValidTargetPortal()
+    {
+        if (targetPortal == null)
+        {
+            Debug.LogWarning("Target Portal belum dipasang pada " + gameObject.name);
+            return false;
+        }
+
+        if (targetPortal == this)
+        {
+            Debug.LogWarning("Target Portal tidak boleh sama dengan portal sumber: " + gameObject.name, this);
+            return false;
+        }
+
         return true;
     }
 

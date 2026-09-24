@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class NarrationManager : MonoBehaviour
 {
     public static NarrationManager Instance { get; private set; }
+    public event System.Action NarrationFinished;
 
     // --- SISTEM LOCALIZATION SEDERHANA ---
     public enum Language { English, Indonesia }
@@ -41,6 +42,13 @@ public class NarrationManager : MonoBehaviour
     [Header("Transition Settings")]
     [SerializeField] private float transitionDuration = 0.5f;
     [SerializeField] private AnimationCurve transitionCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    [SerializeField] private float characterImageTransitionDuration = 0.3f;
+    [SerializeField] private float characterImageSlideDistance = 60f;
+    [SerializeField] private float panelBounceHeight = 8f;
+    [SerializeField] private float panelShakeDistance = 8f;
+    [SerializeField] private float panelShakeDuration = 0.2f;
+    [SerializeField] private float characterImageBounceHeight = 12f;
+    [SerializeField] private AnimationCurve characterImageTransitionCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     [Header("Settings")]
     [SerializeField] private string sceneTransitionName = "RoomFadeOut";
@@ -63,6 +71,10 @@ public class NarrationManager : MonoBehaviour
     
     private RectTransform activePanelRect;
     private TextMeshProUGUI activeDialogueText;
+    private RectTransform activeCharacterImageRect;
+    private Vector2 activeCharacterImageVisiblePosition;
+    private string activeCharacterName;
+    private string activeExpressionName;
     private Vector2 hiddenPosition;
     private Vector2 visiblePosition;
 
@@ -192,13 +204,23 @@ public class NarrationManager : MonoBehaviour
         string rawText = (currentLanguage == Language.English) ? currentStep.dialogueEN : currentStep.dialogueID;
         currentLineText = ProcessText(rawText);
 
-        SetupCharacterUI(targetCharacter, currentStep.expressionName);
+        bool shouldTransitionIn = SetupCharacterUI(targetCharacter, currentStep.expressionName, out bool shouldAnimateImage);
+        bool shouldShakePanel = shouldTransitionIn && !isFirstLine;
 
         if (typingCoroutine != null) StopCoroutine(typingCoroutine);
 
-        if (isFirstLine)
+        if (isFirstLine || shouldTransitionIn)
         {
-            StartCoroutine(TransitionIn());
+            if (shouldShakePanel)
+            {
+                activePanelRect.anchoredPosition = visiblePosition;
+            }
+
+            StartCoroutine(TransitionIn(shouldAnimateImage, !shouldShakePanel, shouldShakePanel));
+        }
+        else if (shouldAnimateImage)
+        {
+            StartCoroutine(TransitionCharacterImage());
         }
         else
         {
@@ -206,8 +228,11 @@ public class NarrationManager : MonoBehaviour
         }
     }
     
-    private void SetupCharacterUI(CharacterUIConfig targetCharacter, string expressionName)
+    private bool SetupCharacterUI(CharacterUIConfig targetCharacter, string expressionName, out bool shouldAnimateImage)
     {
+        bool shouldTransitionIn = !targetCharacter.narrativePanel.activeSelf;
+        shouldAnimateImage = activeCharacterName != targetCharacter.characterName || activeExpressionName != expressionName;
+
         foreach (var character in characters)
         {
             if (character.characterName != targetCharacter.characterName && character.narrativePanel.activeSelf)
@@ -219,6 +244,9 @@ public class NarrationManager : MonoBehaviour
 
         if (targetCharacter.characterImage != null)
         {
+            activeCharacterImageRect = targetCharacter.characterImage.rectTransform;
+            activeCharacterImageVisiblePosition = activeCharacterImageRect.anchoredPosition;
+
             if (expressionName == "-")
             {
                 targetCharacter.characterImage.gameObject.SetActive(false);
@@ -238,6 +266,9 @@ public class NarrationManager : MonoBehaviour
             }
         }
 
+        activeCharacterName = targetCharacter.characterName;
+        activeExpressionName = expressionName;
+
         activePanelRect = targetCharacter.narrativePanel.GetComponent<RectTransform>();
         activeDialogueText = targetCharacter.dialogueText;
 
@@ -247,29 +278,115 @@ public class NarrationManager : MonoBehaviour
             activePanelRect.anchoredPosition = hiddenPosition; 
             targetCharacter.narrativePanel.SetActive(true);
         }
+
+        return shouldTransitionIn;
     }
 
-    private IEnumerator TransitionIn()
+    private IEnumerator TransitionIn(bool animateImage, bool slidePanel, bool shakePanel)
     {
         isTransitioning = true;
+        canProcessInput = false;
         float elapsed = 0;
-        activeDialogueText.text = ""; 
+        activeDialogueText.text = "";
 
-        while (elapsed < transitionDuration)
+        Vector2 panelStart = hiddenPosition;
+        Vector2 panelEnd = visiblePosition;
+        Vector2 imageStart = activeCharacterImageVisiblePosition + Vector2.down * characterImageSlideDistance;
+
+        if (animateImage && activeCharacterImageRect != null && activeCharacterImageRect.gameObject.activeSelf)
+        {
+            activeCharacterImageRect.anchoredPosition = imageStart;
+        }
+
+        float panelAnimationDuration = slidePanel ? transitionDuration : panelShakeDuration;
+        float totalDuration = Mathf.Max(panelAnimationDuration, animateImage ? characterImageTransitionDuration : 0f);
+
+        while (elapsed < totalDuration)
         {
             elapsed += Time.deltaTime;
-            float t = elapsed / transitionDuration;
-            float curveT = transitionCurve.Evaluate(t);
-            
-            activePanelRect.anchoredPosition = Vector2.Lerp(hiddenPosition, visiblePosition, curveT);
+            float panelT = Mathf.Clamp01(elapsed / panelAnimationDuration);
+
+            if (slidePanel)
+            {
+                float panelCurveT = transitionCurve.Evaluate(panelT);
+                activePanelRect.anchoredPosition = Vector2.Lerp(panelStart, panelEnd, panelCurveT);
+                activePanelRect.anchoredPosition += Vector2.up * (Mathf.Sin(panelT * Mathf.PI) * panelBounceHeight);
+            }
+            else if (shakePanel)
+            {
+                float shakeAmount = Mathf.Sin(panelT * Mathf.PI * 4f) * (1f - panelT) * panelShakeDistance;
+                activePanelRect.anchoredPosition = visiblePosition + Vector2.right * shakeAmount;
+            }
+
+            if (animateImage && activeCharacterImageRect != null && activeCharacterImageRect.gameObject.activeSelf)
+            {
+                float imageT = Mathf.Clamp01(elapsed / characterImageTransitionDuration);
+                float imageCurveT = characterImageTransitionCurve.Evaluate(imageT);
+                activeCharacterImageRect.anchoredPosition = Vector2.Lerp(imageStart, activeCharacterImageVisiblePosition, imageCurveT);
+                activeCharacterImageRect.anchoredPosition += Vector2.up * (Mathf.Sin(imageT * Mathf.PI) * characterImageBounceHeight);
+            }
+
             yield return null;
         }
 
         activePanelRect.anchoredPosition = visiblePosition;
+        if (animateImage && activeCharacterImageRect != null)
+        {
+            activeCharacterImageRect.anchoredPosition = activeCharacterImageVisiblePosition;
+        }
         isTransitioning = false;
         
         StartCoroutine(EnableInputDelay());
         typingCoroutine = StartCoroutine(TypeText(currentLineText)); 
+    }
+
+    private IEnumerator TransitionCharacterImage()
+    {
+        isTransitioning = true;
+        canProcessInput = false;
+        float elapsed = 0f;
+        float slideDownDuration = characterImageTransitionDuration * 0.4f;
+        float slideUpDuration = characterImageTransitionDuration - slideDownDuration;
+        Vector2 imageEnd = activeCharacterImageVisiblePosition + Vector2.down * characterImageSlideDistance;
+
+        while (elapsed < slideDownDuration)
+        {
+            elapsed += Time.deltaTime;
+            float imageT = Mathf.Clamp01(elapsed / slideDownDuration);
+            float imageCurveT = characterImageTransitionCurve.Evaluate(imageT);
+
+            if (activeCharacterImageRect != null && activeCharacterImageRect.gameObject.activeSelf)
+            {
+                activeCharacterImageRect.anchoredPosition = Vector2.Lerp(activeCharacterImageVisiblePosition, imageEnd, imageCurveT);
+            }
+
+            yield return null;
+        }
+
+        elapsed = 0f;
+        while (elapsed < slideUpDuration)
+        {
+            elapsed += Time.deltaTime;
+            float imageT = Mathf.Clamp01(elapsed / slideUpDuration);
+            float imageCurveT = characterImageTransitionCurve.Evaluate(imageT);
+
+            if (activeCharacterImageRect != null && activeCharacterImageRect.gameObject.activeSelf)
+            {
+                activeCharacterImageRect.anchoredPosition = Vector2.Lerp(imageEnd, activeCharacterImageVisiblePosition, imageCurveT);
+                activeCharacterImageRect.anchoredPosition += Vector2.up * (Mathf.Sin(imageT * Mathf.PI) * characterImageBounceHeight);
+            }
+
+            yield return null;
+        }
+
+        if (activeCharacterImageRect != null)
+        {
+            activeCharacterImageRect.anchoredPosition = activeCharacterImageVisiblePosition;
+        }
+
+        isTransitioning = false;
+        StartCoroutine(EnableInputDelay());
+        typingCoroutine = StartCoroutine(TypeText(currentLineText));
     }
 
     private IEnumerator EndNarrationSequence()
@@ -295,6 +412,7 @@ public class NarrationManager : MonoBehaviour
         NarrationData completedNarration = currentActiveData;
         currentActiveData = null; // Clear data cache saat narasi selesai
         GameManager.Instance.SetGameState(stateAfterNarration); 
+        NarrationFinished?.Invoke();
 
         if (completedNarration != null && completedNarration.loadSceneAfterNarration)
         {

@@ -96,8 +96,10 @@ public class PlayerController : MonoBehaviour
 
     private bool wasDizzyFromLeftWalk = false;
     private bool isGlitchExiting = false;
+    private bool isNarrationSitSequenceActive = false;
 
     public bool IsDizzy => isDizzy;
+    public bool IsNarrationSitSequenceActive => isNarrationSitSequenceActive;
     public bool IsWalking => Mathf.Abs(horizontalInput) > 0f && !isFlipping;
     public bool IsRunning => isRunning && !isDizzy; // Lari hanya valid jika tidak pusing
 
@@ -130,6 +132,7 @@ public class PlayerController : MonoBehaviour
             if (animator == null) animator = visualTransform.GetComponent<Animator>();
             if (spriteRenderer == null) spriteRenderer = visualTransform.GetComponent<SpriteRenderer>(); 
         }
+        HandleFlip();
     }
 
     private void Update()
@@ -151,7 +154,10 @@ public class PlayerController : MonoBehaviour
         {
             horizontalInput = 0;
             isRunning = false;
-            UpdateAnimation();
+            if (!isNarrationSitSequenceActive)
+            {
+                UpdateAnimation();
+            }
             return;
         }
 
@@ -626,13 +632,116 @@ public class PlayerController : MonoBehaviour
 
     public void BeginGlitchExit(RoomPortal destinationPortal)
     {
-        if (isGlitchExiting || destinationPortal == null) return;
+        if (!isActiveAndEnabled || !gameObject.activeInHierarchy || isGlitchExiting || destinationPortal == null) return;
 
         isGlitchExiting = true;
         isDizzy = false;
         isRunning = false;
         moveSpeed = originalMoveSpeed;
         StartCoroutine(GlitchExitSequence(destinationPortal));
+    }
+
+    public void PlayNarrationWithSit(NarrationData narrationData)
+    {
+        if (!isActiveAndEnabled || !gameObject.activeInHierarchy || narrationData == null || isNarrationSitSequenceActive)
+            return;
+
+        StartCoroutine(SitThenPlayNarration(narrationData));
+    }
+
+    private IEnumerator SitThenPlayNarration(NarrationData narrationData)
+    {
+        isNarrationSitSequenceActive = true;
+        BlockInput = true;
+        isDizzy = false;
+        isRunning = false;
+        horizontalInput = 0f;
+        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+
+        if (animator != null)
+        {
+            animator.speed = 1f;
+        }
+
+        yield return StartCoroutine(PlayAnimationAndWait("Sit"));
+        if (animator != null)
+        {
+            animator.Play("Sit", 0, 1f);
+            animator.Update(0f);
+            animator.speed = 0f;
+        }
+
+        if (NarrationManager.Instance == null)
+        {
+            yield return StartCoroutine(StandAfterNarration());
+            yield break;
+        }
+
+        NarrationManager.Instance.NarrationFinished += OnSitNarrationFinished;
+        NarrationManager.Instance.PlayNarration(
+            narrationData,
+            GameManager.GameState.Cutscene,
+            GameManager.GameState.Play);
+    }
+
+    private void OnSitNarrationFinished()
+    {
+        if (NarrationManager.Instance != null)
+        {
+            NarrationManager.Instance.NarrationFinished -= OnSitNarrationFinished;
+        }
+
+        if (isActiveAndEnabled && gameObject.activeInHierarchy)
+        {
+            StartCoroutine(StandAfterNarration());
+        }
+    }
+
+    private IEnumerator StandAfterNarration()
+    {
+        if (animator != null)
+        {
+            animator.speed = 1f;
+        }
+
+        yield return StartCoroutine(PlayStandAnimationAndWait());
+
+        isDizzy = false;
+        isRunning = false;
+        horizontalInput = 0f;
+        isNarrationSitSequenceActive = false;
+        BlockInput = false;
+        ResetToIdleState();
+
+        if (animator != null)
+        {
+            animator.Play(defaultStateName, 0, 0f);
+        }
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetGameState(GameManager.GameState.Play);
+        }
+    }
+
+    private IEnumerator PlayStandAnimationAndWait()
+    {
+        if (animator == null) yield break;
+
+        animator.ResetTrigger("Sit");
+        animator.ResetTrigger("Stand");
+        animator.Play("Stand", 0, 0f);
+        animator.Update(0f);
+
+        yield return null;
+
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        float elapsed = 0f;
+        while (elapsed < stateInfo.length)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
     }
 
     private IEnumerator GlitchExitSequence(RoomPortal destinationPortal)
@@ -671,6 +780,8 @@ public class PlayerController : MonoBehaviour
 
     public void CompleteGlitchExit()
     {
+        if (!isActiveAndEnabled || !gameObject.activeInHierarchy) return;
+
         StartCoroutine(CompleteGlitchExitSequence());
     }
 

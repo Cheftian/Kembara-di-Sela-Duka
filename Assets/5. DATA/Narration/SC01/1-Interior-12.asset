@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
+  m_Name: 1-Interior-12
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - characterName: Elara
+    expressionName: Shocked
+    dialogueEN: THAT'S THREE TIMES ALREADYYY. PLUS WHAT HAPPENED INSIDE.
+    dialogueID: UDAH 3 KALIII. KETAMBAHAN YANG DI DALEM TADI.
+  - characterName: Elara
+    expressionName: Angry
+    dialogueEN: FOR SURE. Something is wrong with this place.
+    dialogueID: FIX. Ada yang gak beres sama tempat ini.
+  - characterName: Elara
+    expressionName: Sad
+    dialogueEN: That uncle was right, this place really is haunted.
+    dialogueID: Bener kataa om tadi, ni tempat angker.
+  - characterName: Elara
+    expressionName: Shocked
+    dialogueEN: I have to get out of this place immediately.
+    dialogueID: Aku harus segera keluar dari tempat ini.
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: Oh, right. The butterflies!
+    dialogueID: Ohya benar. Kupu-kupu!
+  - characterName: Elara
+    expressionName: Normal
+    dialogueEN: I have to <b>find the butterflies</b>!
+    dialogueID: Aku harus <b>cari kupu-kupu</b>!
+  loadSceneAfterNarration: 0
+  sceneNameAfterNarration: 

@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
+  m_Name: 1-Entrance-2-Nova
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - characterName: Elara
+    expressionName: Normal
+    dialogueEN: Hello?
+    dialogueID: Halo?
+  - characterName: Nova
+    expressionName: Normal
+    dialogueEN: Hm?
+    dialogueID: Emh?
+  - characterName: Nova
+    expressionName: Normal
+    dialogueEN: It's unusual to see someone here. What are you doing?
+    dialogueID: Tumben ada orang ke sini. Mau ngapain?
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: (Oh, we have the same question.)
+    dialogueID: (Eh, pertanyaan kita sama)
+  - characterName: Elara
+    expressionName: Normal
+    dialogueEN: 
+    dialogueID: 
+  - characterName: Elara
+    expressionName: Normal
+    dialogueEN: Oh. I'm Mr. Cahya's daughter, Uncle. He takes care of the lighthouse
+      over there.
+    dialogueID: Oh. Saya anak Pak Cahya, Om. Yang jaga mercusuar di sana.
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: Are you Dad's friend, Uncle?
+    dialogueID: Om temen ayah, kah?
+  - characterName: Nova
+    expressionName: Normal
+    dialogueEN: Cahya?
+    dialogueID: Cahya?
+  - characterName: Nova
+    expressionName: Normal
+    dialogueEN: Oh.
+    dialogueID: Oh.
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: Huh? What's wrong, Uncle?
+    dialogueID: Eh? Ada apa, Om?
+  - characterName: Nova
+    expressionName: Normal
+    dialogueEN: 'It''s nothing. It''s just rare for anyone to come to this beach. '
+    dialogueID: 'Gapapa. Jarang aja ada yang datengin pantai ini. '
+  - characterName: Nova
+    expressionName: Normal
+    dialogueEN: 'Usually there are tourists or locals around, but I don''t know why
+      it''s suddenly so empty. '
+    dialogueID: Biasanya ada turis atau warlok ke sini, tapi ntah ngapa jadi sepi
+      banget.
+  - characterName: Nova
+    expressionName: Normal
+    dialogueEN: Maybe it's haunted?
+    dialogueID: Angker kali ya?
+  - characterName: Elara
+    expressionName: Angry
+    dialogueEN: Haiss. Of course it isn't haunted. I've played here since I was little
+      and nothing ever happened.
+    dialogueID: Haiss. Mana ada angker? Dari kecil aku sering main di sini ga ada
+      apa-apa.
+  - characterName: Nova
+    expressionName: Normal
+    dialogueEN: You sure?
+    dialogueID: Yakin?
+  - characterName: Elara
+    expressionName: Normal
+    dialogueEN: Hmmmmm.
+    dialogueID: Hmmmmm.
+  - characterName: Elara
+    expressionName: Normal
+    dialogueEN: Ahh. Whatever. I'll go find Dad first.
+    dialogueID: Ahh. Bodoamat lah. Aku temuin Ayah dulu.
+  loadSceneAfterNarration: 0
+  sceneNameAfterNarration: 

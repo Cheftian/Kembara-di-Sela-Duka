@@ -23,6 +23,11 @@ public class GlitchSprite : MonoBehaviour
     private bool isPlayerInside = false;
     private PlayerController activePlayer; 
 
+    public bool IsPlayerInside(PlayerController player)
+    {
+        return isPlayerInside && activePlayer == player;
+    }
+
     private void Start()
     {
         if (targetSpriteRenderer == null)

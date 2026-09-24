@@ -230,6 +230,7 @@ public class InteractableObject : MonoBehaviour
             // BARU: Eksekusi Object Toggling TEPAT SETELAH narasi selesai ditutup
             if (!isMinigameTrigger)
             {
+                if (isSingleUse) GetComponent<BoxCollider2D>().enabled = false;
                 ExecuteObjectToggling();
                 objectTogglingExecuted = true;
                 
@@ -247,6 +248,7 @@ public class InteractableObject : MonoBehaviour
         // 4. JALANKAN INTERAKSI BIASA (Jika tidak mencentang minigame maupun narasi)
         if (!isNarrativeTrigger && !isMinigameTrigger) 
         {
+            if (isSingleUse) GetComponent<BoxCollider2D>().enabled = false;
             ExecuteObjectToggling();
             objectTogglingExecuted = true;
             yield return StartCoroutine(PlayEndInteractionAnimation(player));
@@ -264,6 +266,7 @@ public class InteractableObject : MonoBehaviour
         {
             if (!objectTogglingExecuted)
             {
+                if (isSingleUse) GetComponent<BoxCollider2D>().enabled = false;
                 ExecuteObjectToggling();
             }
 
@@ -281,7 +284,11 @@ public class InteractableObject : MonoBehaviour
 
     private IEnumerator CompleteMinigameSequence(bool puzzleIsSolved)
     {
-        if (puzzleIsSolved) ExecuteObjectToggling();
+        if (puzzleIsSolved)
+        {
+            if (isSingleUse) GetComponent<BoxCollider2D>().enabled = false;
+            ExecuteObjectToggling();
+        }
         if (minigameObject != null) minigameObject.SetActive(false);
 
         PlayerController player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerController>();

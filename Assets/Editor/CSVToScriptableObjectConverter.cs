@@ -40,9 +40,9 @@ public class CSVToScriptableObjectConverter : EditorWindow
             return;
         }
 
-        // Deteksi pemisah kolom
+        // Deteksi pemisah kolom. File ini menggunakan tab, meskipun ekstensi-nya CSV.
         string firstLine = lines[0];
-        char delimiter = firstLine.Contains(";") ? ';' : ',';
+        char delimiter = firstLine.Contains("\t") ? '\t' : (firstLine.Contains(";") ? ';' : ',');
         Debug.Log($"[Info] Mendeteksi pemisah kolom yang digunakan: '{delimiter}'");
 
         Dictionary<string, List<NarrationData.DialogueStep>> narrationGroups = new Dictionary<string, List<NarrationData.DialogueStep>>();
@@ -63,6 +63,13 @@ public class CSVToScriptableObjectConverter : EditorWindow
                 string targetFileName = columns[0].Trim();
                 if (string.IsNullOrEmpty(targetFileName))
                 {
+                    rejectedRows++;
+                    continue;
+                }
+
+                if (targetFileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+                {
+                    Debug.LogWarning($"[Baris {i + 1}] Nama file tidak valid: '{targetFileName}'. Baris dilewati.");
                     rejectedRows++;
                     continue;
                 }
@@ -141,10 +148,8 @@ public class CSVToScriptableObjectConverter : EditorWindow
         foreach (string raw in rawSplits)
         {
             string cleaned = raw.Trim();
-            if (cleaned.StartsWith("\"") && cleaned.EndsWith("\"") && cleaned.Length >= 2)
-            {
-                cleaned = cleaned.Substring(1, cleaned.Length - 2);
-            }
+            if (cleaned.StartsWith("\"")) cleaned = cleaned.Substring(1);
+            if (cleaned.EndsWith("\"")) cleaned = cleaned.Substring(0, cleaned.Length - 1);
             cleaned = cleaned.Replace("\"\"", "\"");
             result.Add(cleaned);
         }

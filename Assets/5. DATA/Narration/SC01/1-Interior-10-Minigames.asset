@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
+  m_Name: 1-Interior-10-Minigames
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: There. All done.
+    dialogueID: Nah selesai.
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: When did I take this photo?
+    dialogueID: Kapan aku ambil foto ini.
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: Wait, there's a date on it.
+    dialogueID: Bentar, ada tanggalnya.
+  - characterName: Elara
+    expressionName: Shocked
+    dialogueEN: July 16, 199-
+    dialogueID: 16 Juli 199-
+  - characterName: Elara
+    expressionName: Shocked
+    dialogueEN: HUH?! Isn't July 16 just yesterday? I feel like I only arrived this
+      afternoon.
+    dialogueID: LAHH! 16 Juli bukannya kemaren? Perasaan aku baru nyampe siang ini.
+  - characterName: Elara
+    expressionName: Shocked
+    dialogueEN: How could I have already taken this photo?
+    dialogueID: Kok bisa aku udah ambil foto duluan?
+  - characterName: Elara
+    expressionName: Sad
+    dialogueEN: Enoughhhh. Things are getting more and more confusing here.
+    dialogueID: Udahhhh. Semakin gak jelas di sini.
+  - characterName: Elara
+    expressionName: Normal
+    dialogueEN: I have to find Dad. If he's not inside, then he must be outside.
+    dialogueID: Aku harus nyari ayah. Kalo di dalem gak ada, brarti ada di luar.
+  loadSceneAfterNarration: 0
+  sceneNameAfterNarration: 

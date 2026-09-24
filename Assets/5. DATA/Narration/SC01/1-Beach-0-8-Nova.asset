@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
+  m_Name: 1-Beach-0-8-Nova
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: Huh. That uncle again.
+    dialogueID: Lah. Si Om lagi.
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: Why are you here?
+    dialogueID: Kok ke sini?
+  - characterName: Nova
+    expressionName: Normal
+    dialogueEN: It's nothing. Just ignore me.
+    dialogueID: Gapapa. Abaikan saja aku.
+  - characterName: Nova
+    expressionName: Normal
+    dialogueEN: Why were you lying there earlier?
+    dialogueID: Tadi kamu kenapa tiduran di sana?
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: (So this Uncle has been watching me all this time??)
+    dialogueID: (Jadi selama ini Si Om ngeliatin aku??)
+  - characterName: Elara
+    expressionName: Sad
+    dialogueEN: (Hmmmmmm. This uncle is kinda creepy.)
+    dialogueID: (Hmmmmmm. Rada serem om-om satu ini.)
+  - characterName: Elara
+    expressionName: Normal
+    dialogueEN: 
+    dialogueID: 
+  - characterName: Elara
+    expressionName: Angry
+    dialogueEN: You already knew someone had fainted. And you just left her there.
+    dialogueID: Udah tau ada orang pingsan. Malah didiemin.
+  - characterName: Nova
+    expressionName: Normal
+    dialogueEN: You were surrounded by butterflies earlier. I was afraid that if
+      I helped you, they'd fly away.
+    dialogueID: Tadi kamu dikerumunin kupu-kupu soalnya. Takutnya kalo kubantu, kupu-kupunya
+      malah lari.
+  - characterName: Elara
+    expressionName: Angry
+    dialogueEN: (What kind of excuse is that??)
+    dialogueID: (Alasan apa pula itu??)
+  - characterName: Elara
+    expressionName: Angry
+    dialogueEN: That doesn't help!
+    dialogueID: Gak ngebantu!
+  - characterName: Nova
+    expressionName: Normal
+    dialogueEN: I told you, this place is haunted.
+    dialogueID: Kan udah kubilang, tempat ini angker.
+  - characterName: Nova
+    expressionName: Normal
+    dialogueEN: Even the butterflies are weird. They're pitch black.
+    dialogueID: Kupu-kupunya pun aneh tuh. Item pekat gitu.
+  - characterName: Elara
+    expressionName: Normal
+    dialogueEN: At least the butterflies helped me earlier.
+    dialogueID: Setidaknya kupu-kupunya ngebantu aku tadi.
+  - characterName: Nova
+    expressionName: Normal
+    dialogueEN: Helped you?
+    dialogueID: Ngebantu?
+  - characterName: Elara
+    expressionName: Normal
+    dialogueEN: Yeah, I followed them. Then I woke up.
+    dialogueID: Iya, tadi aku ngikutin mereka. Setelah itu aku kebangun.
+  - characterName: Nova
+    expressionName: Normal
+    dialogueEN: Hmmm. Good, then.
+    dialogueID: Hmmm. Bagus kalo gitu.
+  - characterName: Nova
+    expressionName: Normal
+    dialogueEN: Just follow them then. It seems like <b>those butterflies are guiding
+      your way</b>.
+    dialogueID: Ikutin aja brarti. Sepertinya <b>Kupu-kupu itu memandu jalanmu</b>.
+  - characterName: Elara
+    expressionName: Normal
+    dialogueEN: Hemm. Yeah, I know.
+    dialogueID: Hemm. Iya tau.
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: Alright. I'm going to find Dad.
+    dialogueID: Yaudah. Aku mo nemuin Ayah.
+  loadSceneAfterNarration: 0
+  sceneNameAfterNarration: 

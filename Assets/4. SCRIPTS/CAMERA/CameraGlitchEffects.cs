@@ -31,11 +31,8 @@ public class CameraGlitchEffects : MonoBehaviour
     [Tooltip("Kecepatan Vignette menghilang saat kembali normal")]
     [SerializeField] private float vignetteFadeSpeed = 2f;
 
-    private Camera cam;
     private CameraController cameraController;
     private float shakeTime;
-    private Vector3 effectStartPosition;
-    private Vector3 lastEffectBasePosition;
     private float effectStartCameraSize;
     private float effectIntensity;
     private bool effectSessionActive;
@@ -47,7 +44,6 @@ public class CameraGlitchEffects : MonoBehaviour
 
     private void Start()
     {
-        cam = GetComponent<Camera>();
         cameraController = GetComponent<CameraController>();
         
         if (playerController == null)
@@ -63,19 +59,17 @@ public class CameraGlitchEffects : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
+    private void Update()
     {
-        if (playerController == null || cam == null) return;
+        if (playerController == null || cameraController == null) return;
 
         bool isPlayerWalkingDizzy = playerController.IsDizzy && playerController.IsWalking;
         bool isDizzy = playerController.IsDizzy;
-        ClampCurrentCameraPosition();
 
         if (isPlayerWalkingDizzy && !effectSessionActive)
         {
             effectSessionActive = true;
-            effectStartPosition = transform.position;
-            effectStartCameraSize = cam.orthographicSize;
+            effectStartCameraSize = cameraController.CurrentCameraSize;
         }
 
         if (isPlayerWalkingDizzy)
@@ -87,41 +81,46 @@ public class CameraGlitchEffects : MonoBehaviour
             float shakeY = (Mathf.PerlinNoise(0f, shakeTime) - 0.5f) * 2f * currentShakeMagnitude;
 
             targetVignetteIntensity = maxVignetteIntensity * effectIntensity;
-            ApplyZoomTowardPlayer(effectStartCameraSize);
-            lastEffectBasePosition = transform.position;
-            transform.position += new Vector3(shakeX, shakeY, 0f);
-            ClampCurrentCameraPosition();
+            float zoomedCameraSize = Mathf.Lerp(
+                effectStartCameraSize,
+                Mathf.Min(effectStartCameraSize, maxZoomSize),
+                effectIntensity);
+            cameraController.SetGlitchEffect(
+                playerController.transform.position,
+                effectIntensity * zoomFocusStrength,
+                zoomedCameraSize,
+                new Vector3(shakeX, shakeY, 0f));
         }
         else if (isDizzy && effectSessionActive)
         {
             shakeTime = 0f;
             targetVignetteIntensity = 0f;
             effectIntensity = 0f;
-            cam.orthographicSize = effectStartCameraSize;
-            transform.position = ClampPosition(lastEffectBasePosition, cam.orthographicSize);
+            cameraController.ClearGlitchEffect();
         }
         else if (effectSessionActive)
         {
             effectIntensity = Mathf.MoveTowards(effectIntensity, 0f, effectFadeSpeed * Time.deltaTime);
             targetVignetteIntensity = Mathf.MoveTowards(targetVignetteIntensity, 0f, vignetteFadeSpeed * Time.deltaTime);
-            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, effectStartCameraSize, returnToOriginalSpeed * Time.deltaTime);
+            float returningCameraSize = Mathf.Lerp(
+                effectStartCameraSize,
+                Mathf.Min(effectStartCameraSize, maxZoomSize),
+                effectIntensity);
+            cameraController.SetGlitchEffect(
+                playerController.transform.position,
+                effectIntensity * zoomFocusStrength,
+                returningCameraSize,
+                Vector3.zero);
 
-            Vector3 returnPosition = effectStartPosition;
-            if (cameraController != null)
+            if (effectIntensity <= 0.001f)
             {
-                returnPosition = cameraController.ClampPositionToBoundaries(returnPosition, cam.orthographicSize);
-            }
-
-            transform.position = ClampPosition(
-                Vector3.Lerp(transform.position, returnPosition, returnToOriginalSpeed * Time.deltaTime),
-                cam.orthographicSize);
-
-            if (effectIntensity <= 0.001f && Mathf.Abs(cam.orthographicSize - effectStartCameraSize) <= 0.001f && Vector3.Distance(transform.position, returnPosition) <= 0.001f)
-            {
-                transform.position = returnPosition;
-                cam.orthographicSize = effectStartCameraSize;
+                cameraController.ClearGlitchEffect();
                 effectSessionActive = false;
             }
+        }
+        else
+        {
+            cameraController.ClearGlitchEffect();
         }
 
         if (vignetteEffect != null)
@@ -131,38 +130,4 @@ public class CameraGlitchEffects : MonoBehaviour
 
     }
 
-    private void ApplyZoomTowardPlayer(float normalCameraSize)
-    {
-        float zoomedCameraSize = Mathf.Lerp(normalCameraSize, Mathf.Min(normalCameraSize, maxZoomSize), effectIntensity);
-        cam.orthographicSize = zoomedCameraSize;
-
-        Vector3 zoomFocusPosition = Vector3.Lerp(
-            transform.position,
-            playerController.transform.position,
-            effectIntensity * zoomFocusStrength);
-        zoomFocusPosition.z = transform.position.z;
-
-        if (cameraController != null)
-        {
-            zoomFocusPosition = cameraController.ClampPositionToBoundaries(zoomFocusPosition, zoomedCameraSize);
-        }
-
-        transform.position = zoomFocusPosition;
-    }
-
-    private void ClampCurrentCameraPosition()
-    {
-        transform.position = ClampPosition(transform.position, cam.orthographicSize);
-    }
-
-    private Vector3 ClampPosition(Vector3 position, float orthographicSize)
-    {
-        if (cameraController != null)
-        {
-            position = cameraController.ClampPositionToBoundaries(position, orthographicSize);
-        }
-
-        position.z = transform.position.z;
-        return position;
-    }
 }

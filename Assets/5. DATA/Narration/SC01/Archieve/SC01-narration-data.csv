@@ -1,0 +1,228 @@
+FileName;CharacterName;ExpressionName;DialogueEN;DialogueID
+1-Entrance-1;Elara;;;Akhirnya nyampe juga
+1-Entrance-1;Elara;;;Tempat ini gak banyak berubah, ya?
+1-Entrance-1;Elara;;;Ayah kaget gak ya, tiba-tiba aku dahh nyampe?
+1-Entrance-1;Elara;;;Aku mau <b>kejutin Ayah di mercusuar</b>. Harusnya Ayah ada di sana.
+1-Entrance-1;Elara;;;Gak sabar ingin ketemu Ayah trus berkeliling.
+1-Entrance-1;Elara;;;Dipikir-pikir udah lama banget gak kelilingan sama Ayah.
+1-Entrance-1;Elara;;;3 Tahun? Sepertinya iya.
+1-Entrance-1;Elara;;;Kuliah kemaren bener-bener padet sampe gak bisa mampir. Huft.
+1-Entrance-1;Elara;;;Yap, ini waktunya!
+1-Entrance-1;Elara;;;Pengelanaa, Lara dan Cahya. Hahahaa.
+1-Entrance-1;Elara;;;
+1-Entrance-1;Elara;;;Eh?
+1-Entrance-1;Elara;;;Bentar. Tumben ada orang di sini?
+1-Entrance-1;Elara;;;Temen Ayah?
+1-Entrance-1;Elara;;;Sapa kali ya?
+;;;;
+1-Entrance-2-Nova;Elara;;;Halo?
+1-Entrance-2-Nova;Nova;;;Emh?
+1-Entrance-2-Nova;Nova;;;Tumben ada orang ke sini. Mau ngapain?
+1-Entrance-2-Nova;Elara;;;(Eh, pertanyaan kita sama)
+1-Entrance-2-Nova;Elara;;;
+1-Entrance-2-Nova;Elara;;;Oh. Saya anak Pak Cahya, Om. Yang jaga mercusuar di sana.
+1-Entrance-2-Nova;Elara;;;Om temen ayah, kah?
+1-Entrance-2-Nova;Nova;;;Cahya?
+1-Entrance-2-Nova;Nova;;;Oh.  
+1-Entrance-2-Nova;Elara;;;Eh? Ada apa, Om?
+1-Entrance-2-Nova;Nova;;;Gapapa. Jarang aja ada yang datengin pantai ini. Biasanya ada turis atau warlok ke sini, tapi ntah ngapa jadi sepi banget. Angker kali ya?
+1-Entrance-2-Nova;Elara;;;Haiss. Mana ada angker? Dari kecil aku sering main di sini ga ada apa-apa.
+1-Entrance-2-Nova;Nova;;;Yakin?
+1-Entrance-2-Nova;Elara;;;Hmmmmm.
+1-Entrance-2-Nova;Elara;;;Ahh. Bodoamat lah. Aku temuin Ayah dulu.
+;;;;
+1-Entrance-3;Elara;;;"""Mercusuar Cirubai"""
+1-Entrance-3;Elara;;;100m
+;;;;
+1-Entrance-4;Elara;;;Lah. Si Om dah ilang?
+1-Entrance-4;Elara;;;Yasudahlah.
+;;;;
+1-Beach-0-1;Elara;;;Udara sejuk ini. Emang yang terbaik.
+;;;;
+1-Beach-0-2;Elara;;;Kupu-kupuu!
+1-Beach-0-2;Elara;;;Tapi kok hitam?
+1-Beach-0-2;Elara;;;Ikutin dehh.
+;;;;
+1-Beach-0-3;Elara;;;EHHHHH!!!
+1-Beach-0-3;Elara;;;Kenapa tiba-tiba kepalaku pusing banget.
+1-Beach-0-3;Elara;;;Mercusuarnya juga. Kenapa kek gitu?
+1-Beach-0-3;Elara;;;Aduh. Apa aku mabuk perkara naik bis tadi?
+1-Beach-0-3;Elara;;;Aku harus lewat.
+;;;;
+1-Beach-0-4;Elara;;;APA YANG TERJADI???!
+1-Beach-0-4;Elara;;;Di manaa aku???
+1-Beach-0-4;Elara;;;Mataku kenapa? Kok tiba-tiba semuanya jadi gelap?
+1-Beach-0-4;Elara;;;Aku harus sadar.
+;;;;
+1-Beach-0-5;Elara;;;Kupu-kupu ini!!!
+1-Beach-0-5;Elara;;;Apa mereka di sini untuk menuntunku?
+1-Beach-0-5;Elara;;;Aku harus <b>mengikuti mereka</b>.
+;;;;
+1-Beach-0-6;Elara;;;Semuanya perlahhann kembali normal? Gara-gara kupu-kupu tadi, ya?
+1-Beach-0-6;Elara;;;Sepertinya mereka bukan kupu-kupu biasa?
+;;;;
+1-Beach-0-7;Elara;;;Akhirnya aku kembali. Untung tadi ada kupu-kupu aneh itu.
+1-Beach-0-7;Elara;;;Huft. Apa yang sebenarnya terjadi.
+1-Beach-0-7;Elara;;;
+1-Beach-0-7;Elara;;;Sepertinya aku kelelahan.
+;;;;
+1-Beach-0-8-Nova;Elara;;;Lah. Si Om lagi.
+1-Beach-0-8-Nova;Elara;;;Kok ke sini?
+1-Beach-0-8-Nova;Nova;;;Gapapa. Abaikan saja aku.
+1-Beach-0-8-Nova;Nova;;;Tadi kamu kenapa tiduran di sana?
+1-Beach-0-8-Nova;Elara;;;(Jadi selama ini Si Om ngeliatin aku??)
+1-Beach-0-8-Nova;Elara;;;(Hmmmmmm. Rada serem om-om satu ini.)
+1-Beach-0-8-Nova;Elara;;;
+1-Beach-0-8-Nova;Elara;;;Udah tau ada orang pingsan. Malah didiemin.
+1-Beach-0-8-Nova;Nova;;;Tadi kamu dikerumunin kupu-kupu soalnya. Takutnya kalo kubantu, kupu-kupunya malah lari.
+1-Beach-0-8-Nova;Elara;;;(Alasan apa pula itu??)
+1-Beach-0-8-Nova;Elara;;;Gak ngebantu!
+1-Beach-0-8-Nova;Nova;;;Kan udah kubilang, tempat ini angker.
+1-Beach-0-8-Nova;Nova;;;Kupu-kupunya pun aneh tuh. Item pekat gitu.
+1-Beach-0-8-Nova;Elara;;;Setidaknya kupu-kupunya ngebantu aku tadi.
+1-Beach-0-8-Nova;Nova;;;Ngebantu?
+1-Beach-0-8-Nova;Elara;;;Iya, tadi aku ngikutin mereka. Setelah itu aku kebangun.
+1-Beach-0-8-Nova;Nova;;;Hmmm. Bagus kalo gitu.
+1-Beach-0-8-Nova;Nova;;;Ikutin aja brarti. Sepertinya <b>Kupu-kupu itu memandu jalanmu</b>.
+1-Beach-0-8-Nova;Elara;;;Hemm. Iya tau.
+1-Beach-0-8-Nova;Elara;;;Yaudah. Aku mo nemuin Ayah.
+;;;;
+1-Beach-0-9;Elara;;;Ini saatnya.
+1-Beach-0-9;Elara;;;*terkunci
+1-Beach-0-9;Elara;;;Lahh. Kok kekunnci? Ayah gak di dalem?
+1-Beach-0-9;Elara;;;Ayahmu gak ada?
+1-Beach-0-9;Elara;;;Iya, loh. Biasanya dia di dalam.
+1-Beach-0-9;Elara;;;Lagi keluar mungkin?
+1-Beach-0-9;Elara;;;Iya kali ya? Aku coba cek di <b>sisi kiri pantai</b> dulu deh.
+1-Beach-0-9;Elara;;;Dulu kami sering main di sana.
+;;;;
+1-Beach-0-10;Elara;;;*terkunci
+1-Beach-0-10;Elara;;;Sepertinya ayah ada di sekitar pantai.
+;;;;
+1-Beach-0-11;Elara;;;Si Om dah ilang?
+1-Beach-0-11;Elara;;;Yaudahlah, tu orang nyeremin asli.
+;;;;
+1-Beach-0-12;Elara;;;Lah. Kebuka pintunya?
+1-Beach-0-12;Elara;;;Ayah di dalam, kah?
+1-Beach-0-12;Elara;;;Oke, aku masuk aja kalo gitu.
+;;;;
+1-Beach-0-13;Elara;;;Ngapain aku keluar. Ayah sepertinya di dalam.
+;;;;
+1-Beach-1-1;Elara;;;Ahh, senandung ombak.
+1-Beach-1-1;Elara;;;Tariannya, hembusannya.
+1-Beach-1-1;Elara;;;Gak ada duaanya pokokk.
+;;;;
+1-Beach-1-2;Elara;;;Omong-omong aku gak ngeliat Ayah juga di sini.
+1-Beach-1-2;Elara;;;Aku tungguin Ayah aja kali, ya?
+1-Beach-1-2;Elara;;;Tempat favoritku dulu.
+;;;;
+1-Beach-1-3;Elara;;;ASTAGA! Tekanan ini lagi!
+1-Beach-1-3;Elara;;;Sekarang apa lagi???
+1-Beach-1-3;Elara;;;Ayunan? Tadi mercusuar sekarang ayunan??
+;;;;
+1-Beach-1-4;Elara;;;ASGJASOIGJAOSIGJ
+1-Beach-1-4;Elara;;;GAKK ANEHH KOK TEMPAT INI.
+1-Beach-1-4;Elara;;;Tenang, Lara. Sepertinya kamu lelah.
+1-Beach-1-4;Elara;;;Selagi belum 3 kali, brarti emang kepalamu yang lagi pusing.
+1-Beach-1-4;Elara;;;Inget cara tadi. Aku harus <b>ikutin kupu-kupu</b>.
+;;;;
+1-Beach-1-5;Elara;;;Kok talinya putus? Kenapa gitu?
+1-Beach-1-5;Elara;;;Lupakan, ini hanya halusinasiku.
+1-Beach-1-5;Elara;;;Aku harus keluar terlebih dahulu.
+1-Beach-1-5;Elara;;;Ikutin kupu-kupu itu lagi.
+;;;;
+1-Beach-1-6;Elara;;;Nahh. Aku keluar lagi.
+1-Beach-1-6;Elara;;;Berarti teeori kupu-kupu itu benar.
+1-Beach-1-6;Elara;;;Tunggu.
+1-Beach-1-6;Elara;;;Tapi kenapa sekarang tali ayunannya putus?
+1-Beach-1-6;Elara;;;Perasaann tadi waktu nyampe gak gini?
+1-Beach-1-6;Elara;;;Aku harus <b>perbaiki ayunannnnya</b>
+;;;;
+1-Beach-1-7-Minigames;Elara;;;Harusnya tali ayunannya ini tidak putus.
+1-Beach-1-7-Minigames;Elara;;;Aku harus perbaikinya.
+;;;;
+1-Beach-1-8-Minigames;Elara;;;Nah. Ini baru benar.
+1-Beach-1-8-Minigames;Elara;;;Ayunan favoritku.
+1-Beach-1-8-Minigames;Elara;;;
+1-Beach-1-8-Minigames;Elara;;;Hmmmm.
+1-Beach-1-8-Minigames;Elara;;;Kok aku jadi takut ya lama-lama di sini.
+1-Beach-1-8-Minigames;Elara;;;Aku cari Ayah lagi aja deh. Mana sih Ayahh.
+;;;;
+1-Interior-1;Elara;;;WAHH! Tempat ini gak banyak berubah.
+1-Interior-1;Elara;;;ASIKNY--
+1-Interior-1;Elara;;;Eh, aku gak boleh berisik. Aku mau ngagetin Ayah kalo aku dah nyampe.
+;;;;
+1-Interior-2;Elara;;;Koleksi buku-buku Ayah.
+1-Interior-2;Elara;;;Duh. Jadul-jalu banget. Bahkan banyak yang lebih tua dariku.
+;;;;
+1-Interior-3;Elara;;;Ada gelas kosong nih di meja.
+1-Interior-3;Elara;;;Sepertinya ayah habis minum. Trus ditinggal entan ke mana.
+;;;;
+1-Interior-4;Elara;;;Pokok setelah ketemu Ayah, aku mau masak Mie.
+1-Interior-4;Elara;;;Mie Instan with the view kan asik. Ntar makan di ayunan.
+;;;;
+1-Interior-5;Elara;;;Ini dia. Pintu ke mercusuar atas.
+1-Interior-5;Elara;;;Biasanya ayah berjaga di atas sambil baca buku.
+1-Interior-5;Elara;;;Kagetin ah!
+;;;;
+1-Interior-6;Elara;;;*terkunci
+1-Interior-6;Elara;;;Gini aja terussss!
+1-Interior-6;Elara;;;Ni Ayah ke mana coba. Di rruang sebelah kah??
+;;;;
+1-Interior-7;Elara;;;*terkunci
+;;;;
+1-Interior-8;Elara;;;Yap. Tentu.
+1-Interior-8;Elara;;;Ayah gak ada di ruang kerjanya juga.
+1-Interior-8;Elara;;;Aku coba <b>cek di meja</b> dulu kali, barangkali ayah ninggalin pesan ato apa gitu.
+;;;;
+1-Interior-9;Elara;;;Lehh. Kenapa ada foto robek-robek gini?
+1-Interior-9;Elara;;;Sepertinya fotoku?
+1-Interior-9;Elara;;;Pelanggaran berat Ayah ini.
+1-Interior-9;Elara;;;Aku perbaiki dulu, deh.
+;;;;
+1-Interior-10;Elara;;;Nah selesai.
+1-Interior-10;Elara;;;Kapan aku ambil foto ini. 
+1-Interior-10;Elara;;;Bentar, ada tangggalnya.
+1-Interior-10;Elara;;;16 Juli 199-
+1-Interior-10;Elara;;;LAHH! 16 Juli bukannya kemaren? Perasaan aku baru nyampe siang ini.
+1-Interior-10;Elara;;;Kok bisa aku udah ambil foto duluan?
+1-Interior-10;Elara;;;Udahhhh. Semakin gak jelas di sini.
+1-Interior-10;Elara;;;Aku harus nyari ayah. Kalo di dalem gak ada, brarti ada di luar.
+;;;;
+1-Interior-11;Elara;;;HAHHHH???!!!
+1-Interior-11;Elara;;;Kokk tiba-tiba berantakan gini???
+1-Interior-11;Elara;;;Ini gak lagi berantakan, tapi kek dah gak terawat.
+1-Interior-11;Elara;;;Aduhh. Aku musti keluar.
+;;;;
+1-Interior-12;Elara;;;UDAH 3 KALIII. KETAMBAHAN YANG DI DALEM TADI.
+1-Interior-12;Elara;;;FIX. Ada yang gak beres sama tempat ini.
+1-Interior-12;Elara;;;Bener kataa om tadi, ni tempat angker.
+1-Interior-12;Elara;;;Aku harus segera keluar dari tempat ini.
+1-Interior-12;Elara;;;Ohya benar. Kupu-kupu!
+1-Interior-12;Elara;;;Aku harus <b>cari kupu-kupu</b>!
+;;;;
+1-Interior-13;Elara;;;WAHHHHH???!!! APA PULAK ITU???
+;;;;
+1-Interior-14;Elara;;;ASOIGFJAOSIDGJOID
+1-Interior-14;Elara;;;Aku barusan mati??
+1-Interior-14;Elara;;;Astaga. Nggak-nggak. Aku masih di sini.
+1-Interior-14;Elara;;;Yang pasti aku gak boleh nyentuh kabut itu. Aku harus segera lari.
+;;;;
+1-Interior-15;Elara;;;Ahhh. Berhaasil.
+1-Interior-15;Elara;;;Serem banget asli. Gamau kejebak di sini lama-lama.
+1-Interior-15;Elara;;;Kupuu-kupu. Mana kamuuu!
+;;;;
+1-Interior-16;Elara;;;Eh, tadi aku gak salah lihat, kan?
+1-Interior-16;Elara;;;Ada bayangan mirip aku? Ato itu aku?
+1-Interior-16;Elara;;;Semakin gak bener tempat ini. Aku harrus segera keluar.
+1-Interior-16;Elara;;;Mana pintu keluarnya?
+;;;;
+1-Interior-17;Elara;;;Akhirnya aku kembali.
+1-Interior-17;Elara;;;Aku harus cari jalan lain buat keluar.
+;;;;
+1-Interior-18;Elara;;;Astagaaa. Berarti aku gabisa lewat sini.
+1-Interior-18;Elara;;;Adakah jalan lain di lantai 2?
+;;;;
+1-Interior-19;Elara;;;Bagus. Sekarang lantai 2 juga ikutan rusak.
+1-Interior-19;Elara;;;Apa yang sebenarnya terjadi di sini?
+1-Interior-19;Elara;;;Aku harus segera keluar dan cari ayah.

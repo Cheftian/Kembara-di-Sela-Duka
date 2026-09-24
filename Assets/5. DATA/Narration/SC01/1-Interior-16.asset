@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
+  m_Name: 1-Interior-16
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: Wait, I didn't imagine that, right?
+    dialogueID: Eh, tadi aku gak salah lihat, kan?
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: Was there a shadow that looked like me? Or was that me?
+    dialogueID: Ada bayangan mirip aku? Ato itu aku?
+  - characterName: Elara
+    expressionName: Shocked
+    dialogueEN: This place is getting more and more wrong. I have to get out immediately.
+    dialogueID: Semakin gak bener tempat ini. Aku harus segera keluar.
+  - characterName: Elara
+    expressionName: Questioning
+    dialogueEN: Where's the exit?
+    dialogueID: Mana pintu keluarnya?
+  loadSceneAfterNarration: 0
+  sceneNameAfterNarration: 

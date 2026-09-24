@@ -306,14 +306,21 @@ private IEnumerator ExecuteRoomResetAndRespawn(Transform player)
             yield return new WaitForSeconds(transitionDelay);
         }
 
-        if (currentPortal.currentRoomParent != null)
+        if (isGlitchExit)
         {
-            currentPortal.currentRoomParent.SetActive(false);
+            ActivateOnlyRoom(destinationPortal.currentRoomParent);
         }
-
-        if (destinationPortal.currentRoomParent != null)
+        else
         {
-            destinationPortal.currentRoomParent.SetActive(true);
+            if (currentPortal.currentRoomParent != null)
+            {
+                currentPortal.currentRoomParent.SetActive(false);
+            }
+
+            if (destinationPortal.currentRoomParent != null)
+            {
+                destinationPortal.currentRoomParent.SetActive(true);
+            }
         }
 
         Vector3 targetPosition = destinationPortal.transform.position;
@@ -349,5 +356,28 @@ private IEnumerator ExecuteRoomResetAndRespawn(Transform player)
 
         currentPortal.ResetTeleportStatus();
         destinationPortal.ResetTeleportStatus();
+    }
+
+    private void ActivateOnlyRoom(GameObject targetRoom)
+    {
+        if (targetRoom == null)
+        {
+            Debug.LogError("Room target teleport glitch belum diisi.", this);
+            return;
+        }
+
+        if (allRooms == null)
+        {
+            targetRoom.SetActive(true);
+            return;
+        }
+
+        foreach (RoomData room in allRooms)
+        {
+            if (room.roomObject != null)
+            {
+                room.roomObject.SetActive(room.roomObject == targetRoom);
+            }
+        }
     }
 }
