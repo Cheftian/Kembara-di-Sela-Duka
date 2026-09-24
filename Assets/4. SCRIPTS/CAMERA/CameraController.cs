@@ -19,6 +19,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Vector3 offset = new Vector3(0, 0, -10);
     [Range(0.01f, 1.0f)]
     [SerializeField] private float smoothTime = 0.25f;
+    [SerializeField] private float maxFollowSpeed = 8f;
+    [SerializeField] private float followAcceleration = 12f;
     [SerializeField] private float cameraSize = 5f;
 
     [Header("Vertical Camera Size")]
@@ -60,6 +62,7 @@ public class CameraController : MonoBehaviour
     private float sizeVelocity = 0f;
     private float verticalCameraSizeVelocity = 0f;
     private float baseCameraSize;
+    private float currentFollowSpeed;
 
     public Vector2 MinPositionBound => minPosition;
     public Vector2 MaxPositionBound => maxPosition;
@@ -125,7 +128,26 @@ public class CameraController : MonoBehaviour
 
         targetPosition = ClampPositionToBoundaries(targetPosition, cameraSize);
 
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref currentVelocity, smoothTime);
+        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+        if (distanceToTarget > 0.01f)
+        {
+            currentFollowSpeed = Mathf.MoveTowards(
+                currentFollowSpeed,
+                Mathf.Max(0.01f, maxFollowSpeed),
+                Mathf.Max(0.01f, followAcceleration) * Time.deltaTime);
+        }
+        else
+        {
+            currentFollowSpeed = 0f;
+        }
+
+        transform.position = Vector3.SmoothDamp(
+            transform.position,
+            targetPosition,
+            ref currentVelocity,
+            smoothTime,
+            Mathf.Max(0.01f, currentFollowSpeed),
+            Time.deltaTime);
         Vector3 boundedPosition = ClampPositionToBoundaries(transform.position, cam != null ? cam.orthographicSize : cameraSize);
         boundedPosition.z = targetPosition.z;
         transform.position = boundedPosition;

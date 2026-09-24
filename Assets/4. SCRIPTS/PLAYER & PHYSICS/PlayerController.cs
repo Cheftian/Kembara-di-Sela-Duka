@@ -5,6 +5,9 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+
+    public bool BlockInput { get; set; } = false;
+
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
     [Tooltip("Kecepatan gerak saat karakter dalam kondisi pusing (Dizzy)")]
@@ -144,6 +147,14 @@ public class PlayerController : MonoBehaviour
         CheckGroundStatus();
         ManageSlopePlatforms();
 
+        if (BlockInput)
+        {
+            horizontalInput = 0;
+            isRunning = false;
+            UpdateAnimation();
+            return;
+        }
+
         if (GameManager.Instance != null && GameManager.Instance.currentState != GameManager.GameState.Play)
         {
             horizontalInput = 0;
@@ -234,6 +245,13 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+       if (BlockInput)
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            return;
+        }
+    
         if (GameManager.Instance != null && GameManager.Instance.currentState != GameManager.GameState.Play)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);

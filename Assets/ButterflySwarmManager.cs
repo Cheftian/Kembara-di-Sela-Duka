@@ -29,11 +29,15 @@ public class ButterflySwarmManager : MonoBehaviour
     private bool routeCompleted = false;
     private NotificationTrigger notificationTrigger;
     private BoxCollider2D interactionCollider;
+    private InteractableObject interactableObject;
 
     void Start()
     {
         notificationTrigger = GetComponent<NotificationTrigger>();
-        interactionCollider = GetComponent<BoxCollider2D>();
+        interactableObject = GetComponent<InteractableObject>();
+        interactionCollider = interactableObject != null
+            ? interactableObject.GetComponent<BoxCollider2D>()
+            : GetComponent<BoxCollider2D>();
         UpdateButterflyArray();
 
         if (routeTargets == null || routeTargets.Length == 0)
@@ -84,7 +88,7 @@ public class ButterflySwarmManager : MonoBehaviour
         PlayerController player = GameObject.FindGameObjectWithTag(playerTag)?.GetComponent<PlayerController>();
         if (player != null)
         {
-            player.Flip(4);
+            player.Flip(2);
         }
 
         if (butterflies.Length == 0)
@@ -115,20 +119,24 @@ public class ButterflySwarmManager : MonoBehaviour
             }
         }
 
+        // Hanya kupu-kupu yang menuju route target yang dipantau saat tiba.
+        // Kupu-kupu scatter tidak pernah mengirim NotifySwarmArrival.
+        butterflies = butterflies
+            .Skip(countToScatter)
+            .Where(b => b != null)
+            .ToArray();
+
         // 2. TERBANGKAN SISA KUPU-KUPU KE TARGET BARU
         if (currentRoute.targetTransform != null)
         {
-            if (countToScatter < butterflies.Length)
+            if (butterflies.Length > 0)
             {
                 isSwarmFlying = true;
 
-                for (int i = countToScatter; i < butterflies.Length; i++)
+                foreach (ScatterButterfly butterfly in butterflies)
                 {
-                    if (butterflies[i] != null)
-                    {
-                        butterflies[i].transform.SetParent(null);
-                        butterflies[i].StartGoToTargetFlight(currentRoute.targetTransform.position);
-                    }
+                    butterfly.transform.SetParent(null);
+                    butterfly.StartGoToTargetFlight(currentRoute.targetTransform.position);
                 }
             }
             else
@@ -142,11 +150,16 @@ public class ButterflySwarmManager : MonoBehaviour
         }
 
         // PERBAIKAN: Langsung bersihkan array saat ini juga menggunakan LINQ tanpa jeda Invoke
-        butterflies = butterflies.Where(b => b != null && b.transform.parent == null && !b.HasArrivedAtTarget()).ToArray();
+        butterflies = butterflies.Where(b => b != null).ToArray();
     }
 
     public void NotifySwarmArrival()
     {
+        if (routeCompleted || isSwarmFlying == false || currentRouteIndex >= routeTargets.Length)
+        {
+            return;
+        }
+
         // Bersihkan data null terlebih dahulu secara aman sebelum dicek
         butterflies = butterflies.Where(b => b != null).ToArray();
 
