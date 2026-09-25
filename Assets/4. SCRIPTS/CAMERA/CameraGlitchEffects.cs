@@ -10,8 +10,8 @@ public class CameraGlitchEffects : MonoBehaviour
     [SerializeField] private float zoomFocusStrength = 1f;
 
     [Header("Camera Shake Settings")]
-    [SerializeField] private float maxShakeMagnitude = 0.15f;
-    [SerializeField] private float shakeFrequency = 25f;
+    [SerializeField] private float maxShakeMagnitude = 0.2f;
+    [SerializeField] private float shakeFrequency = 5f;
 
     [Header("Procedural Intensity")]
     [Tooltip("Kecepatan efek meningkat dari ringan hingga maksimal.")]
@@ -31,6 +31,17 @@ public class CameraGlitchEffects : MonoBehaviour
     [Tooltip("Kecepatan Vignette menghilang saat kembali normal")]
     [SerializeField] private float vignetteFadeSpeed = 2f;
 
+    [Header("Dizzy Recovery Vignette")]
+    [Tooltip("Kecepatan Vignette membesar saat animasi Sit dan masa recovery.")]
+    [SerializeField] private float recoveryVignetteBuildSpeed = 0.5f;
+    [Tooltip("Kecepatan Vignette mengecil saat animasi Stand.")]
+    [SerializeField] private float recoveryVignetteFadeSpeed = 1f;
+    [Tooltip("Kecepatan denyut Vignette selama fase Sit dan masa recovery.")]
+    [SerializeField] private float recoveryVignettePulseSpeed = 3f;
+    [Range(0f, 1f)]
+    [Tooltip("Rentang perubahan intensitas Vignette saat berdenyut.")]
+    [SerializeField] private float recoveryVignettePulseAmount = 0.2f;
+
     private CameraController cameraController;
     private float shakeTime;
     private float effectStartCameraSize;
@@ -41,6 +52,7 @@ public class CameraGlitchEffects : MonoBehaviour
     private Volume postProcessVolume;
     private Vignette vignetteEffect;
     private float targetVignetteIntensity = 0f;
+    private float recoveryVignettePulseTime;
 
     private void Start()
     {
@@ -61,7 +73,13 @@ public class CameraGlitchEffects : MonoBehaviour
 
     private void Update()
     {
-        if (playerController == null || cameraController == null) return;
+        if (playerController == null) return;
+
+        if (cameraController == null)
+        {
+            UpdateRecoveryVignette();
+            return;
+        }
 
         bool isPlayerWalkingDizzy = playerController.IsDizzy && playerController.IsWalking;
         bool isDizzy = playerController.IsDizzy;
@@ -123,11 +141,44 @@ public class CameraGlitchEffects : MonoBehaviour
             cameraController.ClearGlitchEffect();
         }
 
+        UpdateRecoveryVignette();
+    }
+
+    private void UpdateRecoveryVignette()
+    {
+        if (playerController.IsDizzyRecovering)
+        {
+            bool isStanding = playerController.CurrentDizzyRecoveryPhase == PlayerController.DizzyRecoveryPhase.Stand;
+
+            if (!isStanding)
+            {
+                recoveryVignettePulseTime += Time.deltaTime * recoveryVignettePulseSpeed;
+            }
+            else
+            {
+                recoveryVignettePulseTime = 0f;
+            }
+
+            float pulse = (Mathf.Sin(recoveryVignettePulseTime) + 1f) * 0.5f;
+            float minimumPulseIntensity = maxVignetteIntensity * (1f - recoveryVignettePulseAmount);
+            float recoveryTarget = isStanding
+                ? 0f
+                : Mathf.Lerp(minimumPulseIntensity, maxVignetteIntensity, pulse);
+            float recoverySpeed = isStanding ? recoveryVignetteFadeSpeed : recoveryVignetteBuildSpeed;
+            targetVignetteIntensity = Mathf.MoveTowards(
+                targetVignetteIntensity,
+                recoveryTarget,
+                recoverySpeed * Time.deltaTime);
+        }
+        else
+        {
+            recoveryVignettePulseTime = 0f;
+        }
+
         if (vignetteEffect != null)
         {
             vignetteEffect.intensity.Override(targetVignetteIntensity);
         }
-
     }
 
 }

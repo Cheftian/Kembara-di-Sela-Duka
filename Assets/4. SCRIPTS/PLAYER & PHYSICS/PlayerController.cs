@@ -5,6 +5,13 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    public enum DizzyRecoveryPhase
+    {
+        None,
+        Sit,
+        Waiting,
+        Stand
+    }
 
     public bool BlockInput { get; set; } = false;
 
@@ -97,8 +104,14 @@ public class PlayerController : MonoBehaviour
     private bool wasDizzyFromLeftWalk = false;
     private bool isGlitchExiting = false;
     private bool isNarrationSitSequenceActive = false;
+    private bool dizzyPendingAfterFlip = false;
+    private bool dizzyPendingAfterRecovery = false;
+    private Coroutine dizzyRecoveryCoroutine;
+    private DizzyRecoveryPhase dizzyRecoveryPhase = DizzyRecoveryPhase.None;
 
     public bool IsDizzy => isDizzy;
+    public bool IsDizzyRecovering => dizzyRecoveryPhase != DizzyRecoveryPhase.None;
+    public DizzyRecoveryPhase CurrentDizzyRecoveryPhase => dizzyRecoveryPhase;
     public bool IsNarrationSitSequenceActive => isNarrationSitSequenceActive;
     public bool IsWalking => Mathf.Abs(horizontalInput) > 0f && !isFlipping;
     public bool IsRunning => isRunning && !isDizzy; // Lari hanya valid jika tidak pusing
@@ -192,7 +205,27 @@ public class PlayerController : MonoBehaviour
         }
         else if (!isDizzy && horizontalInput < 0f && wasDizzyFromLeftWalk)
         {
-            SetDizzyStatus(true);        
+            RequestDizzyFromLeft();
+        }
+    }
+
+    public void RequestDizzyFromLeft()
+    {
+        wasDizzyFromLeftWalk = true;
+
+        if (isDizzy || isFlipping) return;
+
+        if (dizzyRecoveryCoroutine != null)
+        {
+            dizzyPendingAfterRecovery = true;
+        }
+        else if (isFacingRight)
+        {
+            dizzyPendingAfterFlip = true;
+        }
+        else
+        {
+            SetDizzyStatus(true);
         }
     }
 
@@ -446,6 +479,12 @@ public class PlayerController : MonoBehaviour
 
         isFlipping = false;                
 
+        if (dizzyPendingAfterFlip)
+        {
+            dizzyPendingAfterFlip = false;
+            SetDizzyStatus(true);
+        }
+
         GetPlayerInput();
         UpdateAnimation(); 
     }
@@ -612,8 +651,18 @@ public class PlayerController : MonoBehaviour
             isDizzy = false;
             isRunning = false; // Matikan status lari saat pemulihan pusing
             moveSpeed = originalMoveSpeed;
-            
-            StartCoroutine(DizzyRecoverySequence());
+
+            if (dizzyRecoveryCoroutine == null)
+            {
+                dizzyRecoveryCoroutine = StartCoroutine(DizzyRecoverySequence());
+            }
+
+            return;
+        }
+
+        if (status && dizzyRecoveryCoroutine != null)
+        {
+            dizzyPendingAfterRecovery = true;
             return;
         }
 
@@ -651,6 +700,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator SitThenPlayNarration(NarrationData narrationData)
     {
+        dizzyRecoveryPhase = DizzyRecoveryPhase.Sit;
         isNarrationSitSequenceActive = true;
         BlockInput = true;
         isDizzy = false;
@@ -677,6 +727,7 @@ public class PlayerController : MonoBehaviour
             yield break;
         }
 
+        dizzyRecoveryPhase = DizzyRecoveryPhase.Waiting;
         NarrationManager.Instance.NarrationFinished += OnSitNarrationFinished;
         NarrationManager.Instance.PlayNarration(
             narrationData,
@@ -699,6 +750,8 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator StandAfterNarration()
     {
+        dizzyRecoveryPhase = DizzyRecoveryPhase.Stand;
+
         if (animator != null)
         {
             animator.speed = 1f;
@@ -722,6 +775,8 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.Instance.SetGameState(GameManager.GameState.Play);
         }
+
+        dizzyRecoveryPhase = DizzyRecoveryPhase.None;
     }
 
     private IEnumerator PlayStandAnimationAndWait()
@@ -806,6 +861,8 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator DizzyRecoverySequence()
     {
+        dizzyRecoveryPhase = DizzyRecoveryPhase.Sit;
+
         if (GameManager.Instance != null)
         {
             GameManager.Instance.SetGameState(GameManager.GameState.Cutscene);
@@ -822,8 +879,10 @@ public class PlayerController : MonoBehaviour
 
         yield return StartCoroutine(PlayAnimationAndWait("Sit"));
 
+    dizzyRecoveryPhase = DizzyRecoveryPhase.Waiting;
         yield return new WaitForSeconds(sitDuration);
 
+    dizzyRecoveryPhase = DizzyRecoveryPhase.Stand;
         yield return StartCoroutine(PlayAnimationAndWait("Stand"));
 
         if (animator != null)
@@ -840,6 +899,15 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.Instance.SetGameState(GameManager.GameState.Play);
         }
+
+        if (dizzyPendingAfterRecovery)
+        {
+            dizzyPendingAfterRecovery = false;
+            wasDizzyFromLeftWalk = true;
+        }
+
+        dizzyRecoveryCoroutine = null;
+        dizzyRecoveryPhase = DizzyRecoveryPhase.None;
     }
 
     public void UpdateMoveSpeed(float newSpeed)

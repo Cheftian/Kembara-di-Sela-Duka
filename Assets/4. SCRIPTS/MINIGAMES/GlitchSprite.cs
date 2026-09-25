@@ -78,7 +78,7 @@ public class GlitchSprite : MonoBehaviour
             if (enableDizzy && !activePlayer.IsDizzy && Input.GetKey(KeyCode.A))
             {
                 // Aktifkan kembali efek dizzy seketika!
-                activePlayer.SetDizzyStatus(true);
+                activePlayer.RequestDizzyFromLeft();
 
                 // Mulai ulang efek glitch setelah player kembali bergerak ke kiri
                 if (glitchCoroutine == null && targetSpriteRenderer != null)

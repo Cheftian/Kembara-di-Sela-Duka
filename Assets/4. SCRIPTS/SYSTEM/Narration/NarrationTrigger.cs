@@ -21,6 +21,10 @@ public class NarrationTrigger : MonoBehaviour
     [Header("Narration Data")]
     [SerializeField] private NarrationData narrationData;
 
+    [Header("Object Toggle After Interaction")]
+    [SerializeField] private GameObject[] objectsToActivate;
+    [SerializeField] private GameObject[] objectsToDeactivate;
+
     private bool hasTriggered = false;
     private bool isPlayerInside = false;
     private PlayerController activePlayer;
@@ -104,11 +108,32 @@ public class NarrationTrigger : MonoBehaviour
             NarrationManager.Instance.PlayNarration(narrationData);
         }
 
+        ToggleObjects();
+
         // Jika hanya boleh dipicu sekali, matikan komponen agar tidak membebani memori
         if (triggerOnlyOnce)
         {
             GetComponent<BoxCollider2D>().enabled = false;
             this.enabled = false;
+        }
+    }
+
+    private void ToggleObjects()
+    {
+        if (objectsToActivate != null)
+        {
+            foreach (GameObject obj in objectsToActivate)
+            {
+                if (obj != null) obj.SetActive(true);
+            }
+        }
+
+        if (objectsToDeactivate != null)
+        {
+            foreach (GameObject obj in objectsToDeactivate)
+            {
+                if (obj != null) obj.SetActive(false);
+            }
         }
     }
 

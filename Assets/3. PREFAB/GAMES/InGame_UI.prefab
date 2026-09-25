@@ -1821,9 +1821,39 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  characterImageTransitionDuration: 0.3
+  characterImageSlideDistance: 60
+  panelBounceHeight: 8
+  panelShakeDistance: 8
+  panelShakeDuration: 0.2
+  characterImageBounceHeight: 12
+  characterImageTransitionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   sceneTransitionName: RoomFadeOut
   typingSpeed: 0.05
-  highlightColor: {r: 1, g: 0.22548327, b: 0, a: 1}
+  highlightColor: {r: 0.78867924, g: 0.2527007, b: 0.16517623, a: 1}
   delayBeforePlayState: 0
   autoAdvanceLines: 0
   autoAdvanceDelay: 2

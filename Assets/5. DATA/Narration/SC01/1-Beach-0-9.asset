@@ -25,16 +25,16 @@ MonoBehaviour:
     expressionName: Questioning
     dialogueEN: Huhh. Why is it locked? Dad isn't inside?
     dialogueID: Lahh. Kok kekunci? Ayah gak di dalem?
-  - characterName: Elara
-    expressionName: Questioning
+  - characterName: Nova
+    expressionName: Normal
     dialogueEN: Your dad isn't here?
     dialogueID: Ayahmu gak ada?
   - characterName: Elara
     expressionName: Normal
     dialogueEN: Yeah. He's usually inside.
     dialogueID: Iya, loh. Biasanya dia di dalam.
-  - characterName: Elara
-    expressionName: Questioning
+  - characterName: Nova
+    expressionName: Normal
     dialogueEN: Maybe he went out?
     dialogueID: Lagi keluar mungkin?
   - characterName: Elara

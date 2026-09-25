@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
         {
             PlayerController player = UnityEngine.Object.FindAnyObjectByType<PlayerController>();
 
-            if (player != null && !player.IsNarrationSitSequenceActive)
+            if (player != null && !player.IsNarrationSitSequenceActive && !player.IsDizzyRecovering)
             {
                 player.ResetToIdleState();
                 Animator playerAnimator = player.GetComponentInChildren<Animator>();

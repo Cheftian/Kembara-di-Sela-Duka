@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine.UI; 
 
 public class NarrationManager : MonoBehaviour
@@ -496,6 +497,13 @@ public class NarrationManager : MonoBehaviour
     // Fungsi pembantu sederhana jika Anda belum memodifikasi regex kustom highlight text Anda
     private string ProcessText(string rawText)
     {
-        return rawText;
+        if (string.IsNullOrEmpty(rawText)) return rawText;
+
+        string colorHex = ColorUtility.ToHtmlStringRGBA(highlightColor);
+        return Regex.Replace(
+            rawText,
+            "<b>(.*?)</b>",
+            $"<color=#{colorHex}><b>$1</b></color>",
+            RegexOptions.Singleline);
     }
 }
