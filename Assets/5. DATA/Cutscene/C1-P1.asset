@@ -15,15 +15,23 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: '-'
-    dialogueEN: Wait...
-    dialogueID: Tunggu...
+    dialogueEN: Wait.
+    dialogueID: Tunggu.
   - characterName: Elara
     expressionName: '-'
-    dialogueEN: WHY did this room suddenly... get a hole in it...
-    dialogueID: "KENAPA ruangan ini\uFFFDtiba-tiba berlubang\uFFFD"
+    dialogueEN: Why is there a hole here now?
+    dialogueID: Kenapa sekarang tempat ini berlubang?
   - characterName: Elara
     expressionName: '-'
-    dialogueEN: What is happening here?
-    dialogueID: Apa yang sedang terjadi di sini?
+    dialogueEN: There is indeed something wrong with this place.
+    dialogueID: Memang ada yang salah dari tempat ini.
+  - characterName: Elara
+    expressionName: '-'
+    dialogueEN: Ugh. Is this really the only way out for me?
+    dialogueID: Duh. Hanya ini ya satu-satunya jalanku buat keluar?
+  - characterName: Elara
+    expressionName: '-'
+    dialogueEN: Take heart, Lara. Let's jump.
+    dialogueID: Kuatkan hatimu, Lara. Yok kita lompat.
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 

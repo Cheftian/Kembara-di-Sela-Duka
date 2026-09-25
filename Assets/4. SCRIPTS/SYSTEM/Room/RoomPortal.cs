@@ -63,11 +63,10 @@ public class RoomPortal : MonoBehaviour
 
         isTeleporting = true; 
 
-        // BARU: Sembunyikan notifikasi dan matikan trigger-nya sebelum pindah ruangan
+        // Sembunyikan notifikasi sebelum pindah ruangan
         if (notificationTrigger != null)
         {
             notificationTrigger.HideNotification(); // Sembunyikan pop-up UI
-            notificationTrigger.enabled = false; // Matikan script NotificationTrigger
         }
 
         RoomManager.Instance.SwitchRoom(playerTransform, this, targetPortal);
@@ -91,8 +90,6 @@ public class RoomPortal : MonoBehaviour
         if (notificationTrigger != null)
         {
             notificationTrigger.HideNotification();
-
-            notificationTrigger.enabled = false;
         }
 
         RoomManager.Instance.SwitchRoomWithFlash(playerTransform, this, targetPortal);

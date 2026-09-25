@@ -15,7 +15,7 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara-Void
     expressionName: '-'
-    dialogueEN: Lara...
-    dialogueID: Lara...
+    dialogueEN: Lara.
+    dialogueID: Lara.
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 

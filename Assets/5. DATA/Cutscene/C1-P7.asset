@@ -15,7 +15,15 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: '-'
-    dialogueEN: Father!!!!
-    dialogueID: Ayah!!!!
+    dialogueEN: 
+    dialogueID: 
+  - characterName: Elara
+    expressionName: '-'
+    dialogueEN: Ahhhhh!
+    dialogueID: Ahhhhh!
+  - characterName: Elara
+    expressionName: '-'
+    dialogueEN: Dadddddd! Help!
+    dialogueID: Ayahhhh Tolongg!
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 

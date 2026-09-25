@@ -1,23 +1,34 @@
 FileName;CharacterName;ExpressionName;DialogueEN;DialogueID
-C1-P1;Elara;-;Wait…;Tunggu…
-C1-P1;Elara;-;WHY did this room suddenly... get a hole in it...;KENAPA ruangan ini…tiba-tiba berlubang…
-C1-P1;Elara;-;What is happening here?;Apa yang sedang terjadi di sini?
+C1-P1;Elara;-;Wait.;Tunggu.
+C1-P1;Elara;-;Why is there a hole here now?;Kenapa sekarang tempat ini berlubang?
+C1-P1;Elara;-;There is indeed something wrong with this place.;Memang ada yang salah dari tempat ini.
+C1-P1;Elara;-;Ugh. Is this really the only way out for me?;Duh. Hanya ini ya satu-satunya jalanku buat keluar?
+C1-P1;Elara;-;Take heart, Lara. Let's jump.;Kuatkan hatimu, Lara. Yok kita lompat.
 ;;;;
-C1-P2;Elara;-;Ugh... This pressure again!;Akh… Tekanan ini lagi!
-C1-P2;Elara;-;Hit my head!;Pusing banget!
+C1-P2;Elara;-;Ahhhh!;Ahhhh!
+C1-P2;Elara;-;Not now!!!;Jangan sekarang!!!
+C1-P2;Elara;-;Why is there this pressure again?;Kenapa tekanan ini lagi.
 ;;;;
-C1-P3;Elara;-;Wait... something seems wrong?;Tunggu… Kek ada yang salah?
-C1-P3;Elara;-;Is it just my eyes, or does that tree actually look dim?;Ini cuman mataku aja, atau emang pohon itu keliatan redup?
-C1-P3;Elara-Void;-;Lara…;Lara…
+C1-P3;Elara;-;Oh nooo, it's starting to get dark outside now.;Duh, sekarang di luar sudah mulai kelihatan gelap.
+C1-P3;Elara;-;What should I do???;Apa yang harus kulakukan???
+C1-P3;Elara-Void;-;Lara.;Lara.
 ;;;;
-C1-P4;Elara-Void;-;Lara…;Lara…
+C1-P4;Elara-Void;-;Lara. Turn around.;Lara. Berbaliklah.
 ;;;;
-C1-P5;Elara;-;Eh?!;Eh?!
-C1-P5;Elara;-;Who is there?;Siapa di sana?
-C1-P5;Elara;-;Don't you realize?;Kamu gak sadar?
-C1-P5;Elara;-;Huh?!;Hahh?!
+C1-P5;Elara;-;Eh???!;Eh???!
+C1-P5;Elara;-;Who is there???;Siapa di sana???
+C1-P5;Elara;-;;
+C1-P5;Elara;-;Huh? Me?;Eh?? Aku?
+C1-P5;Elara-Void;-;Don't you realize, Lara?;Tidakkah kamu sadar, Lara?
+C1-P5;Elara-Void;-;What you're looking for isn't here.;Yang kamu cari-cari di sini tuh gak ada.
+C1-P5;Elara;-;Huh? What does that mean?;Hah?? Apa maksudnya?
+C1-P5;Elara-Void;-;Stop denying it. Wake up to reality.;Berhenti menyangkal. Sadarlah.
 ;;;;
-C1-P6;Narrator;-;Elara was frightened and walked backwards slowly.;Elara ketakutan dan berjalan mundur secara perlahan.
-C1-P6;Narrator;-;Without realizing it, Lara fell.;Tanpa ia sadar. Lara terjatuh.
+C1-P6;Narrator;-;Not focused on listening to the figure who resembled him.;Tidak fokus mendengarkan sosok yang mirip dengan dirinya.
+C1-P6;Narrator;-;Elara's legs were trembling, and her heart was pounding.;Kaki Elara bergetar dan jantungnya berdegup kencang.
+C1-P6;Narrator;-;Unintentionally, Elara slowly walked backward.;Secara tidak sengajaa, Elara berjalan mundur perlahan-lahan.
+C1-P6;Narrator;-;Until she didn't realize it. Elara fell.;Hingga tanpa ia sadari. Elara terjatuh.
 ;;;;
-C1-P7;Elara;-;Father!!!!;Ayah!!!!
+C1-P7;Elara;-;;
+C1-P7;Elara;-;Ahhhhh!;Ahhhhh!
+C1-P7;Elara;-;Dadddddd! Help!;Ayahhhh Tolongg!

@@ -15,7 +15,7 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Narrator
     expressionName: '-'
-    dialogueEN: Lara...
-    dialogueID: Lara...
+    dialogueEN: Lara. Turn around.
+    dialogueID: Lara. Turn around.
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 

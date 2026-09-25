@@ -15,11 +15,19 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Narrator
     expressionName: '-'
-    dialogueEN: Elara was frightened and walked backwards slowly.
-    dialogueID: Elara ketakutan dan berjalan mundur secara perlahan.
+    dialogueEN: Not focused on listening to the figure who resembled him.
+    dialogueID: Tidak fokus mendengarkan sosok yang mirip dengan dirinya.
   - characterName: Narrator
     expressionName: '-'
-    dialogueEN: Without realizing it, Lara fell.
-    dialogueID: Tanpa ia sadar. Lara terjatuh.
+    dialogueEN: Elara's legs were trembling, and her heart was pounding.
+    dialogueID: Kaki Elara bergetar dan jantungnya berdegup kencang.
+  - characterName: Narrator
+    expressionName: '-'
+    dialogueEN: Unintentionally, Elara slowly walked backward.
+    dialogueID: Secara tidak sengajaa, Elara berjalan mundur perlahan-lahan.
+  - characterName: Narrator
+    expressionName: '-'
+    dialogueEN: Until she didn't realize it. Elara fell.
+    dialogueID: Hingga tanpa ia sadari. Elara terjatuh.
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 

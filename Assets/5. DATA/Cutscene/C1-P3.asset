@@ -15,11 +15,15 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: '-'
-    dialogueEN: Wait... something seems wrong?
-    dialogueID: Tunggu... Kek ada yang salah?
+    dialogueEN: Oh nooo, it's starting to get dark outside now.
+    dialogueID: Duh, sekarang di luar sudah mulai kelihatan gelap.
   - characterName: Elara
     expressionName: '-'
-    dialogueEN: Is it just my eyes, or does that tree actually look dim?
-    dialogueID: Ini cuman mataku aja, atau emang pohon itu keliatan redup?
+    dialogueEN: What should I do???
+    dialogueID: Apa yang harus kulakukan???
+  - characterName: Elara-Void
+    expressionName: '-'
+    dialogueEN: Lara.
+    dialogueID: Lara.
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 

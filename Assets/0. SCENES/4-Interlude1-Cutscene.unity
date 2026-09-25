@@ -645,9 +645,7 @@ MonoBehaviour:
     panelObject: {fileID: 55995777}
     panelCanvasGroup: {fileID: 55995779}
     narrationsInPanel:
-    - {fileID: 11400000, guid: a765a3af29509244a9c071ce5a0b3b05, type: 2}
-    - {fileID: 11400000, guid: e5167ff1f1e1ed84cb37de5b4bce0025, type: 2}
-    - {fileID: 11400000, guid: f6a36a6cda403db4cab501752e48fe7a, type: 2}
+    - {fileID: 11400000, guid: e8301ba6faec1134f821040748f6f285, type: 2}
   - panelName: C1-P6
     panelObject: {fileID: 1972081626}
     panelCanvasGroup: {fileID: 1972081628}
@@ -1173,6 +1171,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 985501016}
   m_CullTransparentMesh: 1
+--- !u!1 &1033614501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1033614503}
+  - component: {fileID: 1033614502}
+  m_Layer: 0
+  m_Name: GameManagers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1033614502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033614501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2eb9b231e2028d4e8fba15e57d096be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentChapter: 0
+  currentState: 0
+  memoriesCollected: 0
+--- !u!4 &1033614503
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033614501}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 996.8771, y: 956.00903, z: -8.130679}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1362334111
 GameObject:
   m_ObjectHideFlags: 0
@@ -2593,6 +2638,36 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  characterImageTransitionDuration: 0.3
+  characterImageSlideDistance: 60
+  panelBounceHeight: 8
+  panelShakeDistance: 8
+  panelShakeDuration: 0.2
+  characterImageBounceHeight: 12
+  characterImageTransitionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   sceneTransitionName: RoomFadeOut
   typingSpeed: 0.05
   highlightColor: {r: 1, g: 0.22548327, b: 0, a: 1}
@@ -2765,5 +2840,6 @@ GameObject:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1033614503}
   - {fileID: 784993017}
   - {fileID: 7069326090674392592}

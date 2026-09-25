@@ -14,6 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueSteps:
   - characterName: Elara
+    expressionName: Happy
+    dialogueEN: Flyyy, Butterflyyy!
+    dialogueID: Terbanggg, Kupu-kupuu!
+  - characterName: Elara
+    expressionName: Angry
+    dialogueEN: 
+    dialogueID: 
+  - characterName: Elara
     expressionName: Sad
     dialogueEN: By the way, I don't see Dad here either.
     dialogueID: Omong-omong aku gak ngeliat Ayah juga di sini.

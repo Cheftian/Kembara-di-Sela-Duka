@@ -15,11 +15,15 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: '-'
-    dialogueEN: Ugh... This pressure again!
-    dialogueID: Akh... Tekanan ini lagi!
+    dialogueEN: Ahhhh!
+    dialogueID: Ahhhh!
   - characterName: Elara
     expressionName: '-'
-    dialogueEN: Hit my head!
-    dialogueID: Pusing banget!
+    dialogueEN: Not now!!!
+    dialogueID: Jangan sekarang!!!
+  - characterName: Elara
+    expressionName: '-'
+    dialogueEN: Why is there this pressure again?
+    dialogueID: Kenapa tekanan ini lagi.
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 
