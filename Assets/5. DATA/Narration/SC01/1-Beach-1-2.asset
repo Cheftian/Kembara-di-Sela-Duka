@@ -31,7 +31,7 @@ MonoBehaviour:
     dialogueID: Aku tungguin Ayah aja kali, ya?
   - characterName: Elara
     expressionName: Happy
-    dialogueEN: My favorite place back then.
-    dialogueID: Tempat favoritku dulu.
+    dialogueEN: I'll go to that swing. My favorite place back then.
+    dialogueID: Aku ke ayunan itu aja. Tempat favoritku dulu.
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 
