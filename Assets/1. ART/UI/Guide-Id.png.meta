@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 964b67e1e099e19429a716e879408577
+guid: 1a22d6e9837ee8d499e79b54e6c601af
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8138744622891516345
-    second: Swing_0
+      213: 9189427578838820289
+    second: Guide-Id_0
+  - first:
+      213: 3975754730053861345
+    second: Guide-Id_1
+  - first:
+      213: -5659554095700869021
+    second: Guide-Id_2
+  - first:
+      213: -3421383672948941881
+    second: Guide-Id_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +81,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 2
@@ -126,133 +135,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Swing_0
+      name: Guide-Id_0
       rect:
         serializedVersion: 2
-        x: 253
-        y: 132
-        width: 459
-        height: 1861
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 74e3eeae2ee5d0f80800000000000000
-      internalID: -8138744622891516345
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Swing_1
-      rect:
-        serializedVersion: 2
-        x: 921
-        y: 119
-        width: 465
-        height: 1876
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dc78711d9d613fe44b39d49000e90cc7
-      internalID: 1420900596
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Swing_3
-      rect:
-        serializedVersion: 2
-        x: 1591
-        y: 127
-        width: 535
-        height: 1866
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9f627e45f2816174f9296d0851a03af1
-      internalID: 1871357932
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Swing_4
-      rect:
-        serializedVersion: 2
-        x: 2320
-        y: 140
-        width: 544
-        height: 1855
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7a0d10ca622a0174191ce32d4114db36
-      internalID: -1467918308
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Swing_5
-      rect:
-        serializedVersion: 2
-        x: 3217
-        y: 129
-        width: 534
-        height: 1866
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c81a7723c912fd74da40964c58a9a3f8
-      internalID: 885480524
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Swing_2
-      rect:
-        serializedVersion: 2
-        x: 1179
-        y: 2017
-        width: 591
-        height: 143
+        x: 112
+        y: 688
+        width: 921
+        height: 107
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 8535e37a911f80642adec4029619b0b8
-      internalID: -876363661
+      spriteID: 1c5adddf1b7678f70800000000000000
+      internalID: 9189427578838820289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Guide-Id_1
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 528
+        width: 921
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ef70feccd7bc2730800000000000000
+      internalID: 3975754730053861345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Guide-Id_2
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 305
+        width: 730
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36084aa19893571b0800000000000000
+      internalID: -5659554095700869021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Guide-Id_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 83
+        width: 1177
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cb9e8d3dadc480d0800000000000000
+      internalID: -3421383672948941881
       vertices: []
       indices: 
       edges: []
@@ -261,7 +226,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e681b45c31fa49846b8956acf031443e
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -271,12 +236,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Swing_0: -8138744622891516345
-      Swing_1: 1420900596
-      Swing_2: -876363661
-      Swing_3: 1871357932
-      Swing_4: -1467918308
-      Swing_5: 885480524
+      Guide-Id_0: 9189427578838820289
+      Guide-Id_1: 3975754730053861345
+      Guide-Id_2: -5659554095700869021
+      Guide-Id_3: -3421383672948941881
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dac935bd75156e74c95ed17bd946a420, type: 3}
-  m_Name: Prologue-5
+  m_Name: 1
   m_EditorClassIdentifier: 
-  objectiveID: SC1-05
-  objectiveEN: FIND OUT WHAT'S HAPPENING!
-  objectiveIDN: CARI TAHU APA YANG SEDANG TERJADI!
+  objectiveID: SC1-01
+  objectiveEN: SURPRISE DAD AT THE LIGHTHOUSE!
+  objectiveIDN: BERI KEJUTAN AYAH DI MERCUSUAR!

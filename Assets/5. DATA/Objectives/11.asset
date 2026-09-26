@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dac935bd75156e74c95ed17bd946a420, type: 3}
-  m_Name: Prologue-3
+  m_Name: 11
   m_EditorClassIdentifier: 
-  objectiveID: SC1-03
-  objectiveEN: MEET DAD INSIDE THE LIGHTHOUSE!
-  objectiveIDN: TEMUI AYAH DI DALAM MERCUSUAR!
+  objectiveID: SC1-04
+  objectiveEN: FIND DAD OUTSIDE THE LIGHTHOUSE!
+  objectiveIDN: CARI AYAH DI LUAR MERCUSUAR!
