@@ -6,6 +6,21 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    public enum PlayerState
+    {
+        Idle,
+        Walking,
+        Running,
+        Jumping,
+        Falling,
+        Dizzy,
+        Flipping,
+        DizzyRecovery,
+        Narration,
+        GlitchExit,
+        InputBlocked
+    }
+
     public enum DizzyRecoveryPhase
     {
         None,
@@ -16,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     public bool BlockInput { get; set; } = false;
 
+    #region Movement Settings
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
     [Tooltip("Kecepatan gerak saat karakter dalam kondisi pusing (Dizzy)")]
@@ -30,23 +46,29 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Seberapa cepat akselerasi bertambah (Nilai tinggi = akselerasi lebih cepat)")]
     [SerializeField] private float runAcceleration = 6f; 
     [SerializeField] private bool canRun = true;
+    #endregion
 
     private float shiftPressedTimer = 0f; // Menghitung durasi tombol Shift ditahan
 
     
+    #region Visual & Animation References
     [Header("Visual & Animation Setup")]
     [Tooltip("Seret GameObject Child yang memiliki komponen Animator dan SpriteRenderer ke sini")]
     [SerializeField] private Transform visualTransform;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer; 
+    #endregion
 
+    #region Recovery Settings
     [Header("Dizzy Recovery Settings")]
     [Tooltip("Durasi waktu karakter terdiam dalam posisi Duduk (Sit) sebelum berdiri kembali")]
     [SerializeField] private float sitDuration = 2.0f;
     [Tooltip("Durasi player tetap duduk setelah teleport sebelum menjalankan Stand")]
     [SerializeField] private float sitDelayAfterTeleport = 1.5f;
     [SerializeField] private string glitchFlashInName = "FlashIn";
+    #endregion
 
+    #region Jump Settings
     [Header("Jump Settings")]
     [SerializeField] private float jumpForce = 12f;
     [Tooltip("Pengali kecepatan naik saat tombol lompat dilepas lebih awal")]
@@ -68,7 +90,9 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Kecepatan merespons tilt visual saat di udara")]
     [SerializeField] private float airTiltLerpSpeed = 6f;
     [SerializeField] private bool canJump = true;
+    #endregion
 
+    #region Runtime State
     private Collider2D[] slopeColliders;
     private readonly HashSet<Collider2D> supportingGroundColliders = new HashSet<Collider2D>();
     private readonly HashSet<Collider2D> supportingPlatformColliders = new HashSet<Collider2D>();
@@ -115,12 +139,14 @@ public class PlayerController : MonoBehaviour
     private bool wasDizzyFromLeftWalk = false;
     private bool isGlitchExiting = false;
     private bool isNarrationSitSequenceActive = false;
+    private PlayerState currentState = PlayerState.Idle;
     private bool dizzyPendingAfterFlip = false;
     private bool dizzyPendingAfterRecovery = false;
     private Coroutine dizzyRecoveryCoroutine;
     private DizzyRecoveryPhase dizzyRecoveryPhase = DizzyRecoveryPhase.None;
 
     public bool IsDizzy => isDizzy;
+    public PlayerState CurrentState => currentState;
     public bool IsDizzyRecovering => dizzyRecoveryPhase != DizzyRecoveryPhase.None;
     public DizzyRecoveryPhase CurrentDizzyRecoveryPhase => dizzyRecoveryPhase;
     public bool IsNarrationSitSequenceActive => isNarrationSitSequenceActive;
@@ -134,7 +160,9 @@ public class PlayerController : MonoBehaviour
     [Header("Runtime Speed Information")]
     [Tooltip("Kecepatan horizontal saat ini sebelum arah gerak diterapkan.")]
     public float currentSpeed;
+    #endregion
 
+    #region Unity Lifecycle
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -173,6 +201,7 @@ public class PlayerController : MonoBehaviour
         // KUNCI UTAMA: Panggil fungsi deteksi tanah di sini agar berjalan setiap frame!
         CheckGroundStatus();
         ManageSlopePlatforms();
+        UpdatePlayerState();
 
         if (BlockInput)
         {
@@ -204,7 +233,54 @@ public class PlayerController : MonoBehaviour
         GetPlayerInput();
         HandleDizzyLogic();
         HandleFlip();
+        UpdatePlayerState();
         UpdateAnimation();
+    }
+    #endregion
+
+    #region State & Dizzy Logic
+    private void UpdatePlayerState()
+    {
+        if (isGlitchExiting)
+        {
+            currentState = PlayerState.GlitchExit;
+        }
+        else if (isNarrationSitSequenceActive)
+        {
+            currentState = PlayerState.Narration;
+        }
+        else if (dizzyRecoveryPhase != DizzyRecoveryPhase.None)
+        {
+            currentState = PlayerState.DizzyRecovery;
+        }
+        else if (BlockInput || (GameManager.Instance != null && GameManager.Instance.currentState != GameManager.GameState.Play))
+        {
+            currentState = PlayerState.InputBlocked;
+        }
+        else if (isFlipping)
+        {
+            currentState = PlayerState.Flipping;
+        }
+        else if (!isGrounded)
+        {
+            currentState = isJumping ? PlayerState.Jumping : PlayerState.Falling;
+        }
+        else if (isDizzy)
+        {
+            currentState = PlayerState.Dizzy;
+        }
+        else if (isRunning)
+        {
+            currentState = PlayerState.Running;
+        }
+        else if (Mathf.Abs(horizontalInput) > 0f)
+        {
+            currentState = PlayerState.Walking;
+        }
+        else
+        {
+            currentState = PlayerState.Idle;
+        }
     }
 
     private void HandleDizzyLogic()
@@ -239,7 +315,9 @@ public class PlayerController : MonoBehaviour
             SetDizzyStatus(true);
         }
     }
+    #endregion
 
+    #region Ground Detection & Physics
     private void CheckGroundStatus()
     {
         if (groundCheckPoint != null)
@@ -396,6 +474,9 @@ public class PlayerController : MonoBehaviour
 
         ApplyMovement();
     }
+    #endregion
+
+    #region Input & Facing
     private void GetPlayerInput()
     {
         horizontalInput = 0;
@@ -441,7 +522,7 @@ public class PlayerController : MonoBehaviour
         }
 
       // Logika Input Lari
-        if (canRun && Input.GetKey(KeyCode.LeftShift) && Mathf.Abs(horizontalInput) > 0f && !isDizzy)
+        if (!isFlipping && canRun && Input.GetKey(KeyCode.LeftShift) && Mathf.Abs(horizontalInput) > 0f && !isDizzy)
         {
             isRunning = true;
             // Akumulasikan waktu selama tombol Shift ditekan secara terus-menerus
@@ -467,8 +548,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Logika Input Lompat
-        bool isRunPrePlaying = isRunning && !isFullyRunning;
-        if (canJump && jumpKeyPressed && isGrounded && !isDizzy && !isInJumpPreOrPost && !isFlipping && !isRunPrePlaying && !runPostPending && !IsRunTransitionPlaying() && jumpCooldownTimer <= 0f && !jumpInputConsumed)
+        if (canJump && jumpKeyPressed && isGrounded && !isJumping && !isDizzy && !isInJumpPreOrPost && !isFlipping && jumpCooldownTimer <= 0f && !jumpInputConsumed)
         {
             jumpInputConsumed = true;
             StartCoroutine(JumpPreSequence());
@@ -519,16 +599,25 @@ public class PlayerController : MonoBehaviour
 
         return false;
     }
+    #endregion
 
+    #region Flip Animation
     private void StartFlip()
     {
         if (visualTransform == null || animator == null || spriteRenderer == null) return;
 
         isFlipping = true;                 
+        isRunning = false;
+        isFullyRunning = false;
+        runPostPending = false;
+        shiftPressedTimer = 0f;
         jumpInputBlockedDuringFlip = true;
         jumpInputHeld = false;
         jumpInputConsumed = true;
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y); 
+        animator.SetBool(isRunningHash, false);
+        animator.ResetTrigger(runPostHash);
+        animator.ResetTrigger(stopRunningHash);
 
         if (!isFacingRight)
         {
@@ -585,36 +674,31 @@ public class PlayerController : MonoBehaviour
         GetPlayerInput();
         UpdateAnimation(); 
     }
+    #endregion
+
+    #region Movement & Animation
     private void ApplyMovement()
     {
         float targetSpeed = 0f;
 
-        if (!isGrounded && !isInJumpPreOrPost)
+        switch (currentState)
         {
-            targetSpeed = jumpMovementSpeed;
-        }
-        else if (horizontalInput == 0f)
-        {
-            targetSpeed = 0f;
-        }
-        else if (isDizzy)
-        {
-            targetSpeed = dizzyMoveSpeed;
-        }
-        else if (isRunning)
-        {
-            if (shiftPressedTimer >= durationBeforeSprint)
-            {
-                targetSpeed = maxSprintSpeed;
-            }
-            else
-            {
-                targetSpeed = runSpeed;
-            }
-        }
-        else
-        {
-            targetSpeed = moveSpeed;
+            case PlayerState.Jumping:
+            case PlayerState.Falling:
+                if (!isInJumpPreOrPost)
+                {
+                    targetSpeed = jumpMovementSpeed;
+                }
+                break;
+            case PlayerState.Walking:
+                targetSpeed = moveSpeed;
+                break;
+            case PlayerState.Running:
+                targetSpeed = shiftPressedTimer >= durationBeforeSprint ? maxSprintSpeed : runSpeed;
+                break;
+            case PlayerState.Dizzy:
+                targetSpeed = horizontalInput == 0f ? 0f : dizzyMoveSpeed;
+                break;
         }
 
         float accelRate = runAcceleration;
@@ -747,7 +831,9 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+    #endregion
 
+    #region Dizzy Recovery & Cutscene Sequences
     public void SetDizzyStatus(bool status)
     {
         if (isDizzy && !status)
@@ -1013,7 +1099,9 @@ public class PlayerController : MonoBehaviour
         dizzyRecoveryCoroutine = null;
         dizzyRecoveryPhase = DizzyRecoveryPhase.None;
     }
+    #endregion
 
+    #region Public Controls & Animation Helpers
     public void UpdateMoveSpeed(float newSpeed)
     {
         originalMoveSpeed = newSpeed; 
@@ -1085,20 +1173,29 @@ public class PlayerController : MonoBehaviour
     {
         isFullyRunning = status;
     }
+    #endregion
 
+    #region Jump Sequences
     private IEnumerator JumpPreSequence()
     {
         jumpCooldownTimer = jumpCooldownTime;
         isInJumpPreOrPost = true; // Kunci gerakan horizontal manual (input A/D)
         horizontalInput = 0f;
         isRunning = false;
+        isFullyRunning = false;
+        runPostPending = false;
+        shiftPressedTimer = 0f;
 
         if (animator != null)
         {
-            animator.SetTrigger(jumpTriggerHash);
+            animator.SetBool(isRunningHash, false);
+            animator.ResetTrigger(runPostHash);
+            animator.ResetTrigger(stopRunningHash);
+            animator.ResetTrigger(jumpTriggerHash);
+            animator.Play("Jump-Pre", 0, 0f);
         }
 
-        // Tunggu 1 frame agar animator berpindah state secara penuh ke Jump-Pre
+        // Tunggu 1 frame agar Animator memperbarui state Jump-Pre.
         yield return null; 
         
         if (animator != null)
@@ -1147,7 +1244,9 @@ public class PlayerController : MonoBehaviour
 
         isInJumpPreOrPost = false; // Buka kembali kontrol penuh gerakan player secara normal
     }
+    #endregion
 
+    #region Gizmos & Slope Platforms
     private void OnDrawGizmos()
     {
         if (groundCheckPoint != null)
@@ -1190,5 +1289,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    #endregion
 
 }
