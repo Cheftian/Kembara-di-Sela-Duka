@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask platformLayer;
     [SerializeField] private Transform groundCheckPoint;
     [SerializeField] private float groundCheckRadius = 0.2f;
+    [SerializeField] private float groundProbeDistance = 0.15f;
     [Range(0f, 1f)]
     [SerializeField] private float minimumGroundContactNormalY = 0.2f;
     [Tooltip("Waktu jeda sebelum pemain bisa lompat lagi setelah melompat")]
@@ -96,6 +97,7 @@ public class PlayerController : MonoBehaviour
     private Collider2D[] slopeColliders;
     private readonly HashSet<Collider2D> supportingGroundColliders = new HashSet<Collider2D>();
     private readonly HashSet<Collider2D> supportingPlatformColliders = new HashSet<Collider2D>();
+    private readonly RaycastHit2D[] groundProbeHits = new RaycastHit2D[8];
     
 
     public bool isGrounded = true;
@@ -323,9 +325,18 @@ public class PlayerController : MonoBehaviour
         if (groundCheckPoint != null)
         {
             bool wasGroundedBefore = isGrounded;
-            bool isOnGroundLayer = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer) ||
-                HasSupportingGroundContact();
+            RemoveInvalidSupportingColliders(supportingGroundColliders);
+            RemoveInvalidSupportingColliders(supportingPlatformColliders);
+
+            bool isOnGroundLayer = HasSupportingGroundContact();
             bool isOnPlatformLayer = HasSupportingPlatformContact();
+
+            if (!(isJumping && rb.linearVelocity.y > 0.1f) &&
+                TryGetGroundProbeLayers(out bool probeFoundGround, out bool probeFoundPlatform))
+            {
+                isOnGroundLayer |= probeFoundGround;
+                isOnPlatformLayer |= probeFoundPlatform;
+            }
 
             isPlatforming = !isOnGroundLayer && isOnPlatformLayer;
             isGrounded = isOnGroundLayer || isOnPlatformLayer;
@@ -364,6 +375,48 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool TryGetGroundProbeLayers(out bool foundGround, out bool foundPlatform)
+    {
+        foundGround = false;
+        foundPlatform = false;
+
+        float radius = Mathf.Max(groundCheckRadius, 0.01f);
+        Vector2 origin = (Vector2)groundCheckPoint.position + Vector2.up * radius;
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(groundLayer | platformLayer);
+        filter.useTriggers = false;
+
+        int hitCount = Physics2D.CircleCast(
+            origin,
+            radius,
+            Vector2.down,
+            filter,
+            groundProbeHits,
+            radius + Mathf.Max(groundProbeDistance, 0f));
+
+        for (int i = 0; i < hitCount; i++)
+        {
+            RaycastHit2D hit = groundProbeHits[i];
+            if (hit.collider == null || hit.normal.y < minimumGroundContactNormalY)
+            {
+                continue;
+            }
+
+            Vector2 circleCenterAtHit = origin + Vector2.down * hit.distance;
+            Vector2 footPointAtHit = circleCenterAtHit - Vector2.up * radius;
+            if (Vector2.Dot(footPointAtHit - hit.point, hit.normal) < -0.01f)
+            {
+                continue;
+            }
+
+            int hitLayer = 1 << hit.collider.gameObject.layer;
+            foundGround |= (groundLayer.value & hitLayer) != 0;
+            foundPlatform |= (platformLayer.value & hitLayer) != 0;
+        }
+
+        return foundGround || foundPlatform;
+    }
+
     private bool HasSupportingPlatformContact()
     {
         foreach (Collider2D platformCollider in supportingPlatformColliders)
@@ -390,12 +443,24 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
+    private static void RemoveInvalidSupportingColliders(HashSet<Collider2D> supportingColliders)
+    {
+        supportingColliders.RemoveWhere(collider =>
+            collider == null || !collider.enabled || !collider.gameObject.activeInHierarchy);
+    }
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         Collider2D surfaceCollider = collision.collider;
-        if (surfaceCollider == null ||
-            rb.linearVelocity.y > 0.1f)
+        if (surfaceCollider == null)
         {
+            return;
+        }
+
+        if (isJumping && rb.linearVelocity.y > 0.1f)
+        {
+            supportingGroundColliders.Remove(surfaceCollider);
+            supportingPlatformColliders.Remove(surfaceCollider);
             return;
         }
 
@@ -415,16 +480,9 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        Collider2D playerCollider = collision.otherCollider;
-        if (playerCollider == null)
-        {
-            return;
-        }
-
         foreach (ContactPoint2D contact in collision.contacts)
         {
-            if (contact.normal.y >= minimumGroundContactNormalY &&
-                contact.point.y <= playerCollider.bounds.min.y + groundCheckRadius)
+            if (contact.normal.y >= minimumGroundContactNormalY)
             {
                 supportingColliders.Add(surfaceCollider);
                 return;

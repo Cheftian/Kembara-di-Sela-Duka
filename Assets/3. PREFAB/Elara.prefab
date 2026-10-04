@@ -57,7 +57,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 10
+  m_GravityScale: 8
   m_Material: {fileID: 6200000, guid: a8195ccd27be06c4b994e47853f05af7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -140,7 +140,7 @@ MonoBehaviour:
   sitDuration: 0.5
   sitDelayAfterTeleport: 1.5
   glitchFlashInName: FlashIn
-  jumpForce: 35
+  jumpForce: 30
   jumpReleaseMultiplier: 0.55
   groundLayer:
     serializedVersion: 2

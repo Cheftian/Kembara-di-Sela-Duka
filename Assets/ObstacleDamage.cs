@@ -3,6 +3,10 @@ using UnityEngine;
 public class ObstacleDamage : MonoBehaviour
 {
     [SerializeField] private string playerTag = "Player";
+    [Tooltip("GameObject titik respawn jika data portal terakhir tidak tersedia.")]
+    [SerializeField] private GameObject fallbackRespawnPoint;
+    [Tooltip("Nama room pada daftar RoomManager yang akan di-reset saat fallback respawn digunakan.")]
+    [SerializeField] private string roomNameToReset;
     private bool hasKilled = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -21,12 +25,22 @@ public class ObstacleDamage : MonoBehaviour
         
         if (RoomManager.Instance != null)
         {
-            RoomManager.Instance.RespawnPlayerInRoom(playerTransform);
+            RoomManager.Instance.RespawnPlayerInRoom(
+                playerTransform,
+                fallbackRespawnPoint != null ? fallbackRespawnPoint.transform : null,
+                this,
+                roomNameToReset);
         }
     }
+
+    public void ResetDeathState()
+    {
+        hasKilled = false;
+    }
+
     private void OnEnable()
     {
         // Membuka kembali status lock kematian saat room di-reset
-        hasKilled = false; 
+        ResetDeathState();
     }
 }

@@ -44,6 +44,10 @@ public class RoomManager : MonoBehaviour
     // BARU: Tempat menyimpan referensi portal terakhir tempat player masuk
     private RoomPortal lastEnteredPortal;
 
+    [Header("Pengaturan Respawn Cadangan")]
+    [Tooltip("Titik respawn yang digunakan jika Player belum pernah memasuki portal.")]
+    [SerializeField] private Transform fallbackRespawnPoint;
+
     private void Awake()
     {
         if (Instance == null) 
@@ -136,17 +140,40 @@ public class RoomManager : MonoBehaviour
     // =================================================================================
     // FUNGSI BARU: MEMICU PROSES LOCAL RESPAWN & DUPLIKASI ULANG RUANGAN SEGAR
     // =================================================================================
-    public void RespawnPlayerInRoom(Transform player)
+    public void RespawnPlayerInRoom(
+        Transform player,
+        Transform obstacleFallbackRespawnPoint = null,
+        ObstacleDamage triggeringObstacle = null,
+        string roomNameToReset = null)
     {
-        if (lastEnteredPortal == null)
+        if (player == null)
         {
-            Debug.LogError("Player mati, tetapi data portal masuk terakhir tidak ditemukan!");
+            Debug.LogError("Respawn dibatalkan karena referensi Player tidak ditemukan.", this);
             return;
         }
-        StartCoroutine(ExecuteRoomResetAndRespawn(player));
+
+        Transform respawnPoint = obstacleFallbackRespawnPoint != null
+            ? obstacleFallbackRespawnPoint
+            : fallbackRespawnPoint;
+
+        if (lastEnteredPortal == null && respawnPoint == null)
+        {
+            Debug.LogError("Respawn dibatalkan: data portal terakhir dan titik respawn cadangan belum diatur.", this);
+            return;
+        }
+
+        StartCoroutine(ExecuteRoomResetAndRespawn(
+            player,
+            respawnPoint,
+            triggeringObstacle,
+            roomNameToReset));
     }
 
-private IEnumerator ExecuteRoomResetAndRespawn(Transform player)
+private IEnumerator ExecuteRoomResetAndRespawn(
+    Transform player,
+    Transform respawnPoint,
+    ObstacleDamage triggeringObstacle,
+    string roomNameToReset)
 {
     PlayerController playerCtrl = player.GetComponent(typeof(PlayerController)) as PlayerController;
     if (playerCtrl != null)
@@ -169,7 +196,9 @@ private IEnumerator ExecuteRoomResetAndRespawn(Transform player)
     yield return new WaitForSeconds(holdDelay);
 
     // 4. RESTART: Proses mengembalikan status objek ruangan dan memindahkan player ke posisi aman
-    GameObject sceneRoom = lastEnteredPortal.currentRoomParent;
+    GameObject sceneRoom = lastEnteredPortal != null
+        ? lastEnteredPortal.currentRoomParent
+        : FindRoomObjectByName(roomNameToReset);
     RoomIdentity roomIdent = sceneRoom != null ? sceneRoom.GetComponent(typeof(RoomIdentity)) as RoomIdentity : null;
 
     if (sceneRoom != null && roomIdent != null && roomIdent.originalPrefabReference != null)
@@ -213,14 +242,21 @@ private IEnumerator ExecuteRoomResetAndRespawn(Transform player)
             }
         }
 
-        // Pindahkan posisi Player ke koordinat portal masuk
-        Vector3 spawnPos = lastEnteredPortal.transform.position;
-        spawnPos.x += lastEnteredPortal.spawnOffsetX;
-        player.position = spawnPos;
-
-        if (playerCtrl != null)
+        if (lastEnteredPortal == null)
         {
-            playerCtrl.SetFacingDirection(lastEnteredPortal.faceDirectionOnSpawn == RoomPortal.FaceDirection.Right);
+            player.position = respawnPoint.position;
+            Debug.Log("Data portal terakhir tidak ditemukan. Player di-respawn pada titik cadangan.", this);
+        }
+        else
+        {
+            Vector3 spawnPos = lastEnteredPortal.transform.position;
+            spawnPos.x += lastEnteredPortal.spawnOffsetX;
+            player.position = spawnPos;
+
+            if (playerCtrl != null)
+            {
+                playerCtrl.SetFacingDirection(lastEnteredPortal.faceDirectionOnSpawn == RoomPortal.FaceDirection.Right);
+            }
         }
 
         // Sinkronisasi engine physics setelah perpindahan instan
@@ -242,7 +278,19 @@ private IEnumerator ExecuteRoomResetAndRespawn(Transform player)
     }
     else
     {
-        Debug.LogError("Gagal mereset status room! Pastikan 'Room Prefab' di Inspector RoomManager sudah diisi.");
+        if (lastEnteredPortal == null)
+        {
+            player.position = respawnPoint.position;
+            Debug.LogError(
+                "Room '" + roomNameToReset + "' tidak ditemukan atau belum memiliki RoomIdentity dengan prefab reset. " +
+                "Player dipindahkan ke titik respawn, tetapi room tidak dapat di-reset.",
+                this);
+            yield return new WaitForFixedUpdate();
+        }
+        else
+        {
+            Debug.LogError("Gagal mereset status room! Pastikan 'Room Prefab' di Inspector RoomManager sudah diisi.", this);
+        }
     }
 
     // Berikan jeda super singkat (1 frame) setelah restart agar visual kamera stabil membidik posisi baru player sebelum layar dibuka
@@ -272,7 +320,30 @@ private IEnumerator ExecuteRoomResetAndRespawn(Transform player)
         // Buka kembali kunci kontrol input player
         playerCtrl.BlockInput = false;
     }
+
+    if (triggeringObstacle != null)
+    {
+        triggeringObstacle.ResetDeathState();
+    }
 }
+
+    private GameObject FindRoomObjectByName(string roomName)
+    {
+        if (string.IsNullOrWhiteSpace(roomName) || allRooms == null)
+        {
+            return null;
+        }
+
+        foreach (RoomData data in allRooms)
+        {
+            if (data.roomObject != null && data.roomName == roomName)
+            {
+                return data.roomObject;
+            }
+        }
+
+        return null;
+    }
 
     private IEnumerator ExecuteRoomSwitch(Transform player, RoomPortal currentPortal, RoomPortal destinationPortal, bool useFlashTransition, bool isGlitchExit, bool delayBeforeFlash, bool standAfterFlash)
     {

@@ -53,6 +53,7 @@ public class ChaseObstacle : MonoBehaviour
         if (!hasStopped)
         {
             isMoving = true;
+            shouldShake = true;
         }
     }
 
@@ -79,6 +80,7 @@ public class ChaseObstacle : MonoBehaviour
     {
         isMoving = false;
         hasStopped = true;
+        shouldShake = false;
 
         Vector3 finalPosition = transform.position;
         finalPosition.x = stopAtX;

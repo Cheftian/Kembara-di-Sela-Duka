@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 119fb025c5e763d46824bd1e8cc86e7f
+guid: 6ef5677e2012db74b902daf8219b1bcc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3912938002706384344
-    second: 1-ALand_0
+      213: -2269191707660177605
+    second: Cahya-Memory-fin_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 2
@@ -126,89 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 1-ALand_0
+      name: Cahya-Memory-fin_0
       rect:
         serializedVersion: 2
-        x: 3319
-        y: 2898
-        width: 6312
-        height: 2338
+        x: 0
+        y: 0
+        width: 3840
+        height: 2160
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8d5c07fb16c8d4630800000000000000
-      internalID: 3912938002706384344
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 1-ALand_1
-      rect:
-        serializedVersion: 2
-        x: 3299
-        y: 106
-        width: 6586
-        height: 2492
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fd8ede2df1717e440ac88b37c1adb457
-      internalID: -725983536
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 1-ALand_2
-      rect:
-        serializedVersion: 2
-        x: 338
-        y: 106
-        width: 2512
-        height: 1952
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 62790bbc942177745b44ef142f3cc0be
-      internalID: 1443425796
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 1-ALand_3
-      rect:
-        serializedVersion: 2
-        x: 195
-        y: 2358
-        width: 2785
-        height: 1457
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5452d829399978a44ba36788517fcea2
-      internalID: 174078547
+      spriteID: b3f27a12a263280e0800000000000000
+      internalID: -2269191707660177605
       vertices: []
       indices: 
       edges: []
@@ -217,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: edec06e7b70cb3544af5bbc35df1df7f
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -227,10 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      1-ALand_0: 3912938002706384344
-      1-ALand_1: -725983536
-      1-ALand_2: 1443425796
-      1-ALand_3: 174078547
+      Cahya-Memory-fin_0: -2269191707660177605
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
