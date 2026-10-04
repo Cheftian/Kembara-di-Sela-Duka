@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -48,10 +49,15 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jump Settings")]
     [SerializeField] private float jumpForce = 12f;
+    [Tooltip("Pengali kecepatan naik saat tombol lompat dilepas lebih awal")]
+    [Range(0f, 1f)]
+    [SerializeField] private float jumpReleaseMultiplier = 0.35f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask platformLayer;
     [SerializeField] private Transform groundCheckPoint;
     [SerializeField] private float groundCheckRadius = 0.2f;
+    [Range(0f, 1f)]
+    [SerializeField] private float minimumGroundContactNormalY = 0.2f;
     [Tooltip("Waktu jeda sebelum pemain bisa lompat lagi setelah melompat")]
     [SerializeField] private float jumpCooldownTime = 0.25f;
     [Tooltip("Kecepatan gerak horizontal khusus saat karakter melompat atau berada di udara")]
@@ -64,16 +70,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool canJump = true;
 
     private Collider2D[] slopeColliders;
+    private readonly HashSet<Collider2D> supportingGroundColliders = new HashSet<Collider2D>();
+    private readonly HashSet<Collider2D> supportingPlatformColliders = new HashSet<Collider2D>();
     
 
     public bool isGrounded = true;
     public bool isPlatforming = false;
     private bool isJumping = false;
+    private bool isFallingFromPlatform = false;
+    private bool fallAnimationStarted = false;
     private bool isInJumpPreOrPost = false; // Flag pengunci input horizontal
     private float jumpCooldownTimer = 0f;
     private bool jumpInputHeld = false;
     private bool jumpInputConsumed = false;
     private bool jumpInputBlockedDuringFlip = false;
+    private bool jumpCutApplied = false;
 
     // Parameter Animator baru
     private readonly int jumpTriggerHash = Animator.StringToHash("JumpTrigger");
@@ -234,26 +245,33 @@ public class PlayerController : MonoBehaviour
         if (groundCheckPoint != null)
         {
             bool wasGroundedBefore = isGrounded;
-            bool isOnGroundLayer = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
-            bool isOnPlatformLayer = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, platformLayer);
+            bool isOnGroundLayer = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer) ||
+                HasSupportingGroundContact();
+            bool isOnPlatformLayer = HasSupportingPlatformContact();
 
-            if (isOnGroundLayer)
-            {
-                isPlatforming = false;
-            }
-            else if (isOnPlatformLayer)
-            {
-                isPlatforming = true;
-            }
-
+            isPlatforming = !isOnGroundLayer && isOnPlatformLayer;
             isGrounded = isOnGroundLayer || isOnPlatformLayer;
+
+            if (wasGroundedBefore && !isGrounded && !isJumping && !isInJumpPreOrPost)
+            {
+                isFallingFromPlatform = true;
+                fallAnimationStarted = false;
+            }
 
             if (!wasGroundedBefore && isGrounded)
             {
                 ResetMovementStateAfterLanding();
 
-                if (isJumping && !isInJumpPreOrPost)
+                bool landedAfterFall = isFallingFromPlatform;
+                if ((isJumping || landedAfterFall) && !isInJumpPreOrPost)
                 {
+                    if (landedAfterFall && !fallAnimationStarted && animator != null)
+                    {
+                        animator.Play("Jump-Post", 0, 0f);
+                    }
+
+                    isFallingFromPlatform = false;
+                    fallAnimationStarted = false;
                     StartCoroutine(JumpPostSequence());
                 }
             }
@@ -266,6 +284,80 @@ public class PlayerController : MonoBehaviour
             // }
 
         }
+    }
+
+    private bool HasSupportingPlatformContact()
+    {
+        foreach (Collider2D platformCollider in supportingPlatformColliders)
+        {
+            if (platformCollider != null)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool HasSupportingGroundContact()
+    {
+        foreach (Collider2D groundCollider in supportingGroundColliders)
+        {
+            if (groundCollider != null)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        Collider2D surfaceCollider = collision.collider;
+        if (surfaceCollider == null ||
+            rb.linearVelocity.y > 0.1f)
+        {
+            return;
+        }
+
+        int surfaceLayer = 1 << surfaceCollider.gameObject.layer;
+        HashSet<Collider2D> supportingColliders = null;
+        if ((platformLayer.value & surfaceLayer) != 0)
+        {
+            supportingColliders = supportingPlatformColliders;
+        }
+        else if ((groundLayer.value & surfaceLayer) != 0)
+        {
+            supportingColliders = supportingGroundColliders;
+        }
+
+        if (supportingColliders == null)
+        {
+            return;
+        }
+
+        Collider2D playerCollider = collision.otherCollider;
+        if (playerCollider == null)
+        {
+            return;
+        }
+
+        foreach (ContactPoint2D contact in collision.contacts)
+        {
+            if (contact.normal.y >= minimumGroundContactNormalY &&
+                contact.point.y <= playerCollider.bounds.min.y + groundCheckRadius)
+            {
+                supportingColliders.Add(surfaceCollider);
+                return;
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        supportingGroundColliders.Remove(collision.collider);
+        supportingPlatformColliders.Remove(collision.collider);
     }
 
     private void ResetMovementStateAfterLanding()
@@ -284,6 +376,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isJumping && !jumpCutApplied && rb.linearVelocity.y > 0f && !Input.GetKey(KeyCode.Space))
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpReleaseMultiplier);
+            jumpCutApplied = true;
+        }
 
        if (BlockInput)
         {
@@ -556,6 +653,13 @@ public class PlayerController : MonoBehaviour
 
         animator.SetBool(isGroundedHash, isGrounded);
         animator.SetFloat(verticalVelocityHash, verticalVel);
+
+        if (isFallingFromPlatform && !fallAnimationStarted && verticalVel <= -0.5f)
+        {
+            animator.Play("Jump-Down", 0, 0f);
+            fallAnimationStarted = true;
+        }
+
         {
             if (visualTransform != null)
             {
@@ -1007,6 +1111,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        jumpCutApplied = false;
         isJumping = true;
         isInJumpPreOrPost = false; // Buka kunci gerakan agar pemain bisa mengendalikan arah saat di udara
         currentVelocityX = jumpMovementSpeed;

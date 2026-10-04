@@ -10,21 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
-  m_Name: 1-Interior-15
+  m_Name: 1-Interior-12
   m_EditorClassIdentifier: 
   dialogueSteps:
   - characterName: Elara
-    expressionName: Happy
-    dialogueEN: Ahhh. I did it.
-    dialogueID: Ahhh. Berhasil.
+    expressionName: Shocked
+    dialogueEN: WHAT HAPPENING???! ITS NOT SUPPOSED TO BE LIKE THIS!
+    dialogueID: APA YANG TERJADI????! INI HARUSNYA GAK GINI!
   - characterName: Elara
-    expressionName: Sad
-    dialogueEN: This is seriously scary. I don't want to get trapped here for too
-      long.
-    dialogueID: Serem banget asli. Gamau kejebak di sini lama-lama.
+    expressionName: Angry
+    dialogueEN: FOR SURE. Something is wrong with this place.
+    dialogueID: FIX. Ada yang gak beres sama tempat ini.
   - characterName: Elara
-    expressionName: Happy
-    dialogueEN: Butterfliiies. Where are youuu!
-    dialogueID: Kupuu-kupu. Mana kamuuu!
+    expressionName: Shocked
+    dialogueEN: <b>I have to find a way out</b> of this place immediately.
+    dialogueID: <b>Aku harus segera cari jalan keluar</b> dari tempat ini.
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 

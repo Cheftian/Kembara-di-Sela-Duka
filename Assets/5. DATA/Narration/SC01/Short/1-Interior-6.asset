@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
-  m_Name: 1-Interior-14
+  m_Name: 1-Interior-6
   m_EditorClassIdentifier: 
   dialogueSteps:
   - characterName: Elara
-    expressionName: Shocked
-    dialogueEN: ASOIGFJAOSIDGJOID
-    dialogueID: ASOIGFJAOSIDGJOID
+    expressionName: '-'
+    dialogueEN: '*locked*'
+    dialogueID: '*terkunci'
   - characterName: Elara
-    expressionName: Shocked
-    dialogueEN: Did I just die??
-    dialogueID: Aku barusan mati??
+    expressionName: Angry
+    dialogueEN: Why is it locked??
+    dialogueID: Kok terkunci?
   - characterName: Elara
-    expressionName: Shocked
-    dialogueEN: Oh my god. No, no. I'm still here.
-    dialogueID: Astaga. Nggak-nggak. Aku masih di sini.
+    expressionName: Questioning
+    dialogueEN: Where could Dad be?
+    dialogueID: Ayah ke mana?
   - characterName: Elara
-    expressionName: Shocked
-    dialogueEN: Whatever happens, I can't touch that fog. I have to run away immediately.
-    dialogueID: Yang pasti aku gak boleh nyentuh kabut itu. Aku harus segera lari.
+    expressionName: Normal
+    dialogueEN: I'll go find him.  <b>Maybe there's a clue in the next room.</b>
+    dialogueID: Aku cari dulu deh. <b>Mungkin ada petunjuk di ruang sebelah.</b>
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 

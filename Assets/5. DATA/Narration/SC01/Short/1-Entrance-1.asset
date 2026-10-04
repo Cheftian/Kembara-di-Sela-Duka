@@ -27,8 +27,8 @@ MonoBehaviour:
     dialogueID: Ayah kaget gak ya, tiba-tiba aku dahh nyampe?
   - characterName: Elara
     expressionName: Happy
-    dialogueEN: I want to <b>surprise Dad at the lighthouse</b>. He should be there.
-    dialogueID: Aku mau <b>kejutin Ayah di mercusuar</b>. Harusnya Ayah ada di sana.
+    dialogueEN: <b>I want to surprise Dad at the lighthouse</b>. He should be there.
+    dialogueID: <b>Aku mau kejutin Ayah di mercusuar</b>. Harusnya Ayah ada di sana.
   - characterName: Elara
     expressionName: Happy
     dialogueEN: I can't wait to see Dad and walk around with him again.
@@ -57,21 +57,5 @@ MonoBehaviour:
     expressionName: Normal
     dialogueEN: 
     dialogueID: 
-  - characterName: Elara
-    expressionName: Shocked
-    dialogueEN: Huh?
-    dialogueID: Eh?
-  - characterName: Elara
-    expressionName: Questioning
-    dialogueEN: Wait. Why is there someone here for once?
-    dialogueID: Bentar. Tumben ada orang di sini?
-  - characterName: Elara
-    expressionName: Questioning
-    dialogueEN: Dad's friend?
-    dialogueID: Temen Ayah?
-  - characterName: Elara
-    expressionName: Questioning
-    dialogueEN: Who could it be?
-    dialogueID: Sapa kali ya?
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 

@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
-  m_Name: 1-Interior-6
+  m_Name: 1-Beach-0-2
   m_EditorClassIdentifier: 
   dialogueSteps:
   - characterName: Elara
-    expressionName: '-'
-    dialogueEN: '*locked*'
-    dialogueID: '*terkunci'
-  - characterName: Elara
-    expressionName: Angry
-    dialogueEN: Like this every timeeee!
-    dialogueID: Gini aja terussss!
+    expressionName: Happy
+    dialogueEN: Butterfliiies!
+    dialogueID: Kupu-kupuu!
   - characterName: Elara
     expressionName: Questioning
-    dialogueEN: Where could Dad be? Maybe in the next room??
-    dialogueID: Ni Ayah ke mana coba. Di ruang sebelah kah??
+    dialogueEN: So cutee!!!
+    dialogueID: Lucuu bangett!!
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: I'll follow it.
+    dialogueID: Ikutin ahh.
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 

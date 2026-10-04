@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/0. SCENES/4-Interlude1-Cutscene.unity
     guid: 53ecbb4c317daff408872852466ca517
   - enabled: 1
-    path: Assets/0. SCENES/5-denial.unity
+    path: Assets/0. SCENES/6-denial.unity
     guid: 5f6bef945488bd940a6cdf640643eb20
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: d5d44740ef747244485abb66bf59a2f2, type: 3}

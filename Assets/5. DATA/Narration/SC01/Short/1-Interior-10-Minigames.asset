@@ -40,8 +40,8 @@ MonoBehaviour:
     dialogueID: Kok bisa aku udah ambil foto duluan?
   - characterName: Elara
     expressionName: Sad
-    dialogueEN: Enoughhhh. Things are getting more and more confusing here.
-    dialogueID: Udahhhh. Semakin gak jelas di sini.
+    dialogueEN: This is so weird!!
+    dialogueID: Ini aneh banget!!!
   - characterName: Elara
     expressionName: Normal
     dialogueEN: I have to find Dad. If he's not inside, then he must be outside.

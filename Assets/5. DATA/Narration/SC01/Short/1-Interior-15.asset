@@ -10,12 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
-  m_Name: 1-Interior-13
+  m_Name: 1-Interior-15
   m_EditorClassIdentifier: 
   dialogueSteps:
   - characterName: Elara
     expressionName: Shocked
-    dialogueEN: WHHHHAAAAT???!!! WHAT THE HECK IS THAT???
-    dialogueID: WAHHHHH???!!! APA PULAK ITU???
+    dialogueEN: Ahhh. I did it.
+    dialogueID: Ahhh. Berhasil.
+  - characterName: Elara
+    expressionName: Sad
+    dialogueEN: This is seriously scary. I don't want to get trapped here for too
+      long.
+    dialogueID: Serem banget asli. Gamau kejebak di sini lama-lama.
+  - characterName: Elara
+    expressionName: Shocked
+    dialogueEN: I need to get out.
+    dialogueID: Aku harus keluar.
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 

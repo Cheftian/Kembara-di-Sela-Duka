@@ -60,11 +60,12 @@ public class NarrationManager : MonoBehaviour
     [SerializeField] private float autoAdvanceDelay = 2.0f;
 
     private bool isTyping = false;
-    private bool cancelTyping = false;
+    private bool skipToNextPeriod = false;
     private bool canProcessInput = false;
     private bool isTransitioning = false;
 
     private string currentLineText = "";
+    private int currentTextIndex = 0;
     
     private Coroutine typingCoroutine;
     private Coroutine autoAdvanceCoroutine;
@@ -119,14 +120,16 @@ public class NarrationManager : MonoBehaviour
 
             if (isTyping)
             {
-                // Jika sedang mengetik, stop mengetik teks lama dan mulai mengetik teks baru dari awal
+                // Mulai ulang baris dalam bahasa baru agar indeks karakter tetap valid.
                 if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+                currentTextIndex = 0;
                 typingCoroutine = StartCoroutine(TypeText(currentLineText));
             }
             else
             {
                 // Jika teks sudah selesai diketik, langsung ubah teks penuhnya
                 activeDialogueText.text = currentLineText;
+                currentTextIndex = currentLineText.Length;
             }
         }
     }
@@ -170,7 +173,11 @@ public class NarrationManager : MonoBehaviour
     {
         if (isTyping)
         {
-            cancelTyping = true;
+            skipToNextPeriod = true;
+        }
+        else if (currentTextIndex < currentLineText.Length)
+        {
+            typingCoroutine = StartCoroutine(TypeText(currentLineText));
         }
         else
         {
@@ -204,6 +211,7 @@ public class NarrationManager : MonoBehaviour
         // LOGIKA MEMILIH BAHASA BERDASARKAN SYSTEM STATE
         string rawText = (currentLanguage == Language.English) ? currentStep.dialogueEN : currentStep.dialogueID;
         currentLineText = ProcessText(rawText);
+        currentTextIndex = 0;
 
         bool shouldTransitionIn = SetupCharacterUI(targetCharacter, currentStep.expressionName, out bool shouldAnimateImage);
         bool shouldShakePanel = shouldTransitionIn && !isFirstLine;
@@ -462,12 +470,19 @@ public class NarrationManager : MonoBehaviour
     private IEnumerator TypeText(string text)
     {
         isTyping = true;
-        cancelTyping = false;
-        activeDialogueText.text = "";
+        skipToNextPeriod = false;
 
-        int i = 0;
-        while (i < text.Length && !cancelTyping)
+        int i = currentTextIndex;
+        while (i < text.Length)
         {
+            if (skipToNextPeriod)
+            {
+                skipToNextPeriod = false;
+                i = FindNextPeriodEnd(text, i);
+                activeDialogueText.text = text.Substring(0, i);
+                break;
+            }
+
             // Deteksi tag HTML Richtext TMP (seperti <b>, <color>, dll) agar tidak ikut terpotong saat ngetik
             if (text[i] == '<')
             {
@@ -484,14 +499,49 @@ public class NarrationManager : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }
 
-        activeDialogueText.text = text; // Tampilkan teks penuh jika di-skip
+        currentTextIndex = i;
+        if (currentTextIndex >= text.Length)
+        {
+            activeDialogueText.text = text;
+        }
         isTyping = false;
-        cancelTyping = false;
 
-        if (autoAdvanceLines && linesQueue.Count > 0)
+        if (autoAdvanceLines && currentTextIndex >= text.Length && linesQueue.Count > 0)
         {
             autoAdvanceCoroutine = StartCoroutine(AutoAdvanceAfterDelay());
         }
+    }
+
+    private int FindNextPeriodEnd(string text, int startIndex)
+    {
+        int index = startIndex;
+        while (index < text.Length)
+        {
+            if (text[index] == '<')
+            {
+                int closeIndex = text.IndexOf('>', index);
+                if (closeIndex != -1)
+                {
+                    index = closeIndex + 1;
+                    continue;
+                }
+            }
+            else if (text[index] == '.')
+            {
+                index++;
+                while (index < text.Length && text[index] == '<')
+                {
+                    int closeIndex = text.IndexOf('>', index);
+                    if (closeIndex == -1 || text[index + 1] != '/') break;
+                    index = closeIndex + 1;
+                }
+                return index;
+            }
+
+            index++;
+        }
+
+        return text.Length;
     }
 
     // Fungsi pembantu sederhana jika Anda belum memodifikasi regex kustom highlight text Anda
@@ -503,7 +553,7 @@ public class NarrationManager : MonoBehaviour
         return Regex.Replace(
             rawText,
             "<b>(.*?)</b>",
-            $"<color=#{colorHex}><b>$1</b></color>",
+            $"<color=#{colorHex}>$1</color>",
             RegexOptions.Singleline);
     }
 }

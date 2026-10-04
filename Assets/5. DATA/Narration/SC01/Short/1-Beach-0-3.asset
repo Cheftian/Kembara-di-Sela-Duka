@@ -10,21 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
-  m_Name: 1-Interior-8
+  m_Name: 1-Beach-0-3
   m_EditorClassIdentifier: 
   dialogueSteps:
   - characterName: Elara
     expressionName: Happy
-    dialogueEN: Yep. Of course.
-    dialogueID: Yap. Tentu.
-  - characterName: Elara
-    expressionName: Sad
-    dialogueEN: Dad isn't in his study either.
-    dialogueID: Ayah gak ada di ruang kerjanya juga.
+    dialogueEN: Finally arrived. The Lighthouse.
+    dialogueID: Akhirnya sampai di mercusuar.
   - characterName: Elara
     expressionName: Normal
-    dialogueEN: I'll <b>check the desk</b> first. Maybe Dad left a note or something.
-    dialogueID: Aku coba <b>cek di meja</b> dulu kali, barangkali ayah ninggalin
-      pesan ato apa gitu.
+    dialogueEN: Time to meet Dad.
+    dialogueID: Waktunya ketemu Ayah.
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 

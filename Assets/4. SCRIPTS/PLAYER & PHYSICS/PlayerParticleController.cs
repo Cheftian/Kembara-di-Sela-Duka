@@ -19,14 +19,26 @@ public class PlayerParticleController : MonoBehaviour
     [Tooltip("Sudut semburan partikel dari tanah (misal: 45 derajat)")]
     [SerializeField] private float emissionAngle = 45f;
 
+    [Header("Ground & Platform Surface")]
+    [SerializeField] private LayerMask particleSurfaceLayers;
+    [SerializeField] private float surfaceProbeDistance = 0.15f;
+    [SerializeField] private float surfaceOffset = 0.03f;
+
     private PlayerController player;
     private Rigidbody2D rb;
+    private Collider2D playerCollider;
     private bool wasGrounded;
 
     private void Awake()
     {
         player = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody2D>();
+        playerCollider = GetComponent<Collider2D>();
+
+        if (particleSurfaceLayers.value == 0)
+        {
+            particleSurfaceLayers = LayerMask.GetMask("Ground", "Platform");
+        }
 
         if (runParticles != null)
         {
@@ -108,16 +120,50 @@ public class PlayerParticleController : MonoBehaviour
     // KUNCI UTAMA: Fungsi ini sekarang PUBLIC agar bisa dipanggil oleh PlayerController saat lepas landas
     public void PlayJumpParticles()
     {
-        if (jumpParticlesA != null)
+        bool particleAHasSurface = TryPositionAtSurface(jumpParticlesA);
+        bool particleBHasSurface = TryPositionAtSurface(jumpParticlesB);
+
+        if (!particleAHasSurface && !particleBHasSurface)
         {
-            jumpParticlesA.Stop();
-            jumpParticlesA.Play();
+            return;
         }
 
-        if (jumpParticlesB != null)
+        PlayParticleSystem(jumpParticlesA);
+        PlayParticleSystem(jumpParticlesB);
+    }
+
+    private bool TryPositionAtSurface(ParticleSystem particleSystem)
+    {
+        if (particleSystem == null || playerCollider == null)
         {
-            jumpParticlesB.Stop();
-            jumpParticlesB.Play();
+            return false;
         }
+
+        Bounds playerBounds = playerCollider.bounds;
+        Vector2 rayOrigin = playerBounds.center;
+        float rayDistance = playerBounds.extents.y + Mathf.Max(0f, surfaceProbeDistance);
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, rayDistance, particleSurfaceLayers);
+
+        if (hit.collider == null || hit.normal.y <= 0.5f)
+        {
+            return false;
+        }
+
+        Vector3 particlePosition = particleSystem.transform.position;
+        particlePosition.x = playerBounds.center.x;
+        particlePosition.y = hit.point.y + surfaceOffset;
+        particleSystem.transform.position = particlePosition;
+        return true;
+    }
+
+    private static void PlayParticleSystem(ParticleSystem particleSystem)
+    {
+        if (particleSystem == null)
+        {
+            return;
+        }
+
+        particleSystem.Stop();
+        particleSystem.Play();
     }
 }

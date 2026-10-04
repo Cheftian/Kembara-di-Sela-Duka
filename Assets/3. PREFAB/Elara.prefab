@@ -266,18 +266,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b8209d2e132eb4b8e519687210b02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  dizzyMoveSpeed: 1
-  runSpeed: 9
-  maxSprintSpeed: 9
+  moveSpeed: 4
+  dizzyMoveSpeed: 2
+  runSpeed: 12
+  maxSprintSpeed: 12
   durationBeforeSprint: 3
-  runAcceleration: 8
+  runAcceleration: 12
   canRun: 1
   visualTransform: {fileID: 802487981698771680}
   animator: {fileID: 7470224318956078941}
   spriteRenderer: {fileID: 6511306753981552757}
   sitDuration: 0.5
-  jumpForce: 20
+  sitDelayAfterTeleport: 1.5
+  glitchFlashInName: FlashIn
+  jumpForce: 22
+  jumpReleaseMultiplier: 0.55
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -285,8 +288,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   groundCheckPoint: {fileID: 1804823515093395802}
-  groundCheckRadius: 0.5
-  jumpCooldownTime: 1.5
+  groundCheckRadius: 0.4
+  jumpCooldownTime: 0
   jumpMovementSpeed: 6
   airTiltAngle: 13
   airTiltLerpSpeed: 2
@@ -594,6 +597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ae9075d72e9e641806a40c73c68249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notificationType: 0
   duration: 0.2
 --- !u!1 &5177746296392215438
 GameObject:
@@ -695,6 +699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ae9075d72e9e641806a40c73c68249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notificationType: 0
   duration: 0.2
 --- !u!1 &7716441406682948805
 GameObject:

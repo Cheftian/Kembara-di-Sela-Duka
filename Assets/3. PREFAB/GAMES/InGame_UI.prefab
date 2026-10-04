@@ -1855,7 +1855,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   sceneTransitionName: RoomFadeOut
   typingSpeed: 0.05
-  highlightColor: {r: 0.78867924, g: 0.2527007, b: 0.16517623, a: 1}
+  highlightColor: {r: 0.3680727, g: 0.4188679, b: 0.078241326, a: 1}
   delayBeforePlayState: 0
   autoAdvanceLines: 0
   autoAdvanceDelay: 2

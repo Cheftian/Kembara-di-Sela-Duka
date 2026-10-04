@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
-  m_Name: 1-Beach-0-2
+  m_Name: 1-Interior-1
   m_EditorClassIdentifier: 
   dialogueSteps:
   - characterName: Elara
     expressionName: Happy
-    dialogueEN: Butterfliiies!
-    dialogueID: Kupu-kupuu!
-  - characterName: Elara
-    expressionName: Questioning
-    dialogueEN: But why is it black?
-    dialogueID: Tapi kok hitam?
+    dialogueEN: WHOA! This place hasn't changed much.
+    dialogueID: WAHH! Tempat ini gak banyak berubah.
   - characterName: Elara
     expressionName: Happy
-    dialogueEN: I'll follow it.
-    dialogueID: Ikutin dehh.
+    dialogueEN: AWESO--
+    dialogueID: ASIKNY--
+  - characterName: Elara
+    expressionName: Happy
+    dialogueEN: Oh, I shouldn't be loud. I want to surprise Dad when I show up.
+    dialogueID: Eh, aku gak boleh berisik. Aku mau ngagetin Ayah kalo aku dah nyampe.
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 
