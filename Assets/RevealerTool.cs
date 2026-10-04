@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RevealerTool : MonoBehaviour
@@ -22,46 +23,75 @@ public class RevealerTool : MonoBehaviour
 
 
     private Collider2D myCollider;
+    private readonly List<Collider2D> overlappingColliders = new List<Collider2D>();
+    private ContactFilter2D overlapFilter;
     private Vector3 lastPosition;
-    private bool isMoving = false;
+    private Vector3 lastScale;
+    private Quaternion lastRotation;
 
-    void Start()
+    void Awake()
     {
         myCollider = GetComponent<Collider2D>();
-        lastPosition = transform.position;
-    }
-
-    void Update()
-    {
-        // Deteksi pergerakan di Update agar lebih presisi menangkap input pergeseran posisi
-        if (transform.position != lastPosition)
+        if (myCollider == null)
         {
-            isMoving = true;
-        }
-        else
-        {
-            isMoving = false;
+            Debug.LogError("RevealerTool membutuhkan Collider2D pada GameObject yang sama.", this);
+            enabled = false;
+            return;
         }
 
         lastPosition = transform.position;
-    }
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (!isMoving) return;
+        lastScale = transform.lossyScale;
+        lastRotation = transform.rotation;
 
-        DynamicMaskController mask = other.GetComponent<DynamicMaskController>();
-        
-        if (mask != null && myCollider != null)
+        overlapFilter = new ContactFilter2D
         {
-            mask.ApplyRevealFromCollider(myCollider, maskMechanic, fadeSpeed, shadowRegrowthSpeed, trailExpansionSpeed, expansionDuration);
-            
-            // --- SEKARANG MEMANGGIL INSTANCE CAMERA CONTROLLER ---
+            useTriggers = true
+        };
+    }
+
+    void LateUpdate()
+    {
+        if (myCollider == null || !myCollider.enabled)
+            return;
+
+        Vector3 currentPosition = transform.position;
+        Vector3 currentScale = transform.lossyScale;
+        Quaternion currentRotation = transform.rotation;
+        bool shapeOrPositionChanged =
+            currentPosition != lastPosition ||
+            currentScale != lastScale ||
+            currentRotation != lastRotation;
+
+        lastPosition = currentPosition;
+        lastScale = currentScale;
+        lastRotation = currentRotation;
+
+        if (!shapeOrPositionChanged)
+            return;
+
+        // The revealer may be scaled by another Update script, so synchronize before querying overlaps.
+        Physics2D.SyncTransforms();
+        overlappingColliders.Clear();
+        myCollider.Overlap(overlapFilter, overlappingColliders);
+
+        foreach (Collider2D other in overlappingColliders)
+        {
+            DynamicMaskController mask = other.GetComponentInParent<DynamicMaskController>();
+            if (mask == null)
+                continue;
+
+            mask.ApplyRevealFromCollider(
+                myCollider,
+                maskMechanic,
+                fadeSpeed,
+                shadowRegrowthSpeed,
+                trailExpansionSpeed,
+                expansionDuration);
+
             if (CameraController.Instance != null)
             {
                 CameraController.Instance.TriggerShake(0.05f, shakeMagnitude);
             }
         }
     }
-
-
 }

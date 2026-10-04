@@ -1187,6 +1187,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void BeginInteractionSit()
+    {
+        isNarrationSitSequenceActive = true;
+        BlockInput = true;
+        horizontalInput = 0f;
+        isRunning = false;
+        currentVelocityX = 0f;
+
+        if (rb != null)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+        }
+
+        if (animator != null)
+        {
+            animator.speed = 1f;
+            animator.ResetTrigger("Sit");
+            animator.ResetTrigger("Stand");
+            animator.SetTrigger("Sit");
+        }
+    }
+
+    public IEnumerator EndInteractionSitAndWait()
+    {
+        yield return StartCoroutine(PlayAnimationAndWait("Stand"));
+        isNarrationSitSequenceActive = false;
+        ResetToIdleState();
+    }
+
     public void ResetToIdleState()
     {
         // Cutscene dapat memotong animasi flip sebelum event penyelesaiannya dipanggil.

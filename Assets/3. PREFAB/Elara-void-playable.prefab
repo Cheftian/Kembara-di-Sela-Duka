@@ -10315,6 +10315,7 @@ MonoBehaviour:
     m_Bits: 256
   groundCheckPoint: {fileID: 5317037583967940746}
   groundCheckRadius: 0.5
+  groundProbeDistance: 0.15
   minimumGroundContactNormalY: 0.2
   jumpCooldownTime: 0
   jumpMovementSpeed: 6
@@ -15453,7 +15454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ae9075d72e9e641806a40c73c68249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notificationType: 0
+  notificationType: 1
   duration: 0.2
 --- !u!1 &9016929837358876542
 GameObject:

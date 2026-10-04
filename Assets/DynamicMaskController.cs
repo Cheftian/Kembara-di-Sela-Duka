@@ -7,12 +7,16 @@ public class DynamicMaskController : MonoBehaviour
     public int textureResolution = 128; 
 
     [Header("Auto Clear Settings")]
-    [Range(10f, 95f)]
+    [Range(0f, 95f)]
     [Tooltip("Jika area terhapus mencapai persentase ini, reaksi pembersihan otomatis ke seluruh sprite akan terpicu.")]
     public float autoClearThresholdPercent = 80f;
     
     [Tooltip("Seberapa cepat penyebaran sisa area saat auto-clear terjadi. (Direkomendasikan diisi nilai yang sama/mirip dengan Fade Speed di Revealer).")]
     public float autoClearSpeed = 4.0f;
+
+    [Header("Completion Settings")]
+    [Tooltip("Hapus GameObject setelah seluruh area mask berhasil direveal.")]
+    public bool destroyWhenFullyRevealed = true;
 
     private Texture2D maskTexture;
     private Material foregroundMaterial;
@@ -20,6 +24,8 @@ public class DynamicMaskController : MonoBehaviour
     private Color[] currentPixels;
     private Color[] processedPixels;
     private float[] pixelExpansionTimers;
+    private bool[] revealedPixels;
+    private int revealedPixelCount;
     
     private RevealerTool.MaskType activeMechanicMode = RevealerTool.MaskType.RevealOnlyWhileInside;
     private float runtimeRegrowthSpeed = 0.5f;
@@ -46,6 +52,7 @@ public class DynamicMaskController : MonoBehaviour
         currentPixels = new Color[totalPixels];
         processedPixels = new Color[totalPixels];
         pixelExpansionTimers = new float[totalPixels];
+        revealedPixels = new bool[totalPixels];
         
         ResetMaskToWhite();
         foregroundMaterial.SetTexture("_MaskTex", maskTexture);
@@ -207,8 +214,15 @@ public class DynamicMaskController : MonoBehaviour
     {
         isSystemActive = false;
         StopAllCoroutines();
-        Destroy(gameObject); 
-        Debug.Log("Lapisan gelap terkikis habis secara organik! Objek dihancurkan.");
+        if (destroyWhenFullyRevealed)
+        {
+            Destroy(gameObject);
+            Debug.Log("Lapisan gelap terkikis habis secara organik! Objek dihancurkan.");
+        }
+        else
+        {
+            Debug.Log("Lapisan gelap terkikis habis secara organik.");
+        }
     }
 
     public void ApplyRevealFromCollider(Collider2D revealerCollider, RevealerTool.MaskType mechanicType, float fadeSpeed, float regrowthSpeed, float expansionSpeed, float expansionDuration)
@@ -234,13 +248,47 @@ public class DynamicMaskController : MonoBehaviour
         {
             for (int x = minX; x < maxX; x++)
             {
-                float worldX = bounds.min.x + ((float)x / textureResolution) * bounds.size.x;
-                float worldY = bounds.min.y + ((float)y / textureResolution) * bounds.size.y;
+                float worldX = bounds.min.x + ((x + 0.5f) / textureResolution) * bounds.size.x;
+                float worldY = bounds.min.y + ((y + 0.5f) / textureResolution) * bounds.size.y;
                 Vector2 pixelWorldPos = new Vector2(worldX, worldY);
 
-                if (revealerCollider.OverlapPoint(pixelWorldPos))
+                if (!revealerCollider.OverlapPoint(pixelWorldPos))
+                    continue;
+
+                int index = y * textureResolution + x;
+                maskTexture.SetPixel(x, y, new Color(0f, 0f, 0f, 1f));
+                pixelExpansionTimers[index] = expansionDuration;
+                changed = true;
+
+                if (!revealedPixels[index])
                 {
-                    int index = y * textureResolution + x;
-                    
-                    // Coret instan pixel sentuhan utama menjadi transparan
-maskTexture.SetPixel(x, y, new Color(0f, 0f, 0f, 1f));pixelExpansionTimers[index] = expansionDuration;changed = true;}}}if (changed){maskTexture.Apply();}}private void ResetMaskToWhite(){Color[] whitePixels = new Color[totalPixels];for (int i = 0; i < whitePixels.Length; i++){whitePixels[i] = Color.white;pixelExpansionTimers[i] = 0f;}maskTexture.SetPixels(whitePixels);maskTexture.Apply();}}
+                    revealedPixels[index] = true;
+                    revealedPixelCount++;
+                }
+            }
+        }
+
+        if (changed)
+        {
+            maskTexture.Apply();
+        }
+
+        if (destroyWhenFullyRevealed && revealedPixelCount == totalPixels)
+        {
+            FinalizeDestroy();
+        }
+    }
+
+    private void ResetMaskToWhite()
+    {
+        Color[] whitePixels = new Color[totalPixels];
+        for (int i = 0; i < whitePixels.Length; i++)
+        {
+            whitePixels[i] = Color.white;
+            pixelExpansionTimers[i] = 0f;
+        }
+
+        maskTexture.SetPixels(whitePixels);
+        maskTexture.Apply();
+    }
+}

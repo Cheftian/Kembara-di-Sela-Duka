@@ -80,6 +80,8 @@ public class CameraController : MonoBehaviour
     public Vector2 MinPositionBound => minPosition;
     public Vector2 MaxPositionBound => maxPosition;
     public float CurrentCameraSize => cam != null ? cam.orthographicSize : cameraSize;
+    public float BaseCameraSize => baseCameraSize;
+    public Transform CurrentTarget => target;
 
     public static CameraController Instance { get; private set; }
     private float shakeTimer = 0f;
@@ -289,6 +291,25 @@ public class CameraController : MonoBehaviour
     {
         target = newTarget;
     }
+
+    public bool HasReachedCurrentTarget(float tolerance)
+    {
+        if (target == null) return false;
+
+        Vector3 targetPosition = target.position + offset;
+        if (glitchEffectActive)
+        {
+            Vector3 focusPosition = glitchFocusPosition;
+            focusPosition.z = targetPosition.z;
+            targetPosition = Vector3.Lerp(targetPosition, focusPosition, Mathf.Clamp01(glitchFocusStrength));
+        }
+
+        targetPosition = ClampPositionToBoundaries(
+            targetPosition,
+            cam != null ? cam.orthographicSize : cameraSize);
+        return Vector3.Distance(transform.position, targetPosition) <= Mathf.Max(0f, tolerance);
+    }
+
     public void SetCameraSize(float newSize)
     {
         baseCameraSize = newSize;

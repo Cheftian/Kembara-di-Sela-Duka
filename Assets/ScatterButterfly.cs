@@ -51,9 +51,6 @@ public class ScatterButterfly : MonoBehaviour
         
         manager = GetComponentInParent<ButterflySwarmManager>();
 
-        RevealerTool tool = GetComponent<RevealerTool>();
-        if (tool != null) tool.enabled = false;
-
         if (animator != null) animator.Update(Random.Range(0f, 5f));
 
         // Mengeset posisi target lokal acak pertama kali saat game dimulai
@@ -62,9 +59,6 @@ public class ScatterButterfly : MonoBehaviour
 
     public void StartScatterFlight()
     {
-        RevealerTool tool = GetComponent<RevealerTool>();
-        if (tool != null) tool.enabled = true;
-
         if (GetComponent<Rigidbody2D>() == null)
         {
             Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();

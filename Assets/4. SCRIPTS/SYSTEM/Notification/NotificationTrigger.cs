@@ -7,9 +7,11 @@ public class NotificationTrigger : MonoBehaviour
     [Tooltip("NotificationPopup dengan jenis ini akan dicari otomatis dari Player dan seluruh child-nya")]
     [SerializeField] private NotificationPopup.NotificationType notificationType = NotificationPopup.NotificationType.W;
     private NotificationPopup notification;
+    private bool notificationDismissed;
 
     private void OnEnable()
     {
+        notificationDismissed = false;
         StartCoroutine(CheckPlayerAlreadyInside());
     }
 
@@ -25,7 +27,7 @@ public class NotificationTrigger : MonoBehaviour
         if (IsPlayerInside(player.transform))
         {
             notification = FindNotificationPopup(player.transform);
-            if (notification != null)
+            if (notification != null && !notificationDismissed)
             {
                 notification.Show();
             }
@@ -40,7 +42,7 @@ public class NotificationTrigger : MonoBehaviour
     {
         // Ganti ke OnTriggerEnter jika Anda menggunakan game 3D
         Transform playerTransform = FindPlayerTransform(collision.transform);
-        if (playerTransform != null)
+        if (playerTransform != null && !notificationDismissed)
         {
             notification = FindNotificationPopup(playerTransform);
             if (notification != null)
@@ -76,10 +78,14 @@ public class NotificationTrigger : MonoBehaviour
 
         if (IsPlayerInside(player))
         {
-            notification.Show();
+            if (!notificationDismissed)
+            {
+                notification.Show();
+            }
         }
         else
         {
+            notificationDismissed = false;
             notification.Hide();
         }
     }
@@ -134,6 +140,8 @@ public class NotificationTrigger : MonoBehaviour
 
     public void ShowNotification()
     {
+        notificationDismissed = false;
+
         if (notification != null)
         {
             notification.Show();
@@ -142,6 +150,8 @@ public class NotificationTrigger : MonoBehaviour
 
     public void HideNotification()
     {
+        notificationDismissed = true;
+
         if (notification != null)
         {
             notification.Hide();
