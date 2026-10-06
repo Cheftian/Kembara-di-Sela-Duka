@@ -82,6 +82,16 @@ public class CameraController : MonoBehaviour
     public float CurrentCameraSize => cam != null ? cam.orthographicSize : cameraSize;
     public float BaseCameraSize => baseCameraSize;
     public Transform CurrentTarget => target;
+    public bool VerticalCameraSizeEnabled
+    {
+        get => enableVerticalCameraSize;
+        set => enableVerticalCameraSize = value;
+    }
+    public bool ManualMovementEnabled
+    {
+        get => canMoveManually;
+        set => canMoveManually = value;
+    }
 
     public static CameraController Instance { get; private set; }
     private float shakeTimer = 0f;

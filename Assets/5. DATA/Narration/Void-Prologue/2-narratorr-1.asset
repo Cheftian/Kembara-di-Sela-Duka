@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fa3e45e619d804fb1458038e5f0c13, type: 3}
+  m_Name: 2-narratorr-1
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - characterName: 
+    expressionName: 
+    dialogueEN: 24 FEBRUARY 1992
+    dialogueID: 24 FEBRUARI 1992
+  - characterName: 
+    expressionName: 
+    dialogueEN: A TROPICAL CYCLONE HAS BEGUN TO STRIKE <b>ALDINA DISTRICT</b>
+    dialogueID: SIKLON TROPIS MULAI MELANDA KECAMATAN ALDINA
+  - characterName: 
+    expressionName: 
+    dialogueEN: THE STORM IS EXPECTED TO LAST A LONG TIME. <b>PLEASE BE CARREFUL</b>
+    dialogueID: BADAI DIPERKIRAKAN AKAN BERLANGSUNG LAMA. <b>BERHATI-HATILAH</b>
+  - characterName: 
+    expressionName: 
+    dialogueEN: AVOID STORM-PRRONE AREAS. <b>SAVE YOURSELF</b>
+    dialogueID: HINDARI DAERAH YANG RAWAN DENGAN BADAI. <b>SELAMATKAN DIRI ANDA</b>
+  loadSceneAfterNarration: 0
+  sceneNameAfterNarration: 

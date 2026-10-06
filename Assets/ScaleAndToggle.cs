@@ -1,5 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ScaleAndToggle : MonoBehaviour
 {
@@ -11,7 +15,25 @@ public class ScaleAndToggle : MonoBehaviour
     [SerializeField, Min(0f)] private float scaleTransitionDuration = 0.5f;
     [SerializeField, Min(0f)] private float interactionStartScaleMultiplier = 0.2f;
     [SerializeField] private float interactionScaleMultiplier = 1.5f;
-    [SerializeField] private float duration = 2f;
+    [FormerlySerializedAs("duration")]
+    [SerializeField, Min(0f), Tooltip("Durasi cadangan jika referensi narasi belum dikonfigurasi.")]
+    private float fallbackDuration = 2f;
+
+    [Header("Narration Settings")]
+    [SerializeField] private NarrationData narrationData;
+    [SerializeField] private TMP_Text narrationText;
+    [SerializeField, Min(0f)] private float narrationFadeOutDuration = 0.35f;
+
+    [Header("Narration Text Effects")]
+    [SerializeField, Min(0f)] private float narrationWaveAmplitude = 2f;
+    [SerializeField, Min(0f)] private float narrationWaveFrequency = 5f;
+    [SerializeField, Min(0f)] private float narrationWaveCharacterSpacing = 0.8f;
+    [SerializeField, Min(0f)] private float narrationGlitchInterval = 2f;
+    [SerializeField, Min(0f)] private float narrationGlitchIntervalRandomness = 1f;
+    [SerializeField, Min(0f)] private float narrationGlitchDuration = 0.12f;
+    [SerializeField, Min(0f)] private float narrationGlitchDurationRandomness = 0.12f;
+    [SerializeField, Min(1)] private int narrationGlitchCharacterCount = 3;
+    [SerializeField, Min(0f)] private float narrationGlitchShake = 2f;
 
     [Header("Pickup Animation")]
     [SerializeField, Min(0f)] private float pickupPopHeight = 1f;
@@ -45,6 +67,18 @@ public class ScaleAndToggle : MonoBehaviour
     private Vector3 pickupRootOriginalScale;
     private PlayerController interactingPlayer;
     private bool playerInputWasBlocked;
+    private CameraController interactionCameraController;
+    private bool verticalCameraSizeWasEnabled;
+    private bool manualMovementWasEnabled;
+    private bool narrationTextWasActive;
+    private bool narrationTextWasEnabled;
+    private bool isTypingNarration;
+    private bool isInteractionNarrationActive;
+    private bool skipNarrationToNextPeriod;
+    private bool narrationContinueRequested;
+    private string narrationSourceText = string.Empty;
+    private HashSet<int> glitchedCharacterIndices = new HashSet<int>();
+    private Vector3[][] narrationOriginalVertices;
 
     void Awake()
     {
@@ -54,6 +88,13 @@ public class ScaleAndToggle : MonoBehaviour
         revealerTool = GetComponent<RevealerTool>();
         notificationTrigger = GetComponent<NotificationTrigger>();
 
+        if (narrationText != null)
+        {
+            narrationTextWasActive = narrationText.gameObject.activeSelf;
+            narrationTextWasEnabled = narrationText.enabled;
+            narrationText.enabled = false;
+        }
+
         if (revealerTool != null)
         {
             revealerTool.enabled = false;
@@ -62,6 +103,18 @@ public class ScaleAndToggle : MonoBehaviour
 
     void Update()
     {
+        if (isInteractionNarrationActive && Input.anyKeyDown)
+        {
+            if (isTypingNarration)
+            {
+                skipNarrationToNextPeriod = true;
+            }
+            else
+            {
+                narrationContinueRequested = true;
+            }
+        }
+
         // Cek interaksi tombol S
         if (Input.GetKeyDown(KeyCode.S) &&
             !isInteracting &&
@@ -76,6 +129,16 @@ public class ScaleAndToggle : MonoBehaviour
         {
             HandleIdlePulse();
         }
+    }
+
+    private void LateUpdate()
+    {
+        if (!isInteractionNarrationActive || narrationText == null || !narrationText.enabled)
+        {
+            return;
+        }
+
+        ApplyNarrationTextEffects();
     }
 
     // Fungsi untuk membuat objek membesar/mengecil otomatis (Idle)
@@ -100,6 +163,15 @@ public class ScaleAndToggle : MonoBehaviour
         }
 
         playerInputWasBlocked = interactingPlayer.BlockInput;
+        interactionCameraController = CameraController.Instance;
+        if (interactionCameraController != null)
+        {
+            verticalCameraSizeWasEnabled = interactionCameraController.VerticalCameraSizeEnabled;
+            manualMovementWasEnabled = interactionCameraController.ManualMovementEnabled;
+            interactionCameraController.VerticalCameraSizeEnabled = false;
+            interactionCameraController.ManualMovementEnabled = false;
+        }
+
         interactingPlayer.BeginInteractionSit();
         isInteracting = true;
 
@@ -122,9 +194,24 @@ public class ScaleAndToggle : MonoBehaviour
 
         yield return ScaleOverTime(startScale, targetScale, scaleTransitionDuration);
 
-        yield return new WaitForSeconds(Mathf.Max(0f, duration));
+        if (narrationData != null && narrationText != null && NarrationManager.Instance != null)
+        {
+            yield return StartCoroutine(PlayInteractionNarration());
+        }
+        else
+        {
+            if (narrationData != null || narrationText != null)
+            {
+                Debug.LogError(
+                    "[ScaleAndToggle] NarrationData, TMP_Text, dan NarrationManager harus tersedia untuk menampilkan narasi.",
+                    this);
+            }
+
+            yield return new WaitForSeconds(Mathf.Max(0f, fallbackDuration));
+        }
 
         yield return ScaleOverTime(targetScale, originalScale, scaleTransitionDuration);
+        RestoreNarrationTextVisibility();
 
         if (revealerTool != null)
         {
@@ -132,6 +219,361 @@ public class ScaleAndToggle : MonoBehaviour
         }
 
         yield return StartCoroutine(PickupSequence());
+        RestoreCameraInteractionSettings();
+    }
+
+    private void RestoreCameraInteractionSettings()
+    {
+        if (interactionCameraController == null) return;
+
+        interactionCameraController.VerticalCameraSizeEnabled = verticalCameraSizeWasEnabled;
+        interactionCameraController.ManualMovementEnabled = manualMovementWasEnabled;
+        interactionCameraController = null;
+    }
+
+    private IEnumerator PlayInteractionNarration()
+    {
+        NarrationManager narrationManager = NarrationManager.Instance;
+        if (narrationData.dialogueSteps == null || narrationData.dialogueSteps.Length == 0)
+        {
+            Debug.LogError("[ScaleAndToggle] NarrationData tidak memiliki dialogueSteps.", narrationData);
+            yield break;
+        }
+
+        narrationText.gameObject.SetActive(true);
+        narrationText.enabled = true;
+        SetNarrationText(string.Empty);
+        isInteractionNarrationActive = true;
+        isTypingNarration = false;
+        skipNarrationToNextPeriod = false;
+        narrationContinueRequested = false;
+        glitchedCharacterIndices.Clear();
+        StartCoroutine(GlitchNarrationText());
+
+        for (int stepIndex = 0; stepIndex < narrationData.dialogueSteps.Length; stepIndex++)
+        {
+            NarrationManager.Language activeLanguage = narrationManager.CurrentLanguage;
+            string text = BuildNarrationLine(
+                narrationManager,
+                narrationData.dialogueSteps[stepIndex],
+                activeLanguage);
+            int textIndex = 0;
+            SetNarrationText(string.Empty);
+
+            while (true)
+            {
+                if (narrationManager.CurrentLanguage != activeLanguage)
+                {
+                    activeLanguage = narrationManager.CurrentLanguage;
+                    text = BuildNarrationLine(
+                        narrationManager,
+                        narrationData.dialogueSteps[stepIndex],
+                        activeLanguage);
+                    textIndex = 0;
+                    SetNarrationText(string.Empty);
+                }
+
+                isTypingNarration = true;
+                bool languageChangedDuringTyping = false;
+                while (textIndex < text.Length)
+                {
+                    if (narrationManager.CurrentLanguage != activeLanguage)
+                    {
+                        activeLanguage = narrationManager.CurrentLanguage;
+                        text = BuildNarrationLine(
+                            narrationManager,
+                            narrationData.dialogueSteps[stepIndex],
+                            activeLanguage);
+                        textIndex = 0;
+                        SetNarrationText(string.Empty);
+                        languageChangedDuringTyping = true;
+                        break;
+                    }
+
+                    if (skipNarrationToNextPeriod)
+                    {
+                        skipNarrationToNextPeriod = false;
+                        textIndex = FindNextPeriodEnd(text, textIndex);
+                        SetNarrationText(text.Substring(0, textIndex));
+                        break;
+                    }
+
+                    if (text[textIndex] == '<')
+                    {
+                        int closeIndex = text.IndexOf('>', textIndex);
+                        if (closeIndex != -1)
+                        {
+                            textIndex = closeIndex + 1;
+                            continue;
+                        }
+                    }
+
+                    SetNarrationText(text.Substring(0, textIndex + 1));
+                    textIndex++;
+                    yield return new WaitForSeconds(narrationManager.TypingSpeed);
+                }
+
+                isTypingNarration = false;
+                if (languageChangedDuringTyping)
+                {
+                    continue;
+                }
+
+                SetNarrationText(text.Substring(0, textIndex));
+                narrationContinueRequested = false;
+                while (!narrationContinueRequested)
+                {
+                    if (narrationManager.CurrentLanguage != activeLanguage)
+                    {
+                        activeLanguage = narrationManager.CurrentLanguage;
+                        text = BuildNarrationLine(
+                            narrationManager,
+                            narrationData.dialogueSteps[stepIndex],
+                            activeLanguage);
+                        textIndex = 0;
+                        SetNarrationText(string.Empty);
+                        break;
+                    }
+
+                    yield return null;
+                }
+
+                if (narrationManager.CurrentLanguage != activeLanguage)
+                {
+                    continue;
+                }
+
+                if (textIndex >= text.Length)
+                {
+                    break;
+                }
+            }
+        }
+
+        isInteractionNarrationActive = false;
+        yield return StartCoroutine(FadeOutInteractionNarration());
+        glitchedCharacterIndices.Clear();
+        SetNarrationText(string.Empty);
+    }
+
+    private IEnumerator GlitchNarrationText()
+    {
+        const string glitchCharacters = "%*$&#@!?/\\|";
+
+        while (isInteractionNarrationActive)
+        {
+            float interval = Mathf.Max(
+                0f,
+                narrationGlitchInterval +
+                Random.Range(-narrationGlitchIntervalRandomness, narrationGlitchIntervalRandomness));
+            yield return new WaitForSeconds(interval);
+            if (!isInteractionNarrationActive) yield break;
+
+            narrationText.ForceMeshUpdate();
+            TMP_TextInfo textInfo = narrationText.textInfo;
+            glitchedCharacterIndices.Clear();
+            List<int> eligibleCharacterIndices = new List<int>();
+
+            for (int i = 0; i < textInfo.characterCount; i++)
+            {
+                TMP_CharacterInfo characterInfo = textInfo.characterInfo[i];
+                int sourceIndex = characterInfo.index;
+                if (!characterInfo.isVisible ||
+                    sourceIndex < 0 ||
+                    sourceIndex >= narrationSourceText.Length ||
+                    char.IsWhiteSpace(narrationSourceText[sourceIndex]))
+                {
+                    continue;
+                }
+
+                eligibleCharacterIndices.Add(sourceIndex);
+            }
+
+            for (int i = 0; i < narrationGlitchCharacterCount && eligibleCharacterIndices.Count > 0; i++)
+            {
+                int randomIndex = Random.Range(0, eligibleCharacterIndices.Count);
+                glitchedCharacterIndices.Add(eligibleCharacterIndices[randomIndex]);
+                eligibleCharacterIndices.RemoveAt(randomIndex);
+            }
+
+            SetNarrationText(narrationSourceText, glitchCharacters);
+            float glitchDuration = Mathf.Max(
+                0f,
+                narrationGlitchDuration +
+                Random.Range(-narrationGlitchDurationRandomness, narrationGlitchDurationRandomness));
+            yield return new WaitForSeconds(glitchDuration);
+
+            glitchedCharacterIndices.Clear();
+            if (!isInteractionNarrationActive) yield break;
+            SetNarrationText(narrationSourceText);
+        }
+    }
+
+    private void SetNarrationText(string sourceText, string glitchCharacters = null)
+    {
+        narrationSourceText = sourceText;
+        StringBuilder displayText = new StringBuilder(sourceText);
+
+        if (glitchCharacters != null)
+        {
+            foreach (int characterIndex in glitchedCharacterIndices)
+            {
+                if (characterIndex >= 0 && characterIndex < displayText.Length)
+                {
+                    displayText[characterIndex] = glitchCharacters[
+                        Random.Range(0, glitchCharacters.Length)];
+                }
+            }
+        }
+
+        narrationText.text = displayText.ToString();
+        narrationText.ForceMeshUpdate();
+        CacheNarrationOriginalVertices();
+    }
+
+    private void CacheNarrationOriginalVertices()
+    {
+        TMP_TextInfo textInfo = narrationText.textInfo;
+        narrationOriginalVertices = new Vector3[textInfo.meshInfo.Length][];
+
+        for (int i = 0; i < textInfo.meshInfo.Length; i++)
+        {
+            Vector3[] vertices = textInfo.meshInfo[i].vertices;
+            narrationOriginalVertices[i] = new Vector3[vertices.Length];
+            System.Array.Copy(vertices, narrationOriginalVertices[i], vertices.Length);
+        }
+    }
+
+    private void ApplyNarrationTextEffects()
+    {
+        TMP_TextInfo textInfo = narrationText.textInfo;
+        if (narrationOriginalVertices == null ||
+            narrationOriginalVertices.Length != textInfo.meshInfo.Length)
+        {
+            CacheNarrationOriginalVertices();
+        }
+
+        for (int i = 0; i < textInfo.meshInfo.Length; i++)
+        {
+            Vector3[] vertices = textInfo.meshInfo[i].vertices;
+            Vector3[] originalVertices = narrationOriginalVertices[i];
+            if (vertices.Length != originalVertices.Length)
+            {
+                CacheNarrationOriginalVertices();
+                return;
+            }
+
+            System.Array.Copy(originalVertices, vertices, vertices.Length);
+        }
+
+        for (int i = 0; i < textInfo.characterCount; i++)
+        {
+            TMP_CharacterInfo characterInfo = textInfo.characterInfo[i];
+            if (!characterInfo.isVisible) continue;
+
+            float waveOffset = Mathf.Sin(
+                Time.time * narrationWaveFrequency + i * narrationWaveCharacterSpacing)
+                * narrationWaveAmplitude;
+            Vector3 offset = new Vector3(0f, waveOffset, 0f);
+            if (glitchedCharacterIndices.Contains(characterInfo.index))
+            {
+                offset += new Vector3(
+                    Random.Range(-narrationGlitchShake, narrationGlitchShake),
+                    Random.Range(-narrationGlitchShake, narrationGlitchShake),
+                    0f);
+            }
+
+            Vector3[] vertices = textInfo.meshInfo[characterInfo.materialReferenceIndex].vertices;
+            int vertexIndex = characterInfo.vertexIndex;
+            vertices[vertexIndex] += offset;
+            vertices[vertexIndex + 1] += offset;
+            vertices[vertexIndex + 2] += offset;
+            vertices[vertexIndex + 3] += offset;
+        }
+
+        narrationText.UpdateVertexData(TMP_VertexDataUpdateFlags.Vertices);
+    }
+
+    private IEnumerator FadeOutInteractionNarration()
+    {
+        Color originalColor = narrationText.color;
+        if (narrationFadeOutDuration > 0f)
+        {
+            float elapsed = 0f;
+            while (elapsed < narrationFadeOutDuration)
+            {
+                elapsed += Time.deltaTime;
+                Color fadedColor = originalColor;
+                fadedColor.a = originalColor.a *
+                    (1f - Mathf.Clamp01(elapsed / narrationFadeOutDuration));
+                narrationText.color = fadedColor;
+                yield return null;
+            }
+        }
+
+        Color transparentColor = originalColor;
+        transparentColor.a = 0f;
+        narrationText.color = transparentColor;
+        narrationText.text = string.Empty;
+        narrationText.color = originalColor;
+    }
+
+    private string BuildNarrationLine(
+        NarrationManager narrationManager,
+        NarrationData.DialogueStep step,
+        NarrationManager.Language language)
+    {
+        string rawText = language == NarrationManager.Language.English
+            ? step.dialogueEN
+            : step.dialogueID;
+        return narrationManager.FormatNarrationText(rawText);
+    }
+
+    private int FindNextPeriodEnd(string text, int startIndex)
+    {
+        int index = startIndex;
+        while (index < text.Length)
+        {
+            if (text[index] == '<')
+            {
+                int closeIndex = text.IndexOf('>', index);
+                if (closeIndex != -1)
+                {
+                    index = closeIndex + 1;
+                    continue;
+                }
+            }
+            else if (text[index] == '.')
+            {
+                index++;
+                while (index < text.Length && text[index] == '<')
+                {
+                    int closeIndex = text.IndexOf('>', index);
+                    if (closeIndex == -1 || text[index + 1] != '/') break;
+                    index = closeIndex + 1;
+                }
+
+                return index;
+            }
+
+            index++;
+        }
+
+        return text.Length;
+    }
+
+    private void RestoreNarrationTextVisibility()
+    {
+        if (narrationText == null) return;
+
+        isTypingNarration = false;
+        isInteractionNarrationActive = false;
+        skipNarrationToNextPeriod = false;
+        narrationContinueRequested = false;
+        glitchedCharacterIndices.Clear();
+        SetNarrationText(string.Empty);
+        narrationText.enabled = narrationTextWasEnabled;
+        narrationText.gameObject.SetActive(narrationTextWasActive);
     }
 
     private IEnumerator PickupSequence()
@@ -190,6 +632,7 @@ public class ScaleAndToggle : MonoBehaviour
         interactingPlayer.BlockInput = playerInputWasBlocked;
         interactingPlayer = null;
         isInteracting = false;
+        RestoreCameraInteractionSettings();
     }
 
     private bool IsPlayerInsideInteractionCollider()

@@ -12,6 +12,9 @@ public class NarrationManager : MonoBehaviour
 
     // --- SISTEM LOCALIZATION SEDERHANA ---
     public enum Language { English, Indonesia }
+    public Language CurrentLanguage => currentLanguage;
+    public float TypingSpeed => typingSpeed;
+
     [Header("Localization Settings")]
     [SerializeField] private Language currentLanguage = Language.Indonesia; // Default bahasa
     
@@ -555,5 +558,10 @@ public class NarrationManager : MonoBehaviour
             "<b>(.*?)</b>",
             $"<color=#{colorHex}>$1</color>",
             RegexOptions.Singleline);
+    }
+
+    public string FormatNarrationText(string rawText)
+    {
+        return ProcessText(rawText);
     }
 }

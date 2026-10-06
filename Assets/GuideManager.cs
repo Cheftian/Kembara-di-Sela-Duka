@@ -89,22 +89,13 @@ public class GuideManager : MonoBehaviour
         isGuideActive = true;
 
         // Tentukan gambar berdasarkan bahasa aktif di NarrationManager
-        // Jika NarrationManager.Instance bernilai null, default kembali menggunakan properti internal di sana jika bisa diakses
         Sprite selectedSprite = guide.guideSpriteID; // Default Indonesia
         
         if (NarrationManager.Instance != null)
         {
-            // Menggunakan teknik refleksi karena variabel currentLanguage di NarrationManager bersifat private.
-            // Jika Anda mengubah currentLanguage menjadi public / membuat Properti Getter-nya, 
-            // Anda bisa langsung mengganti baris di bawah dengan: NarrationManager.Instance.CurrentLanguage
-            var field = typeof(NarrationManager).GetField("currentLanguage", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            if (field != null)
+            if (NarrationManager.Instance.CurrentLanguage == NarrationManager.Language.English)
             {
-                var lang = field.GetValue(NarrationManager.Instance).ToString();
-                if (lang == "English")
-                {
-                    selectedSprite = guide.guideSpriteEN;
-                }
+                selectedSprite = guide.guideSpriteEN;
             }
         }
 

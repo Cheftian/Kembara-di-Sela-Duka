@@ -126,7 +126,19 @@ MonoBehaviour:
   scaleTransitionDuration: 2
   interactionStartScaleMultiplier: 0.2
   interactionScaleMultiplier: 20
-  duration: 5
+  fallbackDuration: 5
+  narrationData: {fileID: 0}
+  narrationText: {fileID: 0}
+  narrationFadeOutDuration: 0.35
+  narrationWaveAmplitude: 1
+  narrationWaveFrequency: 1
+  narrationWaveCharacterSpacing: 0.8
+  narrationGlitchInterval: 2
+  narrationGlitchIntervalRandomness: 1
+  narrationGlitchDuration: 0.2
+  narrationGlitchDurationRandomness: 0.2
+  narrationGlitchCharacterCount: 7
+  narrationGlitchShake: 3
   pickupPopHeight: 2
   pickupPopDuration: 0.4
   pickupSecondPopHeight: 0.5
@@ -136,6 +148,8 @@ MonoBehaviour:
   playerContactDistance: 0.2
   toggleCameraSize: 14
   toggleCameraFocusDuration: 1
+  toggleCameraArrivalTolerance: 0.15
+  toggleCameraArrivalTimeout: 5
   toggleAnimationDuration: 1
   toggleStartBelowOffset: 0.5
   toggleCameraShakeMagnitude: 0.08

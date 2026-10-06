@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -31,6 +32,13 @@ public class InteractableObject : MonoBehaviour
     [SerializeField] private string sceneTransitionName = "RoomFadeOut";
     [Tooltip("Jika aktif, scene tujuan dimuat melalui LoadingScene. Jika tidak, scene dimuat langsung.")]
     [SerializeField] private bool useLoadingScene = true;
+
+    [Header("Interaction Transition")]
+    [Tooltip("Nama transisi SceneController yang diputar saat interaksi dimulai. Kosongkan jika tidak digunakan.")]
+    [FormerlySerializedAs("interactionTransitionName")]
+    [SerializeField] private string interactionStartTransitionName = "";
+    [Tooltip("Nama transisi SceneController yang diputar setelah interaksi selesai. Kosongkan jika tidak digunakan.")]
+    [SerializeField] private string interactionEndTransitionName = "";
 
     [Header("Object Toggling")]
     [SerializeField] private GameObject[] objectsToEnable;
@@ -127,7 +135,11 @@ public class InteractableObject : MonoBehaviour
     private IEnumerator InteractionSequence()
     {
         bool objectTogglingExecuted = false;
-        GameManager.Instance.SetGameState(GameManager.GameState.Interacted);
+        bool managesGameState = isSceneChangeTrigger || isMinigameTrigger || isNarrativeTrigger;
+        if (managesGameState)
+        {
+            GameManager.Instance.SetGameState(GameManager.GameState.Interacted);
+        }
         PlayerController player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerController>();
 
         if (isLocked)
@@ -142,6 +154,11 @@ public class InteractableObject : MonoBehaviour
                 // JIKA MASIH TERKUNCI: Mainkan narasi terkunci
                 if (lockedNarrationData != null)
                 {
+                    if (!managesGameState)
+                    {
+                        GameManager.Instance.SetGameState(GameManager.GameState.Interacted);
+                    }
+
                     NarrationManager.Instance.PlayNarration(
                         lockedNarrationData,
                         GameManager.GameState.Interacted,
@@ -157,7 +174,10 @@ public class InteractableObject : MonoBehaviour
                 }
                 
                 // Kembalikan game state ke mode bermain normal setelah narasi selesai
-                GameManager.Instance.SetGameState(GameManager.GameState.Play);
+                if (managesGameState || lockedNarrationData != null)
+                {
+                    GameManager.Instance.SetGameState(GameManager.GameState.Play);
+                }
 
                 // BARU & UTAMA: Reset status interaksi dan munculkan kembali notifikasi
                 // Ini membuat Player bisa menekan S lagi di objek ini meskipun statusnya masih isLocked
@@ -170,6 +190,11 @@ public class InteractableObject : MonoBehaviour
 
 
         yield return StartCoroutine(PlayInteractionAnimation(player));
+
+        if (!isSceneChangeTrigger)
+        {
+            PlayInteractionTransition(interactionStartTransitionName);
+        }
 
         if (isSceneChangeTrigger)
         {
@@ -235,6 +260,7 @@ public class InteractableObject : MonoBehaviour
                 objectTogglingExecuted = true;
                 
                 yield return StartCoroutine(PlayEndInteractionAnimation(player));
+                PlayInteractionTransition(interactionEndTransitionName);
                 GameManager.Instance.SetGameState(GameManager.GameState.Play);
 
                 if (!isSingleUse) 
@@ -252,7 +278,7 @@ public class InteractableObject : MonoBehaviour
             ExecuteObjectToggling();
             objectTogglingExecuted = true;
             yield return StartCoroutine(PlayEndInteractionAnimation(player));
-            GameManager.Instance.SetGameState(GameManager.GameState.Play);
+            PlayInteractionTransition(interactionEndTransitionName);
             
             if (!isSingleUse) 
             {
@@ -268,9 +294,10 @@ public class InteractableObject : MonoBehaviour
             {
                 if (isSingleUse) GetComponent<BoxCollider2D>().enabled = false;
                 ExecuteObjectToggling();
+                PlayInteractionTransition(interactionEndTransitionName);
             }
 
-            if (!isNarrativeTrigger) GameManager.Instance.SetGameState(GameManager.GameState.Play);
+            if (managesGameState) GameManager.Instance.SetGameState(GameManager.GameState.Play);
             gameObject.SetActive(false);
             yield break;
         }
@@ -294,6 +321,7 @@ public class InteractableObject : MonoBehaviour
         PlayerController player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerController>();
         yield return StartCoroutine(PlayEndInteractionAnimation(player));
 
+        PlayInteractionTransition(interactionEndTransitionName);
         GameManager.Instance.SetGameState(GameManager.GameState.Play);
         
         if (isSingleMinigame && puzzleIsSolved)
@@ -323,6 +351,19 @@ public class InteractableObject : MonoBehaviour
             yield return StartCoroutine(player.PlayAnimationAndWait(endAnimationName));
             player.ResetToIdleState();
         }
+    }
+
+    private void PlayInteractionTransition(string transitionName)
+    {
+        if (string.IsNullOrEmpty(transitionName)) return;
+
+        if (SceneController.Instance == null)
+        {
+            Debug.LogError("[InteractableObject] SceneController.Instance tidak ditemukan!", this);
+            return;
+        }
+
+        SceneController.Instance.PlayTransitionByName(transitionName);
     }
 
     private void ExecuteObjectToggling()

@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/0. SCENES/4-Interlude1-Cutscene.unity
     guid: 53ecbb4c317daff408872852466ca517
   - enabled: 1
+    path: Assets/0. SCENES/5-prologue-void.unity
+    guid: a52ebe2fe2c98ea47a8d949527c01020
+  - enabled: 1
     path: Assets/0. SCENES/6-denial.unity
     guid: 5f6bef945488bd940a6cdf640643eb20
   m_configObjects:
