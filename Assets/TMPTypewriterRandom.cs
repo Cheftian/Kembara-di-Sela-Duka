@@ -26,7 +26,6 @@ public class TMPTypewriterRandom : MonoBehaviour
     {
         textComponent = GetComponent<TMP_Text>();
         fullText = textComponent.text;
-        // Simpan warna asli teks (termasuk alpha penuh)
         originalColor = textComponent.color;
     }
 
@@ -34,16 +33,14 @@ public class TMPTypewriterRandom : MonoBehaviour
     {
         isFading = false; 
         textComponent.text = "";
-        // Kembalikan warna teks ke semula (tidak transparan) saat diaktifkan lagi
         textComponent.color = originalColor;
         
         ResetAndStartCoroutine(TypeTextEffect());
     }
 
-    // PANGGIL FUNGSI INI DARI TIMELINE (MENGGUNAKAN SIGNAL) SEBELUM GAMEOBJECT DINONAKTIFKAN
     public void StartHapusTeks()
     {
-        if (isFading) return; // Mencegah terpanggil dua kali
+        if (isFading) return; 
         
         isFading = true;
         ResetAndStartCoroutine(FadeOutTextEffect());
@@ -52,18 +49,44 @@ public class TMPTypewriterRandom : MonoBehaviour
     private IEnumerator TypeTextEffect()
     {
         string currentDisplayedText = "";
+        int i = 0;
 
-        for (int i = 0; i < fullText.Length; i++)
+        while (i < fullText.Length)
         {
-            if (isFading) yield break; // Hentikan ngetik jika perintah fade masuk
+            if (isFading) yield break;
 
+            // DETEKSI RICH TEXT TAG (Contoh: <b>, <i>, <color=red>)
+            if (fullText[i] == '<')
+            {
+                // Ambil seluruh tag dari '<' sampai '>' sekaligus
+                string tag = "";
+                while (i < fullText.Length && fullText[i] != '>')
+                {
+                    tag += fullText[i];
+                    i++;
+                }
+                if (i < fullText.Length)
+                {
+                    tag += fullText[i]; // Tambahkan karakter '>'
+                    i++;
+                }
+
+                // Langsung masukkan tag ke teks yang ditampilkan tanpa animasi acak
+                currentDisplayedText += tag;
+                textComponent.text = currentDisplayedText;
+                continue; // Lanjut ke iterasi berikutnya (bisa berupa teks biasa atau tag lain)
+            }
+
+            // DETEKSI SPASI BIASA
             if (fullText[i] == ' ')
             {
                 currentDisplayedText += " ";
                 textComponent.text = currentDisplayedText;
+                i++;
                 continue;
             }
 
+            // ANIMASI ACAK UNTUK HURUF BIASA
             for (int j = 0; j < randomCycles; j++)
             {
                 char randomChar = RandomChars[Random.Range(0, RandomChars.Length)];
@@ -71,8 +94,10 @@ public class TMPTypewriterRandom : MonoBehaviour
                 yield return new WaitForSeconds(randomSpeed);
             }
 
+            // Tambahkan huruf asli yang benar
             currentDisplayedText += fullText[i];
             textComponent.text = currentDisplayedText;
+            i++;
 
             yield return new WaitForSeconds(typingSpeed);
         }
@@ -86,20 +111,12 @@ public class TMPTypewriterRandom : MonoBehaviour
         while (currentTime < fadeDuration)
         {
             currentTime += Time.deltaTime;
-            // Hitung nilai alpha baru secara bertahap dari 1 ke 0
             float alpha = Mathf.Lerp(startColor.a, 0f, currentTime / fadeDuration);
-            
-            // Terapkan warna baru dengan alpha yang sudah berkurang
             textComponent.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
-            
             yield return null;
         }
 
-        // Pastikan benar-benar transparan di akhir
         textComponent.color = new Color(startColor.r, startColor.g, startColor.b, 0f);
-
-        // Opsional: Jika ingin otomatis mati setelah fade selesai, hapus komentar di bawah ini:
-        // gameObject.SetActive(false);
     }
 
     private void ResetAndStartCoroutine(IEnumerator newCoroutine)

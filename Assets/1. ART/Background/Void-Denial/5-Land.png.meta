@@ -231,10 +231,10 @@ TextureImporter:
       name: 5-Land_0
       rect:
         serializedVersion: 2
-        x: 2213
-        y: 74
-        width: 3637
-        height: 1522
+        x: 3371
+        y: 1119
+        width: 3299
+        height: 1714
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

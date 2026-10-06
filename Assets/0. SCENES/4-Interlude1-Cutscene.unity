@@ -658,8 +658,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 802bb20d0d9a30d4c94df9f5cf4bfbed, type: 2}
   panelFadeDuration: 0.5
   delayAfterNarration: 1.5
-  sceneNameAfterCutscene: 5-denial
-  sceneTransitionNameAfterCutscene: RoomFadeOut
+  sceneNameAfterCutscene: 5-prologue-void
+  sceneTransitionNameAfterCutscene: FadeOut
   stateAfterCutscene: 0
   autoPlayOnStart: 1
   initialDelay: 0.5
