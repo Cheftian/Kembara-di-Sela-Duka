@@ -17,6 +17,7 @@ public class TMPTypewriterRandom : MonoBehaviour
     private TMP_Text textComponent;
     private string fullText;
     private Coroutine currentCoroutine;
+    private AudioSource typingAudioSource;
     private Color originalColor;
     private bool isFading = false;
 
@@ -38,6 +39,11 @@ public class TMPTypewriterRandom : MonoBehaviour
         ResetAndStartCoroutine(TypeTextEffect());
     }
 
+    private void OnDisable()
+    {
+        StopTypingSfx();
+    }
+
     public void StartHapusTeks()
     {
         if (isFading) return; 
@@ -51,9 +57,18 @@ public class TMPTypewriterRandom : MonoBehaviour
         string currentDisplayedText = "";
         int i = 0;
 
+        if (fullText.Length > 0 && AudioManager.Instance != null)
+        {
+            typingAudioSource = AudioManager.Instance.PlayLoopingSFX("Typing");
+        }
+
         while (i < fullText.Length)
         {
-            if (isFading) yield break;
+            if (isFading)
+            {
+                StopTypingSfx();
+                yield break;
+            }
 
             // DETEKSI RICH TEXT TAG (Contoh: <b>, <i>, <color=red>)
             if (fullText[i] == '<')
@@ -101,6 +116,8 @@ public class TMPTypewriterRandom : MonoBehaviour
 
             yield return new WaitForSeconds(typingSpeed);
         }
+
+        StopTypingSfx();
     }
 
     private IEnumerator FadeOutTextEffect()
@@ -125,6 +142,24 @@ public class TMPTypewriterRandom : MonoBehaviour
         {
             StopCoroutine(currentCoroutine);
         }
+        StopTypingSfx();
         currentCoroutine = StartCoroutine(newCoroutine);
+    }
+
+    private void StopTypingSfx()
+    {
+        if (typingAudioSource == null) return;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopSFX(typingAudioSource);
+        }
+        else
+        {
+            typingAudioSource.Stop();
+            typingAudioSource.loop = false;
+        }
+
+        typingAudioSource = null;
     }
 }

@@ -77,6 +77,7 @@ public class ScaleAndToggle : MonoBehaviour
     private bool skipNarrationToNextPeriod;
     private bool narrationContinueRequested;
     private string narrationSourceText = string.Empty;
+    private AudioSource typingAudioSource;
     private HashSet<int> glitchedCharacterIndices = new HashSet<int>();
     private Vector3[][] narrationOriginalVertices;
 
@@ -99,6 +100,11 @@ public class ScaleAndToggle : MonoBehaviour
         {
             revealerTool.enabled = false;
         }
+    }
+
+    private void OnDisable()
+    {
+        StopTypingSfx();
     }
 
     void Update()
@@ -273,6 +279,7 @@ public class ScaleAndToggle : MonoBehaviour
                     SetNarrationText(string.Empty);
                 }
 
+                StartTypingSfx(textIndex < text.Length);
                 isTypingNarration = true;
                 bool languageChangedDuringTyping = false;
                 while (textIndex < text.Length)
@@ -314,6 +321,7 @@ public class ScaleAndToggle : MonoBehaviour
                 }
 
                 isTypingNarration = false;
+                StopTypingSfx();
                 if (languageChangedDuringTyping)
                 {
                     continue;
@@ -566,6 +574,7 @@ public class ScaleAndToggle : MonoBehaviour
     {
         if (narrationText == null) return;
 
+        StopTypingSfx();
         isTypingNarration = false;
         isInteractionNarrationActive = false;
         skipNarrationToNextPeriod = false;
@@ -574,6 +583,30 @@ public class ScaleAndToggle : MonoBehaviour
         SetNarrationText(string.Empty);
         narrationText.enabled = narrationTextWasEnabled;
         narrationText.gameObject.SetActive(narrationTextWasActive);
+    }
+
+    private void StartTypingSfx(bool isTyping)
+    {
+        if (!isTyping || typingAudioSource != null || AudioManager.Instance == null) return;
+
+        typingAudioSource = AudioManager.Instance.PlayLoopingSFX("Typing");
+    }
+
+    private void StopTypingSfx()
+    {
+        if (typingAudioSource == null) return;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopSFX(typingAudioSource);
+        }
+        else
+        {
+            typingAudioSource.Stop();
+            typingAudioSource.loop = false;
+        }
+
+        typingAudioSource = null;
     }
 
     private IEnumerator PickupSequence()

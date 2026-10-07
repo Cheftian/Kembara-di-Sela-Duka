@@ -19,11 +19,11 @@ MonoBehaviour:
     dialogueID: Ahhhh!
   - characterName: Elara
     expressionName: '-'
-    dialogueEN: Not now!!!
-    dialogueID: Jangan sekarang!!!
+    dialogueEN: My head!!!
+    dialogueID: Kepalaku!!!
   - characterName: Elara
     expressionName: '-'
-    dialogueEN: Why is there this pressure again?
-    dialogueID: Kenapa tekanan ini lagi.
+    dialogueEN: Why am I suddenly feeling so dizzy...
+    dialogueID: Kenapa tiba-tiba pusing banget...
   loadSceneAfterNarration: 0
   sceneNameAfterNarration: 

@@ -72,6 +72,7 @@ public class NarrationManager : MonoBehaviour
     
     private Coroutine typingCoroutine;
     private Coroutine autoAdvanceCoroutine;
+    private AudioSource typingAudioSource;
     private Queue<NarrationData.DialogueStep> linesQueue = new Queue<NarrationData.DialogueStep>();
     
     private RectTransform activePanelRect;
@@ -105,6 +106,11 @@ public class NarrationManager : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        StopTypingSfx();
+    }
+
     // --- FUNGSI BARU UNTUK DIHUBUNGKAN KE TOMBOL TOGEL UI ---
     public void ToggleLanguage(bool isToggledOn)
     {
@@ -125,6 +131,7 @@ public class NarrationManager : MonoBehaviour
             {
                 // Mulai ulang baris dalam bahasa baru agar indeks karakter tetap valid.
                 if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+                StopTypingSfx();
                 currentTextIndex = 0;
                 typingCoroutine = StartCoroutine(TypeText(currentLineText));
             }
@@ -157,6 +164,7 @@ public class NarrationManager : MonoBehaviour
         }
 
         canProcessInput = false;
+        StopTypingSfx();
         StopAllCoroutines();
         
         DisplayNextLine(true); 
@@ -196,6 +204,7 @@ public class NarrationManager : MonoBehaviour
         if (linesQueue.Count == 0)
         {
             if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+            StopTypingSfx();
             StartCoroutine(EndNarrationSequence());
             return;
         }
@@ -220,6 +229,7 @@ public class NarrationManager : MonoBehaviour
         bool shouldShakePanel = shouldTransitionIn && !isFirstLine;
 
         if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+        StopTypingSfx();
 
         if (isFirstLine || shouldTransitionIn)
         {
@@ -476,6 +486,11 @@ public class NarrationManager : MonoBehaviour
         skipToNextPeriod = false;
 
         int i = currentTextIndex;
+        if (i < text.Length && AudioManager.Instance != null)
+        {
+            typingAudioSource = AudioManager.Instance.PlayLoopingSFX("Typing");
+        }
+
         while (i < text.Length)
         {
             if (skipToNextPeriod)
@@ -508,11 +523,29 @@ public class NarrationManager : MonoBehaviour
             activeDialogueText.text = text;
         }
         isTyping = false;
+        StopTypingSfx();
 
         if (autoAdvanceLines && currentTextIndex >= text.Length && linesQueue.Count > 0)
         {
             autoAdvanceCoroutine = StartCoroutine(AutoAdvanceAfterDelay());
         }
+    }
+
+    private void StopTypingSfx()
+    {
+        if (typingAudioSource == null) return;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopSFX(typingAudioSource);
+        }
+        else
+        {
+            typingAudioSource.Stop();
+            typingAudioSource.loop = false;
+        }
+
+        typingAudioSource = null;
     }
 
     private int FindNextPeriodEnd(string text, int startIndex)

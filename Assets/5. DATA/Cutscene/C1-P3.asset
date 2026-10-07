@@ -15,8 +15,8 @@ MonoBehaviour:
   dialogueSteps:
   - characterName: Elara
     expressionName: '-'
-    dialogueEN: Oh nooo, it's starting to get dark outside now.
-    dialogueID: Duh, sekarang di luar sudah mulai kelihatan gelap.
+    dialogueEN: Oh nooo, it's starting to get dark outside now. Just like before...
+    dialogueID: Duh, sekarang di luar sudah mulai kelihatan gelap. Kek tadi...
   - characterName: Elara
     expressionName: '-'
     dialogueEN: What should I do???

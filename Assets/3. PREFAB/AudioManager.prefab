@@ -318,6 +318,9 @@ MonoBehaviour:
   - name: Trans-In
     clip: {fileID: 8300000, guid: 2a050c76aaadcb0448d1959f4fff34cf, type: 3}
     playOnce: 1
+  - name: Intro-Credit
+    clip: {fileID: 8300000, guid: b1dd9498152f8b7468bfaf45e687e18b, type: 3}
+    playOnce: 1
   sfxList:
   - name: Button-Hover
     clip: {fileID: 8300000, guid: 88b394c58b164404d98e304cbfe33f89, type: 3}
@@ -333,6 +336,9 @@ MonoBehaviour:
     playOnce: 0
   - name: TransMenu
     clip: {fileID: 8300000, guid: e631622f65a821741be8cac936fc5dcb, type: 3}
+    playOnce: 0
+  - name: Typing
+    clip: {fileID: 8300000, guid: 29a244fd9cf2932409f2d9521570d277, type: 3}
     playOnce: 0
   ambienceList:
   - name: Ambience-1

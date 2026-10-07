@@ -217,6 +217,49 @@ public class AudioManager : MonoBehaviour
         freeSource.Play();
     }
 
+    public AudioSource PlayLoopingSFX(string soundName)
+    {
+        SoundEffect sound = FindSoundEffect(soundName, sfxList);
+        if (sound.clip == null) return null;
+
+        AudioSource source = GetAvailableSFXSource();
+        source.clip = sound.clip;
+        source.loop = true;
+        source.Play();
+        return source;
+    }
+
+    public void StopSFX(AudioSource source, float fadeDuration = 0.08f)
+    {
+        if (source == null) return;
+
+        if (!source.isPlaying || fadeDuration <= 0f)
+        {
+            source.Stop();
+            source.loop = false;
+            return;
+        }
+
+        StartCoroutine(FadeOutSFX(source, fadeDuration, source.volume));
+    }
+
+    private IEnumerator FadeOutSFX(AudioSource source, float duration, float originalVolume)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration && source != null)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            source.volume = originalVolume * (1f - Mathf.Clamp01(elapsed / duration));
+            yield return null;
+        }
+
+        if (source == null) yield break;
+
+        source.Stop();
+        source.loop = false;
+        source.volume = originalVolume;
+    }
+
     public void StopAmbience() => ambienceSource?.Stop();
 
     // Fungsi helper pencari Struct SoundEffect lengkap
