@@ -321,6 +321,24 @@ MonoBehaviour:
   - name: Intro-Credit
     clip: {fileID: 8300000, guid: b1dd9498152f8b7468bfaf45e687e18b, type: 3}
     playOnce: 1
+  - name: Intro
+    clip: {fileID: 8300000, guid: 064d65786632dfa4b813da4c76682d0c, type: 3}
+    playOnce: 0
+  - name: Prologue-1
+    clip: {fileID: 8300000, guid: 47fd49250e3418c4c8b50ce6a277648b, type: 3}
+    playOnce: 0
+  - name: Prologue-2
+    clip: {fileID: 8300000, guid: 92449aa0e31df894094d700eef021faf, type: 3}
+    playOnce: 0
+  - name: Prologue-3
+    clip: {fileID: 8300000, guid: cdc43967b5096724096ef982cf9dc86f, type: 3}
+    playOnce: 0
+  - name: V-Prologue-1
+    clip: {fileID: 8300000, guid: deffb3a69af238d488b520e76d724f72, type: 3}
+    playOnce: 0
+  - name: V-Prologue-2
+    clip: {fileID: 8300000, guid: 05292713ee2c19b40b6c35b1ce321cb3, type: 3}
+    playOnce: 0
   sfxList:
   - name: Button-Hover
     clip: {fileID: 8300000, guid: 88b394c58b164404d98e304cbfe33f89, type: 3}
@@ -340,9 +358,33 @@ MonoBehaviour:
   - name: Typing
     clip: {fileID: 8300000, guid: 29a244fd9cf2932409f2d9521570d277, type: 3}
     playOnce: 0
+  - name: Void-Memory
+    clip: {fileID: 8300000, guid: 467e04066f97c214a8a6cf0940fc6554, type: 3}
+    playOnce: 0
+  - name: Void-Toggle
+    clip: {fileID: 8300000, guid: e8ba8512f299fc84798efabac3dd9c11, type: 3}
+    playOnce: 0
+  - name: Void-Fog
+    clip: {fileID: 8300000, guid: 034eaa896b49aa541a8fa91beea054af, type: 3}
+    playOnce: 0
+  - name: Jigsaw-Drag
+    clip: {fileID: 8300000, guid: 05a0d9a00c8f5de468eabab720494bef, type: 3}
+    playOnce: 0
+  - name: Jigsaw-Drop
+    clip: {fileID: 8300000, guid: cb0a3bfca10b5234f97e08213f9bd72f, type: 3}
+    playOnce: 0
   ambienceList:
   - name: Ambience-1
     clip: {fileID: 8300000, guid: ce86252e1ac0e794b9adeed01e9824c2, type: 3}
+    playOnce: 0
+  - name: Bus
+    clip: {fileID: 8300000, guid: 9d46807a4e5235a48823734ab7578352, type: 3}
+    playOnce: 0
+  - name: Beach
+    clip: {fileID: 8300000, guid: ee38b631a638ca242ad939b8c1e66480, type: 3}
+    playOnce: 0
+  - name: Void
+    clip: {fileID: 8300000, guid: 2a54b3e6092c0b94982efb4c31cef8ad, type: 3}
     playOnce: 0
   audioMixer: {fileID: 24100000, guid: 9cc10ab088e01c64a9af737f63e2dabc, type: 2}
   bgmGroup: {fileID: -2312673591812993706, guid: 9cc10ab088e01c64a9af737f63e2dabc, type: 2}

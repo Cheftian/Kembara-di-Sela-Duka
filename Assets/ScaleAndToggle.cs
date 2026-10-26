@@ -168,6 +168,11 @@ public class ScaleAndToggle : MonoBehaviour
             yield break;
         }
 
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFXWithBGMPaused("Void-Memory");
+        }
+
         playerInputWasBlocked = interactingPlayer.BlockInput;
         interactionCameraController = CameraController.Instance;
         if (interactionCameraController != null)
@@ -779,11 +784,20 @@ public class ScaleAndToggle : MonoBehaviour
                     cameraController.TriggerShake(toggleAnimationDuration, toggleCameraShakeMagnitude);
                 }
 
+                AudioSource toggleAudioSource = AudioManager.Instance != null
+                    ? AudioManager.Instance.PlayLoopingSFX("Void-Toggle")
+                    : null;
+
                 yield return AnimateToggledObject(
                     obj.transform,
                     targetPosition,
                     targetScale,
                     toggleAnimationDuration);
+
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.StopSFX(toggleAudioSource);
+                }
             }
         }
 

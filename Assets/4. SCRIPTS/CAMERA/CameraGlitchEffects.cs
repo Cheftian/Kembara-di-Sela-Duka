@@ -42,6 +42,11 @@ public class CameraGlitchEffects : MonoBehaviour
     [Tooltip("Rentang perubahan intensitas Vignette saat berdenyut.")]
     [SerializeField] private float recoveryVignettePulseAmount = 0.2f;
 
+    [Header("Fog / E Interaction Settings")]
+    [Tooltip("Batas maksimal intensitas Vignette khusus saat tombol E ditahan menutupi layar.")]
+    [Range(0f, 1f)]
+    [SerializeField] private float maxFogVignetteIntensity = 0.7f;
+
     private CameraController cameraController;
     private float shakeTime;
     private float effectStartCameraSize;
@@ -53,6 +58,10 @@ public class CameraGlitchEffects : MonoBehaviour
     private Vignette vignetteEffect;
     private float targetVignetteIntensity = 0f;
     private float recoveryVignettePulseTime;
+
+    // --- INTEGRASI UTAMA ---
+    private float fogVignetteProgress = 0f;
+    private bool isFogVignetteActive = false;
 
     private void Start()
     {
@@ -78,6 +87,7 @@ public class CameraGlitchEffects : MonoBehaviour
         if (cameraController == null)
         {
             UpdateRecoveryVignette();
+            ApplyVignetteToVolume(); // Pastikan diaplikasikan ke komponen visual
             return;
         }
 
@@ -98,7 +108,12 @@ public class CameraGlitchEffects : MonoBehaviour
             float shakeX = (Mathf.PerlinNoise(shakeTime, 0f) - 0.5f) * 2f * currentShakeMagnitude;
             float shakeY = (Mathf.PerlinNoise(0f, shakeTime) - 0.5f) * 2f * currentShakeMagnitude;
 
-            targetVignetteIntensity = maxVignetteIntensity * effectIntensity;
+            // KUNCI: Hitung target vignette pusing hanya jika interaksi tombol E sedang tidak mendominasi
+            if (!isFogVignetteActive)
+            {
+                targetVignetteIntensity = maxVignetteIntensity * effectIntensity;
+            }
+
             float zoomedCameraSize = Mathf.Lerp(
                 effectStartCameraSize,
                 Mathf.Min(effectStartCameraSize, maxZoomSize),
@@ -112,14 +127,19 @@ public class CameraGlitchEffects : MonoBehaviour
         else if (isDizzy && effectSessionActive)
         {
             shakeTime = 0f;
-            targetVignetteIntensity = 0f;
+            if (!isFogVignetteActive) targetVignetteIntensity = 0f;
             effectIntensity = 0f;
             cameraController.ClearGlitchEffect();
         }
         else if (effectSessionActive)
         {
             effectIntensity = Mathf.MoveTowards(effectIntensity, 0f, effectFadeSpeed * Time.deltaTime);
-            targetVignetteIntensity = Mathf.MoveTowards(targetVignetteIntensity, 0f, vignetteFadeSpeed * Time.deltaTime);
+            
+            if (!isFogVignetteActive)
+            {
+                targetVignetteIntensity = Mathf.MoveTowards(targetVignetteIntensity, 0f, vignetteFadeSpeed * Time.deltaTime);
+            }
+
             float returningCameraSize = Mathf.Lerp(
                 effectStartCameraSize,
                 Mathf.Min(effectStartCameraSize, maxZoomSize),
@@ -141,11 +161,16 @@ public class CameraGlitchEffects : MonoBehaviour
             cameraController.ClearGlitchEffect();
         }
 
+        // Jalankan kalkulasi Vignette internal & timpa nilainya jika tombol E sedang aktif
         UpdateRecoveryVignette();
+        ApplyVignetteToVolume();
     }
 
     private void UpdateRecoveryVignette()
     {
+        // Jika interaksi E aktif, abaikan kalkulasi pusing recovery biasa agar tidak terjadi flicker/tabrakan nilai
+        if (isFogVignetteActive) return;
+
         if (playerController.IsDizzyRecovering)
         {
             bool isStanding = playerController.CurrentDizzyRecoveryPhase == PlayerController.DizzyRecoveryPhase.Stand;
@@ -174,11 +199,37 @@ public class CameraGlitchEffects : MonoBehaviour
         {
             recoveryVignettePulseTime = 0f;
         }
+    }
 
+    /// <summary>
+    /// Fungsi publik baru untuk dipanggil oleh FogManager saat E ditekan atau dilepas.
+    /// </summary>
+    /// <param name="progress">Nilai berkisar antara 0f hingga 1f dari globalProgress kabut.</param>
+    public void SetFogVignetteProgress(float progress)
+    {
+        fogVignetteProgress = progress;
+        
+        if (fogVignetteProgress > 0f)
+        {
+            isFogVignetteActive = true;
+            // Interpolasikan intensitas Vignette berdasarkan progres kabut saat menekan E
+            targetVignetteIntensity = fogVignetteProgress * maxFogVignetteIntensity;
+        }
+        else
+        {
+            // Jika progres kabut sudah menyentuh 0 (bersih kembali), lepas kendali dari Fog
+            isFogVignetteActive = false;
+        }
+    }
+
+    /// <summary>
+    /// Memastikan nilai targetVignetteIntensity disuntikkan langsung ke Post-Processing Volume profil.
+    /// </summary>
+    private void ApplyVignetteToVolume()
+    {
         if (vignetteEffect != null)
         {
             vignetteEffect.intensity.Override(targetVignetteIntensity);
         }
     }
-
 }

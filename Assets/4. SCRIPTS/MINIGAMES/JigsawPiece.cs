@@ -22,6 +22,7 @@ public class JigsawPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     
     private Vector2 initialPosition;
     private Vector2 dragOffset; // Menyimpan selisih jarak kursor dengan titik tengah objek
+    private bool isDragging;
     public bool IsLocked { get; private set; } = false;
 
     private void Awake()
@@ -53,6 +54,12 @@ public class JigsawPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         if (IsLocked) return;
         if (parentMinigame != null && !parentMinigame.CanPlay) return;
 
+        isDragging = true;
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX("Jigsaw-Drag");
+        }
+
         canvasGroup.alpha = 0.8f;
         canvasGroup.blocksRaycasts = false;
         
@@ -80,10 +87,17 @@ public class JigsawPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (!isDragging) return;
+        isDragging = false;
         if (IsLocked) return;
 
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX("Jigsaw-Drop");
+        }
 
         CheckSnapPosition();
     }

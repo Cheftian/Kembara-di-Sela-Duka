@@ -15818,6 +15818,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &131227117
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3816063209422544947, guid: 196ec480d289e5246852978ad313c8e5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 958.59985
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816063209422544947, guid: 196ec480d289e5246852978ad313c8e5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 538.89996
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816063209422544947, guid: 196ec480d289e5246852978ad313c8e5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816063209422544947, guid: 196ec480d289e5246852978ad313c8e5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816063209422544947, guid: 196ec480d289e5246852978ad313c8e5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816063209422544947, guid: 196ec480d289e5246852978ad313c8e5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816063209422544947, guid: 196ec480d289e5246852978ad313c8e5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816063209422544947, guid: 196ec480d289e5246852978ad313c8e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816063209422544947, guid: 196ec480d289e5246852978ad313c8e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816063209422544947, guid: 196ec480d289e5246852978ad313c8e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4502715230488514426, guid: 196ec480d289e5246852978ad313c8e5, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 196ec480d289e5246852978ad313c8e5, type: 3}
 --- !u!1 &132231580 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7263368057768831245, guid: a8c2310c52d0d8b45858af98fe52c45c, type: 3}
@@ -91687,7 +91744,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.12941177, g: 0.12941177, b: 0.12941177, a: 1}
+  m_Color: {r: 0.18431373, g: 0.18431373, b: 0.18431373, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -111237,6 +111294,71 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &521332347
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7150912700633798199, guid: c30fce688ec60eb488d3ff300c02e768, type: 3}
+      propertyPath: m_Name
+      value: BGMTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343996621597297070, guid: c30fce688ec60eb488d3ff300c02e768, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 958.59985
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343996621597297070, guid: c30fce688ec60eb488d3ff300c02e768, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 538.89996
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343996621597297070, guid: c30fce688ec60eb488d3ff300c02e768, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343996621597297070, guid: c30fce688ec60eb488d3ff300c02e768, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343996621597297070, guid: c30fce688ec60eb488d3ff300c02e768, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343996621597297070, guid: c30fce688ec60eb488d3ff300c02e768, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343996621597297070, guid: c30fce688ec60eb488d3ff300c02e768, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343996621597297070, guid: c30fce688ec60eb488d3ff300c02e768, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343996621597297070, guid: c30fce688ec60eb488d3ff300c02e768, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343996621597297070, guid: c30fce688ec60eb488d3ff300c02e768, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063489191144197527, guid: c30fce688ec60eb488d3ff300c02e768, type: 3}
+      propertyPath: bgmName
+      value: V-Prologue-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063489191144197527, guid: c30fce688ec60eb488d3ff300c02e768, type: 3}
+      propertyPath: ambienceName
+      value: Void
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c30fce688ec60eb488d3ff300c02e768, type: 3}
 --- !u!1 &522665658
 GameObject:
   m_ObjectHideFlags: 0
@@ -237404,7 +237526,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.12941177, g: 0.12941177, b: 0.12941177, a: 1}
+  m_Color: {r: 0.18431373, g: 0.18431373, b: 0.18431373, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -252494,7 +252616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8d990be9214af42a7417f59760a833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSceneName: 6-denial
+  targetSceneName: 1-mainmenu
   transitionName: FadeOut
   useLoadingScreen: 0
 --- !u!4 &1265078154
@@ -258163,7 +258285,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.12941177, g: 0.12941177, b: 0.12941177, a: 1}
+  m_Color: {r: 0.18431373, g: 0.18431373, b: 0.18431373, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -258541,7 +258663,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 504
   m_Sprite: {fileID: -5020676703589114428, guid: 24dc74ff0bb9fc54e8e39b3df7b0ea11, type: 3}
-  m_Color: {r: 0.7283019, g: 0.7283019, b: 0.7283019, a: 0.83137256}
+  m_Color: {r: 0.7283019, g: 0.7283019, b: 0.7283019, a: 0.3137255}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -269095,7 +269217,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.12941177, g: 0.12941177, b: 0.12941177, a: 1}
+  m_Color: {r: 0.18431373, g: 0.18431373, b: 0.18431373, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -298496,7 +298618,7 @@ PrefabInstance:
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: narrationData
       value: 
-      objectReference: {fileID: 11400000, guid: 666249d8af188174babe938aa7bf666f, type: 2}
+      objectReference: {fileID: 11400000, guid: 88cde0823b52cee4aa02a64401c229c0, type: 2}
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: narrationText
       value: 
@@ -298524,13 +298646,25 @@ PrefabInstance:
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: 'objectsToToggle.Array.data[0]'
       value: 
-      objectReference: {fileID: 1536202823}
+      objectReference: {fileID: 1509726629}
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: 'objectsToToggle.Array.data[1]'
       value: 
-      objectReference: {fileID: 1685102270}
+      objectReference: {fileID: 702881675}
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: 'objectsToToggle.Array.data[2]'
+      value: 
+      objectReference: {fileID: 762467762}
+    - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
+      propertyPath: 'objectsToToggle.Array.data[3]'
+      value: 
+      objectReference: {fileID: 471839786}
+    - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
+      propertyPath: 'objectsToToggle.Array.data[4]'
+      value: 
+      objectReference: {fileID: 471839786}
+    - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
+      propertyPath: 'objectsToToggle.Array.data[5]'
       value: 
       objectReference: {fileID: 471839786}
     - target: {fileID: 8673732812119222970, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
@@ -344941,12 +345075,12 @@ Transform:
   - {fileID: 839071062}
   - {fileID: 1465334686}
   - {fileID: 1132737227}
-  - {fileID: 1213986565}
   - {fileID: 2039679134}
+  - {fileID: 1213986565}
   - {fileID: 181388596}
   - {fileID: 1639626145}
-  - {fileID: 1351413874}
   - {fileID: 1522005901}
+  - {fileID: 1351413874}
   - {fileID: 531182508}
   - {fileID: 1680392700}
   m_Father: {fileID: 0}
@@ -354763,7 +354897,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.12941177, g: 0.12941177, b: 0.12941177, a: 1}
+  m_Color: {r: 0.18431373, g: 0.18431373, b: 0.18431373, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -403939,7 +404073,7 @@ PrefabInstance:
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: narrationData
       value: 
-      objectReference: {fileID: 11400000, guid: 88cde0823b52cee4aa02a64401c229c0, type: 2}
+      objectReference: {fileID: 11400000, guid: 666249d8af188174babe938aa7bf666f, type: 2}
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: narrationText
       value: 
@@ -403954,7 +404088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: objectsToToggle.Array.size
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: toggleCameraArrivalTimeout
@@ -403963,15 +404097,15 @@ PrefabInstance:
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: 'objectsToToggle.Array.data[0]'
       value: 
-      objectReference: {fileID: 1509726629}
+      objectReference: {fileID: 31667566}
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: 'objectsToToggle.Array.data[1]'
       value: 
-      objectReference: {fileID: 702881675}
+      objectReference: {fileID: 1142405750}
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: 'objectsToToggle.Array.data[2]'
       value: 
-      objectReference: {fileID: 762467762}
+      objectReference: {fileID: 1491878791}
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: 'objectsToToggle.Array.data[3]'
       value: 
@@ -424913,7 +425047,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.12941177, g: 0.12941177, b: 0.12941177, a: 1}
+  m_Color: {r: 0.18431373, g: 0.18431373, b: 0.18431373, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -425450,6 +425584,7 @@ GameObject:
   - component: {fileID: 650436550433524740}
   - component: {fileID: 6644090976364764886}
   - component: {fileID: 6644090976364764885}
+  - component: {fileID: 6644090976364764887}
   m_Layer: 0
   m_Name: Controller Trigger
   m_TagString: Untagged
@@ -425570,6 +425705,22 @@ MonoBehaviour:
   targetBlockInput: 0
   changeMoveSpeed: 0
   newMoveSpeed: 5
+--- !u!114 &6644090976364764887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5652875998011193464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ff9a9f99d782a498e3061dc4e72e13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  condition: 2
+  bgmName: V-Prologue-2
+  ambienceName: 
+  targetTag: Player
 --- !u!1001 &7013652893357706380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -425635,21 +425786,25 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
+      propertyPath: objectsToToggle.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: toggleCameraArrivalTimeout
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: 'objectsToToggle.Array.data[0]'
       value: 
-      objectReference: {fileID: 31667566}
+      objectReference: {fileID: 1536202823}
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: 'objectsToToggle.Array.data[1]'
       value: 
-      objectReference: {fileID: 1142405750}
+      objectReference: {fileID: 1685102270}
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: 'objectsToToggle.Array.data[2]'
       value: 
-      objectReference: {fileID: 1491878791}
+      objectReference: {fileID: 471839786}
     - target: {fileID: 7965154536118992478, guid: bba22b684d695db45a2f59bf3718447e, type: 3}
       propertyPath: 'objectsToToggle.Array.data[3]'
       value: 
@@ -425687,3 +425842,5 @@ SceneRoots:
   - {fileID: 6644090976364764884}
   - {fileID: 1691027683}
   - {fileID: 260906289}
+  - {fileID: 521332347}
+  - {fileID: 131227117}

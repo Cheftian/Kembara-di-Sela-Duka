@@ -94,20 +94,6 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "02e9f210728143b3a6f595d2129aca64"
-                },
-                "m_SlotId": 2
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "2cb3e3effee94e818814fb9e9017cc7b"
-                },
-                "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
                     "m_Id": "047247bce0de4d36a55bfc0109d6947d"
                 },
                 "m_SlotId": 4
@@ -229,20 +215,6 @@
                     "m_Id": "62d817a8b9ab4912b8a30bda4a4b94b1"
                 },
                 "m_SlotId": 2
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "62d817a8b9ab4912b8a30bda4a4b94b1"
-                },
-                "m_SlotId": 3
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "02e9f210728143b3a6f595d2129aca64"
-                },
-                "m_SlotId": 0
             }
         },
         {
@@ -1225,7 +1197,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Contrast",
     "m_StageCapability": 3,
-    "m_Value": 0.6000000238418579,
+    "m_Value": 0.10000000149011612,
     "m_DefaultValue": 1.0,
     "m_Labels": []
 }
@@ -2467,9 +2439,9 @@
     "m_ShaderOutputName": "In",
     "m_StageCapability": 3,
     "m_Value": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
+        "x": 5.0,
+        "y": 5.0,
+        "z": 5.0
     },
     "m_DefaultValue": {
         "x": 0.0,

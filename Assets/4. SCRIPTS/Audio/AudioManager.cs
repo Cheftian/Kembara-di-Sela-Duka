@@ -42,6 +42,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private int initialSfxPoolSize = 6;
     // List untuk menyimpan semua AudioSource SFX yang aktif di dalam pool
     private List<AudioSource> sfxPool = new List<AudioSource>();
+    private int bgmPauseForSfxCount;
+    private bool shouldResumeBgmAfterSfx;
 
     private void Awake()
     {
@@ -215,6 +217,45 @@ public class AudioManager : MonoBehaviour
         // Mainkan secara mandiri pada AudioSource tersebut sampai selesai tanpa memotong yang lain
         freeSource.clip = sound.clip;
         freeSource.Play();
+    }
+
+    public void PlaySFXWithBGMPaused(string soundName)
+    {
+        SoundEffect sound = FindSoundEffect(soundName, sfxList);
+        if (sound.clip == null) return;
+
+        if (bgmPauseForSfxCount == 0)
+        {
+            shouldResumeBgmAfterSfx = bgmSource != null && bgmSource.isPlaying;
+            if (shouldResumeBgmAfterSfx)
+            {
+                bgmSource.Pause();
+            }
+        }
+
+        bgmPauseForSfxCount++;
+
+        AudioSource source = GetAvailableSFXSource();
+        source.loop = false;
+        source.clip = sound.clip;
+        source.Play();
+        StartCoroutine(ResumeBGMWhenSFXFinishes(source));
+    }
+
+    private IEnumerator ResumeBGMWhenSFXFinishes(AudioSource source)
+    {
+        yield return new WaitWhile(() => source != null && source.isPlaying);
+
+        bgmPauseForSfxCount--;
+        if (bgmPauseForSfxCount == 0)
+        {
+            if (shouldResumeBgmAfterSfx && bgmSource != null)
+            {
+                bgmSource.UnPause();
+            }
+
+            shouldResumeBgmAfterSfx = false;
+        }
     }
 
     public AudioSource PlayLoopingSFX(string soundName)

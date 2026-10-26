@@ -8,6 +8,7 @@ public class ChaseObstacle : MonoBehaviour
     [SerializeField] private Direction moveDirection = Direction.Right;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float stopAtX = 10f;
+    [SerializeField, Min(0f)] private float arrivalSfxFadeDuration = 1.5f;
 
     [Header("Camera Shake Settings")]
     [SerializeField] private float shakeMagnitude = 0.1f;
@@ -19,6 +20,8 @@ public class ChaseObstacle : MonoBehaviour
     private bool isMoving = false;
     private bool hasStopped = false;
     private bool shouldShake = false;
+    private AudioSource movementSfxSource;
+    private bool isMovementSfxFading;
     
     // Menyimpan referensi kamera yang aktif untuk obstacle ini saja
     private CameraController assignedCamera; 
@@ -50,10 +53,33 @@ public class ChaseObstacle : MonoBehaviour
 
     public void StartChase()
     {
-        if (!hasStopped)
+        if (!hasStopped && !isMoving)
         {
             isMoving = true;
             shouldShake = true;
+            isMovementSfxFading = false;
+            if (AudioManager.Instance != null)
+            {
+                movementSfxSource = AudioManager.Instance.PlayLoopingSFX("Void-Fog");
+            }
+        }
+    }
+
+    private void FadeOutMovementSfx()
+    {
+        if (movementSfxSource == null) return;
+
+        isMovementSfxFading = true;
+        AudioSource source = movementSfxSource;
+        movementSfxSource = null;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopSFX(source, arrivalSfxFadeDuration);
+        }
+        else
+        {
+            source.Stop();
         }
     }
 
@@ -73,6 +99,16 @@ public class ChaseObstacle : MonoBehaviour
         if (reachedTarget)
         {
             StopObstacle();
+            return;
+        }
+
+        float distanceToTarget = moveDirection == Direction.Right
+            ? stopAtX - transform.position.x
+            : transform.position.x - stopAtX;
+        if (!isMovementSfxFading &&
+            distanceToTarget <= speed * arrivalSfxFadeDuration)
+        {
+            FadeOutMovementSfx();
         }
     }
 
@@ -81,6 +117,7 @@ public class ChaseObstacle : MonoBehaviour
         isMoving = false;
         hasStopped = true;
         shouldShake = false;
+        FadeOutMovementSfx();
 
         Vector3 finalPosition = transform.position;
         finalPosition.x = stopAtX;
@@ -100,6 +137,24 @@ public class ChaseObstacle : MonoBehaviour
         isMoving = false;
         hasStopped = false;
         shouldShake = false;
+        isMovementSfxFading = false;
+        movementSfxSource = null;
+    }
+
+    private void OnDisable()
+    {
+        if (movementSfxSource == null) return;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopSFX(movementSfxSource, 0f);
+        }
+        else
+        {
+            movementSfxSource.Stop();
+        }
+
+        movementSfxSource = null;
     }
 
 }

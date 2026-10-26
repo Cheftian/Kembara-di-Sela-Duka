@@ -7,8 +7,8 @@ public class GameSettingsManager : MonoBehaviour
 
     private const string LANGUAGE_KEY = "SelectedLanguage";
     
-    // true = English, false = Indonesia (bisa disesuaikan dengan toggle Anda)
-    private bool isEnglish = false; 
+    // true = English, false = Indonesia
+    private bool isEnglish = true;
 
     public bool IsEnglish => isEnglish;
 
@@ -84,8 +84,8 @@ public class GameSettingsManager : MonoBehaviour
 
     private void LoadSettings()
     {
-        // Default awal jika pemain baru pertama kali buka game adalah Indonesia (0)
-        int savedLanguage = PlayerPrefs.GetInt(LANGUAGE_KEY, 0);
+        // Default awal jika pemain baru pertama kali buka game adalah English (1)
+        int savedLanguage = PlayerPrefs.GetInt(LANGUAGE_KEY, 1);
         isEnglish = (savedLanguage == 1);
     }
 }
