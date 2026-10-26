@@ -149,6 +149,17 @@ public class PlayerController : MonoBehaviour
 
     public bool IsDizzy => isDizzy;
     public PlayerState CurrentState => currentState;
+    public bool IsFlipping => isFlipping;
+    public bool CanRun
+    {
+        get => canRun;
+        set => canRun = value;
+    }
+    public bool CanJump
+    {
+        get => canJump;
+        set => canJump = value;
+    }
     public bool IsDizzyRecovering => dizzyRecoveryPhase != DizzyRecoveryPhase.None;
     public DizzyRecoveryPhase CurrentDizzyRecoveryPhase => dizzyRecoveryPhase;
     public bool IsNarrationSitSequenceActive => isNarrationSitSequenceActive;
@@ -205,6 +216,13 @@ public class PlayerController : MonoBehaviour
         ManageSlopePlatforms();
         UpdatePlayerState();
 
+        if (isFlipping)
+        {
+            horizontalInput = 0;
+            isRunning = false;
+            return;
+        }
+
         if (BlockInput)
         {
             horizontalInput = 0;
@@ -221,14 +239,6 @@ public class PlayerController : MonoBehaviour
             horizontalInput = 0;
             isRunning = false;
             UpdateAnimation();
-            return;
-        }
-
-        if (isFlipping)
-        {
-            horizontalInput = 0;
-            isRunning = false;
-            UpdateAnimation(); 
             return;
         }
 

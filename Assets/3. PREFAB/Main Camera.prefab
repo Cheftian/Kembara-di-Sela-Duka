@@ -179,6 +179,9 @@ MonoBehaviour:
   useBoundaries: 1
   minPosition: {x: 981.5, y: 904.7}
   maxPosition: {x: 1019, y: 925.8}
+  glitchMinimumYDrop: 2
+  glitchBoundarySmoothTime: 0.35
+  shakeReturnSmoothTime: 0.2
 --- !u!114 &8379749516094608627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,16 +194,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5896338073ac3d9419d73caf728f866c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 0}
-  zoomFocusStrength: 1
-  maxShakeMagnitude: 0.1
-  shakeFrequency: 35
-  effectBuildUpSpeed: 0.1
-  effectFadeSpeed: 0.1
-  returnToOriginalSpeed: 0.1
-  maxZoomSize: 6
-  maxVignetteIntensity: 0.7
-  vignetteFadeSpeed: 2
+  targetVignetteIntensity: 0.5
+  vignetteBuildUpSpeed: 0.5
+  pulseAmount: 0
+  pulseSpeed: 0.1
+  vignetteFadeSpeed: 0.5
 --- !u!114 &2834509437697910543
 MonoBehaviour:
   m_ObjectHideFlags: 0

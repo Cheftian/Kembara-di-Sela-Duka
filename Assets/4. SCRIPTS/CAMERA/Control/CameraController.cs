@@ -63,6 +63,9 @@ public class CameraController : MonoBehaviour
     [Tooltip("Kecepatan perubahan batas bawah kamera saat efek dizzy mulai/berakhir.")]
     [SerializeField] private float glitchBoundarySmoothTime = 0.35f;
 
+    [Header("Camera Shake")]
+    [SerializeField, Min(0.01f)] private float shakeReturnSmoothTime = 0.2f;
+
     private Camera cam;
     private Vector3 currentVelocity = Vector3.zero;
     private float sizeVelocity = 0f;
@@ -96,6 +99,16 @@ public class CameraController : MonoBehaviour
     public static CameraController Instance { get; private set; }
     private float shakeTimer = 0f;
     private float shakeMagnitude = 0f;
+    private bool continuousShakeActive;
+    private float continuousShakeMagnitude;
+    private Vector3 currentShakeOffset;
+    private Vector3 shakeOffsetVelocity;
+
+    public bool IsShakeSettled =>
+        !continuousShakeActive &&
+        shakeTimer <= 0f &&
+        currentShakeOffset.sqrMagnitude <= 0.000001f &&
+        shakeOffsetVelocity.sqrMagnitude <= 0.0001f;
 
     private void Awake()
     {
@@ -121,6 +134,8 @@ public class CameraController : MonoBehaviour
     private void HandleCameraMovement()
     {
         if (target == null) return;
+
+        transform.position -= currentShakeOffset;
 
         Vector3 targetPosition;
         Vector3 followPosition = target.position + offset;
@@ -197,13 +212,36 @@ public class CameraController : MonoBehaviour
             transform.position = glitchPosition;
         }
 
-        // --- TAMBAHKAN KODE INI DI BARIS PALING BAWAH FUNGSI ---
-        if (shakeTimer > 0)
+        bool timedShakeActive = shakeTimer > 0f;
+        if (timedShakeActive)
         {
-            // Guncang posisi kamera yang sudah dibatasi boundary tanpa merusak sistem follow target
-            transform.position += (Vector3)Random.insideUnitCircle * shakeMagnitude;
             shakeTimer -= Time.deltaTime;
         }
+
+        bool isShaking = continuousShakeActive || timedShakeActive;
+        float activeShakeMagnitude = Mathf.Max(
+            continuousShakeActive ? continuousShakeMagnitude : 0f,
+            timedShakeActive ? shakeMagnitude : 0f);
+        Vector3 targetShakeOffset = isShaking
+            ? (Vector3)Random.insideUnitCircle * activeShakeMagnitude
+            : Vector3.zero;
+        currentShakeOffset = Vector3.SmoothDamp(
+            currentShakeOffset,
+            targetShakeOffset,
+            ref shakeOffsetVelocity,
+            isShaking ? 0.02f : Mathf.Max(0.01f, shakeReturnSmoothTime),
+            Mathf.Infinity,
+            Time.deltaTime);
+
+        if (!isShaking &&
+            currentShakeOffset.sqrMagnitude <= 0.000001f &&
+            shakeOffsetVelocity.sqrMagnitude <= 0.0001f)
+        {
+            currentShakeOffset = Vector3.zero;
+            shakeOffsetVelocity = Vector3.zero;
+        }
+
+        transform.position += currentShakeOffset;
 
     }
 
@@ -330,6 +368,17 @@ public class CameraController : MonoBehaviour
     {
         shakeTimer = duration;
         shakeMagnitude = magnitude;
+    }
+
+    public void StartContinuousShake(float magnitude)
+    {
+        continuousShakeActive = true;
+        continuousShakeMagnitude = Mathf.Max(0f, magnitude);
+    }
+
+    public void StopContinuousShake()
+    {
+        continuousShakeActive = false;
     }
 
     public void SetGlitchEffect(Vector3 focusPosition, float focusStrength, float desiredCameraSize, Vector3 shakeOffset)
